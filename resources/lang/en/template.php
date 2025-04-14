@@ -355,12 +355,34 @@ return [
     'answer' => 'Answer',
     'view_answers' => 'View answers',
     'empty' => 'Empty',
-
-
-
-
-
-
-
-
+    'show_more' => 'Show more',
+    'hide' => 'Hide',
+    'results_count' => 'Showing :from of :total results',
+    'product_guarantee' => '100% Guarantee On Product',
+    'next_level_quality' => 'Next Level Pro Quality',
+    'this_weeks' => 'This Week’s',
+    'this_month' => 'This Month',
+    'dont_miss' => 'Don’t Miss!!',
+    'our_products_v2' => 'Our Products',
+    'users_feedback' => 'Users Feedback',
+    'explore_our_products' => 'Explore our Products',
+    'let_s_shopping_today' => 'Let\'s Shop Today',
+    'best_sellers' => 'Best Sellers',
+    'day' => 'Day',
+    'hrs' => 'Hours',
+    'min' => 'Minutes',
+    'sec' => 'Seconds',
+    'check_it_out' => 'Check it out',
+    'view_all_products' => 'View All Products',
+    'testimonials' => 'Testimonials',
+    'see_all_offers' => 'See All Offers',
+    'featured' => 'Featured',
+    'result_found' => 'Result Found',
+    'view_all' => 'View All',
+    'viewed_items' => 'Viewed Items',
+    'your_recently' => 'Your Recently',
+    'recent_viewed_products' => 'Recent Viewed Products',
+    'newsletter' => 'Newsletter',
+    'get_weekly_update' => 'Get weekly update',
+    'subscribe' => 'Subscribe',
 ];  

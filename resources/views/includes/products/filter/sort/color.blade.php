@@ -1,5 +1,5 @@
 
-<button id="dropdownSearchButton" data-dropdown-toggle="dropdownSearchColor" class="nice-select inline-flex items-center px-4 py-2 text-sm font-medium text-center border rounded-lg" type="button">{{ __('template.color_palette') }}</button>
+<button id="dropdownSearchButton" data-dropdown-toggle="dropdownSearchColor" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center border rounded-lg" type="button">{{ __('template.color_palette') }}</button>
 
 <!-- Dropdown menu -->
 <div id="dropdownSearchColor" class="z-10 hidden bg-white rounded-lg shadow w-60">

@@ -6,7 +6,7 @@
 
 </style>
 
-<div class="ltn__shop-details-img-gallery ltn__shop-details-img-gallery-2  2xl:w-1/2 xl:w-3/5 2xl:gap-4 xl:gap-3 inline-flex xl:flex-row flex-col gap-2" id="desc-gallery">
+<div class="ltn__shop-details-img-gallery ltn__shop-details-img-gallery-2  2xl:w-1/2 xl:w-3/5 2xl:gap-4 xl:gap-3 inline-flex xl:flex-row flex-col gap-2 relative" id="desc-gallery">
     <div class="ltn__shop-details-small-img  slick-arrow-2 flex-col xl:!w-[94px] h-fit !w-full xl:inline-flex hidden">
         @if ($images)
             @foreach ($images as $image )
@@ -28,7 +28,17 @@
             @endforeach
         @endif
     </div>
-
+    
+    @if (isset($product))
+        <div class="absolute font-bold top-5 right-8 flex flex-col gap-2">
+            @if($product->isNew())
+                <li class="text-white text-xs !bg-red-500 h-fit w-[75px] px-3 py-1 !rounded-lg !inline-flex items-center justify-center">{{ __('template.new') }}</li>
+            @endif
+            @if($product->onSale())
+                <li class="text-white text-xs !bg-blue-500 h-fit w-[75px] px-3 py-1 !rounded-lg !inline-flex items-center justify-center">{{$product->getSaleBadge()}}</li>
+            @endif
+        </div>
+    @endif
     <!-- Mobile Images Start -->
         <div class="images-mobile flex-row lg:!h-[68px] md:!h-[60px] xl:hidden block w-fit">
             @if ($images)

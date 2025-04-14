@@ -1,13 +1,14 @@
 @php
     use App\Models\Shop\Follow;
-    use Illuminate\Support\Facades\Cookie;
     use App\Models\Shop\FollowItems;
-    
-    $followCode = Cookie::get('follow');
-    $follow = Follow::where('code', $followCode)->first();
 
-    if(Follow::where('code', $followCode)->first()){
-        $isFollow =  FollowItems::where('follow_id', $follow['id'])->where('shop_product_id', $product['id'])->first() ?? null;
+    if( auth()->check()){
+        $follow = Follow::where('user_id', auth()->user()->id)->first();
+        if($follow){
+            $isFollow =  FollowItems::where('follow_id', $follow['id'])->where('shop_product_id', $product['id'])->first() ?? null;
+        } else{
+            $isFollow = null;
+        }
     } else{
         $isFollow = null;
     }
@@ -15,7 +16,7 @@
 <div>
     @if($isFollow !==  null)
         <div 
-            class=" text-center bg-white py-2 px-[12px] rounded-md flex justify-center items-center"
+            class=" text-center bg-white w-10 h-10 p-1.5 rounded-md flex justify-center items-center"
             x-on:click="follow = !follow">
             <a 
                 @guest
@@ -35,7 +36,7 @@
         </div>
     @else
         <div
-            class="rounded-md py-2 px-[12px] bg-white text-center flex justify-center items-center"
+            class="rounded-md w-10 h-10 p-1.5 bg-white text-center flex justify-center items-center"
             x-on:click="follow = !follow">
             <a 
                 @guest

@@ -5,14 +5,14 @@
         $filters = null;
     }
 @endphp
-<div class="w-full p-2 gap-1 xl:overflow-hidden sm:overflow-x-scroll">
-    <ul class="flex justify-between xl:gap-0 gap-20">
-        <div class="flex gap-2">
-            <li>
+<div class="w-full p-2 gap-1">
+    <ul class="flex flex-col justify-between xl:gap-0 gap-20">
+        <div class="flex flex-col  gap-2">
+            {{-- <li>
                 @include('includes.products.filter.sort.default', [
                     'sorting' => $sorting
                 ])
-            </li>
+            </li> --}}
             @if (isset($attributeColor) && $attributeColor !== null && (empty($filters) || in_array('color', $filters)))
                 <li>
                     @include('includes.products.filter.sort.color',[

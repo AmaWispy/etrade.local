@@ -148,41 +148,41 @@
             <!-- Teams End-->
 
             <!-- Info block Start-->
-            <div class="container mt-16 flex flex-col gap-16">
-                <div class="flex xl:flex-row flex-col gap-5 items-center">
-                    <div class="xl:h-[350px] xl:w-[800px] w-full lg:h-[450px]">
-                        <img src="{{ asset('template/images/about-02.png') }}" class="h-full w-full object-cover rounded-md" class="rounded-md" alt="">
+                <div class="container mt-16 flex flex-col gap-16">
+                    <div class="flex xl:flex-row flex-col gap-5 items-center">
+                        <div class="xl:h-[350px] xl:w-[800px] w-full lg:h-[450px]">
+                            <img src="{{ asset('template/images/about-02.png') }}" class="h-full w-full object-cover rounded-md" class="rounded-md" alt="">
+                        </div>
+                        <div class="flex flex-col gap-4">
+                            <ul class="flex flex-col gap-4">
+                                <li>
+                                    <h1 class="xl:text-2xl lg:text-3xl md:text-2xl text-xl font-bold ">Lorem ipsum dolor sit.</h1>
+                                </li>
+                                <li>
+                                    <p class="text-neutral-500 2xl:w-2/3 xl:1/2 xl:text-base lg:text-lg md:text-base">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ratione ducimus, eum id laudantium enim possimus ad laboriosam iste a quam quas accusamus nesciunt, temporibus doloremque ipsa tempora maxime, assumenda tenetur!</p>
+                                </li>
+                            </ul>
+                            <a href="" class="border font-semibold w-fit h-fit px-5 py-3.5 rounded-md xl:hover:bg-blue-500 xl:hover:text-white duration-300 xl:text-lg lg:text-xl md:text-lg">{{ __('template.get_in_touch') }}</a>
+                        </div>
                     </div>
-                    <div class="flex flex-col gap-4">
-                        <ul class="flex flex-col gap-4">
-                            <li>
-                                <h1 class="xl:text-2xl lg:text-3xl md:text-2xl text-xl font-bold ">Lorem ipsum dolor sit.</h1>
-                            </li>
-                            <li>
-                                <p class="text-neutral-500 2xl:w-2/3 xl:1/2 xl:text-base lg:text-lg md:text-base">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ratione ducimus, eum id laudantium enim possimus ad laboriosam iste a quam quas accusamus nesciunt, temporibus doloremque ipsa tempora maxime, assumenda tenetur!</p>
-                            </li>
-                        </ul>
-                        <a href="" class="border font-semibold w-fit h-fit px-5 py-3.5 rounded-md xl:hover:bg-blue-500 xl:hover:text-white duration-300 xl:text-lg lg:text-xl md:text-lg">{{ __('template.get_in_touch') }}</a>
-                    </div>
-                </div>
 
-                <div class="flex xl:flex-row-reverse flex-col gap-5 items-center">
-                    <div class="xl:h-[350px] xl:w-[800px] w-full lg:h-[450px]">
-                        <img src="{{ asset('template/images/about-02.png') }}" class="h-full w-full object-cover rounded-md" class="rounded-md" alt="">
-                    </div>
-                    <div class="flex flex-col gap-4">
-                        <ul class="flex flex-col gap-4">
-                            <li>
-                                <h1 class="xl:text-2xl lg:text-3xl font-bold md:text-2xl text-xl">Lorem ipsum dolor sit.</h1>
-                            </li>
-                            <li>
-                                <p class="text-neutral-500 2xl:w-2/3 xl:1/2 xl:text-base lg:text-lg md:text-base">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ratione ducimus, eum id laudantium enim possimus ad laboriosam iste a quam quas accusamus nesciunt, temporibus doloremque ipsa tempora maxime, assumenda tenetur!</p>
-                            </li>
-                        </ul>
-                        <a href="" class="border font-semibold w-fit h-fit px-5 py-3.5 xl:text-lg lg:text-xl md:text-lg rounded-md xl:hover:bg-blue-500 xl:hover:text-white duration-300">{{ __('template.get_in_touch') }}</a>
+                    <div class="flex xl:flex-row-reverse flex-col gap-5 items-center">
+                        <div class="xl:h-[350px] xl:w-[800px] w-full lg:h-[450px]">
+                            <img src="{{ asset('template/images/about-02.png') }}" class="h-full w-full object-cover rounded-md" class="rounded-md" alt="">
+                        </div>
+                        <div class="flex flex-col gap-4">
+                            <ul class="flex flex-col gap-4">
+                                <li>
+                                    <h1 class="xl:text-2xl lg:text-3xl font-bold md:text-2xl text-xl">Lorem ipsum dolor sit.</h1>
+                                </li>
+                                <li>
+                                    <p class="text-neutral-500 2xl:w-2/3 xl:1/2 xl:text-base lg:text-lg md:text-base">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ratione ducimus, eum id laudantium enim possimus ad laboriosam iste a quam quas accusamus nesciunt, temporibus doloremque ipsa tempora maxime, assumenda tenetur!</p>
+                                </li>
+                            </ul>
+                            <a href="" class="border font-semibold w-fit h-fit px-5 py-3.5 xl:text-lg lg:text-xl md:text-lg rounded-md xl:hover:bg-blue-500 xl:hover:text-white duration-300">{{ __('template.get_in_touch') }}</a>
+                        </div>
                     </div>
                 </div>
-            </div>
             <!-- Info block End-->
         </div>
     <!-- ABOUT US AREA END -->

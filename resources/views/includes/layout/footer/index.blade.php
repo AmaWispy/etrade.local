@@ -23,29 +23,61 @@
         ],
     ];
 @endphp
-<footer class="xl:container xl:mx-auto sm:px-2 lg:p-0 my-10">
+<div class="container mx-auto h-fit w-full xl:mt-32 lg:mt-24 md:mt-20 mt-16 space-y-10">
+    <!-- NewsLetter Start -->
+        <div class="rounded-lg overflow-hidden !h-96 border relative">
+            <div class="w-full h-full border">
+                <img src="{{ asset('template/images/footer-image.jpg') }}" class="w-full h-full object-cover" alt="Footer Image">
+            </div>
+
+            <div class="w-full h-full">
+                <ul class="absolute xl:top-20 xl:left-20 lg:left-16 lg:top-10 md:top-6  md:p-0 p-4  lg:mr-0 md:mr-3.5 md:left-6 sm:top-0 sm:left-0 space-y-4">
+                    <li class="flex items-center gap-2">
+                        <span class="bg-blue-500 h-7 w-7 rounded-full flex items-center justify-center"><i class="bi bi-envelope-open-fill text-white text-sm"></i></span> 
+                        <h1 class="text-blue-500 font-bold">{{ __('template.newsletter') }}</h1>
+                    </li>
+                    <li class="lg:pb-8 pb-6">
+                        <h1 class='lg:text-3xl text-2xl font-bold'>{{ __('template.get_weekly_update') }}</h1>
+                    </li>
+                    <form class="w-full flex xl:items-center gap-4 xl:flex-row flex-col">   
+                        @csrf
+                        <div class="lg:w-[450px] h-16 flex items-center gap-4 border-gray-300 relative">
+                            <div class="absolute inset-y start-0 flex items-center ps-3 pointer-events-none w-full h-full">
+                                <i class="bi bi-envelope-paper"></i>
+                            </div>
+                            <input type="text" name="newseller" class="block w-full h-full ps-10 text-lg font-medium text-neutral-500 border  rounded-lg bg-white focus:ring-blue-400 focus:border-blue-400" placeholder="example@gmail.com"/>
+                        </div>
+                        <button class="h-16 w-fit px-4 bg-neutral-900 rounded-lg text-white font-semibold lg:text-xl md:text-lg flex items-center justify-center">{{ __("template.subscribe") }}</button>
+                    </form>
+                </ul>
+            </div>
+        </div>
+    <!-- NewsLetter End -->
+
     <!-- Block Info Start -->
-        {{-- <div class="flex justify-between">
+        <div class="xl:flex items-center xl:justify-between xl:gap-2 lg:space-y-3 xl:columns-5 lg:columns-2 space-y-2">
             @foreach ( $blocksInfo as $info)
                 <div class="flex items-center gap-3 md:w-auto w-full">
-                    <div>
-                        <img src="{{ asset($info['image']) }}" class="h-10 " alt="{{ $info['title'] }}">
+                    <div class="h-10 w-10">
+                        <img src="{{ asset($info['image']) }}" class="h-full w-full object-contain" alt="{{ $info['title'] }}">
                     </div>
-                    <ul class="text-lg text-neutral-500 !max-w-max">
+                    <ul class="text-neutral-500 w-fit">
                         <li>
-                            <h1 class="text-black font-semibold max-w-max">{{ $info['title'] }}</h1>
+                            <h1 class="text-black font-semibold w-fit text-lg">{{ $info['title'] }}</h1>
                         </li>
                         <li>
-                            <p>{{ $info['description'] }}</p>
+                            <p class="text-base">{{ $info['description'] }}</p>
                         </li>
                     </ul>
                 </div>
             @endforeach
-        </div> --}}
+        </div>
     <!-- Block Info End -->
-    
+
+    <div class="border xl:my-10 sm:my-10 rounded-xl "></div>
+</div>
+<footer class="xl:container xl:mx-auto sm:px-2 lg:p-0 my-10">
     <div>
-        <div class="border xl:my-10 sm:my-10 rounded-xl "></div>
         <!-- Footer Links Start-->
             <div class="flex xl:justify-between lg:flex-row sm:flex-col sm:gap-2">
                 <!-- Company info Start-->

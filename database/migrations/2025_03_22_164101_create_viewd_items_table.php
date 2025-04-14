@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('viewd_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            $table->foreignId('shop_product_id')->constrained('shop_products')->cascadeOnDelete();
+            $table->foreignId('shop_product_id')->nullable()->constrained('shop_products')->cascadeOnDelete();
+            $table->foreignId('blog_post_id')->nullable()->constrained('blog_posts')->cascadeOnDelete();
+            $table->set('type', ['product', 'blog']);
             $table->timestamps();
         });
     }

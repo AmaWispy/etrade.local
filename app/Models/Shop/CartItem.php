@@ -60,4 +60,6 @@ class CartItem extends Model
     {
         return round($this->unit_price * $this->qty, 2);
     }
+
+    
 }

@@ -16,7 +16,7 @@
             </nav>
             <h1 class="text-4xl font-semibold">{{ $page['title'] ?? $title }}</h1>
         </div>
-        <div class="relative hidden lg:inline">
+        <div class="relative hidden lg:block mr-10">
             <div class="h-28 bg-white w-28 rounded-full"></div>
             <div class="absolute top-2 -right-8">
                 <img src="{{ asset($templateSettings['bread-crump-image-image']) }}" class="h-28" alt="">

@@ -17,14 +17,13 @@ class GetFollow
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Cookie::has('follow')) {
-            $followCode = Cookie::get('follow');
-            $follow = Follow::where('code', $followCode)->first();
+        if (auth()->check()) {
+            $follow = Follow::where('user_id', auth()->user()->id)->first();
 
             if($follow === null){
                 Cookie::forget('follow');
                 session()->forget('follow');
-
+                
                 return $next($request);
             }
 

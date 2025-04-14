@@ -5,9 +5,9 @@
                 <!-- Title Slug Start -->
                     <li>
                         @if (Route::currentRouteName() === 'blog.show')
-                            <h1 class="text-3xl font-semibold">{{ $post->title }}</h1>
+                            <h1 class="xl:text-3xl lg:text-2xl md:text-xl text-lg font-semibold">{{ $post->title }}</h1>
                         @else
-                            <a href="{{ route('blog.show', ['slug' => $post->slug]) }}" class="duration-500 xl:hover:text-blue-500 !text-bold text-2xl">{{ $post->title }}</a>
+                            <a href="{{ route('blog.show', ['slug' => $post->slug]) }}" class="duration-500 xl:hover:text-blue-500 !text-bold md:text-2xl sm:text-xl ">{{ $post->title }}</a>
                         @endif
                     </li>
                 <!-- Title Slug End -->
@@ -20,7 +20,7 @@
                             </div>
                             <ul class="flex flex-col gap-1">
                                 <li class="text-base font-medium">{{ $post->author->name }}</li>
-                                <div class="flex items-center text-sm text-neutral-500">
+                                <div class="flex items-center lg:text-sm text-xs text-neutral-500">
                                     <li>{{ $post->publishedDate }}</li>
                                     <li class="mx-2">|</li>
                                     <li>{{ $post->viewed . ' ' . __('template.views') }}</li>
@@ -43,7 +43,7 @@
 
             <!-- Post Link Start -->
                 @if ($post->link !== null && Route::currentRouteName() !== 'blog.show')
-                    <a href="{{ route('blog.show', ['slug' => $post->slug]) }}" class="bg-blue-500 py-3 px-4 w-fit text-white text-lg font-medium rounded-lg cursor-pointer">
+                    <a href="{{ route('blog.show', ['slug' => $post->slug]) }}" class="bg-blue-500 py-3 px-4 w-fit text-white lg:text-lg font-medium rounded-lg md:text-base text-sm cursor-pointer">
                         {{ __('template.read_more') }}
                     </a>
                 @endif

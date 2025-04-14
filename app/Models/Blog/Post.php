@@ -7,6 +7,7 @@ use Spatie\Tags\HasTags;
 use Illuminate\Support\Str;
 //use Illuminate\Database\Eloquent\Model;
 use App\Models\UnicodeModel;
+use App\Models\ViewdItems;
 use Spatie\Image\Manipulations; 
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\Translatable\HasTranslations;
@@ -68,6 +69,10 @@ class Post extends UnicodeModel implements HasMedia
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'blog_category_id');
+    }
+
+    public function viwedItems(): BelongsTo{
+        return $this->belongsTo(ViewdItems::class, 'blog_post_it');
     }
 
     public function comments(): HasMany

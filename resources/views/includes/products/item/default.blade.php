@@ -1,37 +1,44 @@
-<div class="w-full h-fit rounded-lg" x-data="{open:false, follow:false}">
-    <div class="w-full relative flex flex-col gap-1">
-            <div class="w-full h-[290px] overflow-hidden rounded-lg group">
-                <a href="{{ route('shop.card', ['slug' => $product->slug, 'id' => $product->id]) }}" class="w-full h-full overflow-hidden">
-                    <img src="{{ $product->getThumb() }}" class="w-full h-full object-cover rounded-lg" alt="Image {{ $product->name }}">
+<div class="group w-full !h-fit rounded-lg @if(isset($circle)) !text-center items-center flex flex-col gap-2 @endif" x-data="{open:false, follow:false}">
+    <div class="w-full relative flex flex-col gap-1 @if(isset($circle)) !gap-3 @endif">
+            <div class="w-full xl:h-[290px] lg:h-[320px] md:h-[330px] overflow-hidden rounded-lg @if(isset($circle)) !rounded-full  xl:!h-[310px] lg:!h-[330px] md:!h-[330px] @endif group">
+                <a 
+                    href="{{ route('shop.card', ['slug' => $product->slug, 'id' => $product->id]) }}" 
+                    data-action="add-viewed-item"
+                    data-id = '{{ $product->id }}'
+                    data-type = 'product'
+                    class="w-full h-full overflow-hidden">
+                    <img src="{{ $product->getThumb() }}" class="w-full h-full duration-300 group-hover:transform group-hover:scale-110 object-cover rounded-lg @if(isset($circle)) !rounded-full @endif" alt="Image {{ $product->name }}">
                 </a>
                 
                 <!-- Follow Add to Cart and show Start-->
-                    <div class="absolute bottom-9 left-1/2 w-fit -translate-x-1/2 !h-fit opacity-0 group-hover:opacity-100 transition-all duration-300 xl:inline hidden">
-                        <ul class="flex items-center gap-1 text-sm">
-                            <li>
-                                @include('includes.buttons.follow')
-                            </li>
-                            <li class="text-center">
-                                <a  
-                                @guest
-                                    href="{{ route('register') }}"
-                                @endguest
-                                @auth
-                                    href="#" 
-                                    data-disabled-label="{{__('template.adding')}}"
-                                    data-action="add-to-cart"
-                                    data-product="{{$product->id}}"
-                                    data-type="{{$product->type}}"
-                                @endauth
-                                title="{{__('template.to_cart')}}" 
-                                class="text-white block bg-florarColor h-10 w-[160px] py-2.5 font-medium rounded-md text-center" 
-                                >{{ __('template.add_to_cart') }}</a>
-                            </li>
-                            <li>
-                                <button x-on:click="open = true; body = true" data-id="{{ $product->id }}" class="btn-popup bg-white py-2 px-[12px] rounded-md"><i class="bi bi-eye"></i></button>
-                            </li>
-                        </ul>
-                    </div>
+                    @if(!isset($circle)) 
+                        <div class="absolute bottom-9 left-1/2 w-fit -translate-x-1/2 !h-fit opacity-0 group-hover:opacity-100 transition-all duration-300 xl:inline hidden">
+                            <ul class="flex items-center gap-1 text-sm h-10">
+                                <li class="h-full">
+                                    @include('includes.buttons.follow')
+                                </li>
+                                <li class="text-center">
+                                    <a  
+                                    @guest
+                                        href="{{ route('register') }}"
+                                    @endguest
+                                    @auth
+                                        href="#" 
+                                        data-disabled-label="{{__('template.adding')}}"
+                                        data-action="add-to-cart"
+                                        data-product="{{$product->id}}"
+                                        data-type="{{$product->type}}"
+                                    @endauth
+                                    title="{{__('template.to_cart')}}" 
+                                    class="text-white block bg-florarColor h-10 w-[160px] py-2.5 font-medium rounded-md text-center" 
+                                    >{{ __('template.add_to_cart') }}</a>
+                                </li>
+                                <li class="h-full">
+                                    <button x-on:click="open = true; body = true" data-id="{{ $product->id }}" class="btn-popup bg-white !h-full rounded-md w-10"><i class="bi bi-eye"></i></button>
+                                </li>
+                            </ul>
+                        </div>
+                    @endif
                 <!-- Follow Add to Cart and show End-->
             </div>
 
@@ -46,7 +53,7 @@
             </div>
         <!-- Sale or New End -->
 
-        <a href="{{ route('shop.card', ['slug' => $product->slug, 'id' => $product->id]) }}" class="text-neutral-400 xl:hover:text-blue-500 font-medium truncate w-[95%]">{{ $product->name }}</a>
+        <a href="{{ route('shop.card', ['slug' => $product->slug, 'id' => $product->id]) }}" class="text-neutral-400 xl:hover:text-blue-500 duration-300 font-medium truncate w-[95%]">{{ $product->name }}</a>
     </div>
     @if($product->onSale())
         <ul class="font-bold flex gap-2 text-xl">
@@ -60,4 +67,35 @@
     @else
         <span class="font-bold text-xl">{{$product->getExchangedPrice()}}</span>
     @endif
+
+    <!-- Follow Add to Cart and show Start-->
+        @if(isset($circle)) 
+            <div class="w-fit !h-fit">
+                <ul class="flex items-center gap-1 text-sm h-10">
+                    <li class="h-full">
+                        @include('includes.buttons.follow')
+                    </li>
+                    <li class="text-center">
+                        <a  
+                        @guest
+                            href="{{ route('register') }}"
+                        @endguest
+                        @auth
+                            href="#" 
+                            data-disabled-label="{{__('template.adding')}}"
+                            data-action="add-to-cart"
+                            data-product="{{$product->id}}"
+                            data-type="{{$product->type}}"
+                        @endauth
+                        title="{{__('template.to_cart')}}" 
+                        class="text-white block bg-florarColor h-10 w-[160px] py-2.5 font-medium rounded-md text-center" 
+                        >{{ __('template.add_to_cart') }}</a>
+                    </li>
+                    <li class="h-full">
+                        <button x-on:click="open = true; body = true" data-id="{{ $product->id }}" class="btn-popup bg-white !h-full rounded-md w-10"><i class="bi bi-eye"></i></button>
+                    </li>
+                </ul>
+            </div>
+        @endif
+    <!-- Follow Add to Cart and show End-->
 </div>

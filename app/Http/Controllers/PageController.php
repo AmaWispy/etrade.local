@@ -15,6 +15,7 @@ use App\Models\Blog\Category;
 use Illuminate\Support\Carbon;
 use App\Models\Carousel\Carousel;
 use Carbon\Traits\ToStringFormat;
+use Illuminate\Support\Facades\Log;
 
 class PageController extends Controller
 {
@@ -111,68 +112,37 @@ class PageController extends Controller
     }
 
     /**
-     * Cooment on blog post
+     * Coment on blog post / product 
      */
-
     public function comment(Request $request) {
         $comment = $request->post();
         
-        if($comment['type'] === 'blog'){
-
-            Comment::create([
-                'user_id' => auth()->user()->id,
-                'type_id' => CommentsType::where('name', $comment['type'])->first()->id,
-                'blog_id' => $comment['blog_id'],
-                'reply_id' => $comment['comment_id'] ?? null,
-                'reply_user_id' => $comment['comment_reply_user_id'] ?? null,
-                'content' => strip_tags($comment['message']),
-            ]);
-
-            $comments = null;
-            foreach(Comment::where('blog_id', $comment['blog_id'])->orderByDesc('created_at')->get() as $el){
-                $commentData = [
-                    'id' => $el->id,
-                    'user_id' => $el->user_id,
-                    'customer_id' => $el->customer_id,
-                    'type_id' => $el->type_id,
-                    'blog_id' => $el->blog_id,
-                    'reply_user_id' => $el->reply_user_id,
-                    'reply_id' => $el->reply_id,
-                    'rating' => $el->rating,
-                    'content' => $el->content,
-                    'created_at' => $el->formattedDate(),
-
-                    'comment_user' => $el->user ?? null,
-                    'comment_replies' => [],
-                ];
-            
-                foreach ($el->replies as $reply) {
-                    $commentData['comment_replies'][] = [
-                        'reply' => [
-                            'blog_id' => $reply->blog_id,
-                            'content' => $reply->content,
-                            'created_at' => $reply->formattedDate(),
-                            'customer_id' => $reply->customer_id,
-                            'id' => $reply->id,
-                            'reply_user_id' => $reply->reply_user_id,
-                            'reply_id' => $reply->reply_id,
-                            'reply_user' => $reply->reply_user,
-                            'type_id' => $reply->type_id,
-                        ],
-                        'comment_reply_user' => $reply->user ?? null, 
-                        'reply_user' => $reply->replyUser ?? null, 
-                    ];
-                }
-
-                $comments[] = $commentData;
+        if($comment['type'] === 'blog' || $comment['type'] === 'product'){
+            if($comment['type'] === 'product' && $comment['comment_id'] === null && $comment['comment_reply_user_id'] === null){
+                Comment::updateOrCreate([
+                    'user_id' => auth()->user()->id,
+                    'product_id' => $comment['product_id'] ?? null,
+                    'type_id' => CommentsType::where('name', $comment['type'])->first()->id,
+                ],[
+                    'rating' => $comment['rating'],
+                    'content' => strip_tags($comment['message']),
+                ]);
+            } else {
+                Comment::create([
+                    'user_id' => auth()->user()->id,
+                    'type_id' => CommentsType::where('name', $comment['type'])->first()->id,
+                    'blog_id' => $comment['blog_id'] ?? null,
+                    'product_id' => $comment['product_id'] ?? null,
+                    'reply_id' => $comment['comment_id'] ?? null,
+                    'reply_user_id' => $comment['comment_reply_user_id'] ?? null,
+                    'content' => strip_tags($comment['message']),
+                ]);
             }
-
 
             return [
                 'status' => 200,
                 'comment' => $comment,
-                'comments' => $comments,
-                'dasdas' => CommentsType::where('name', $comment['type'])->first()->id,
+                'comments' => $this->getCommentsFormated($comment['blog_id'] ?? $comment['product_id'], null, (isset($comment['blog_id']) ? 'blog' : 'product' )),
             ];
         } else{
             return [
@@ -220,23 +190,70 @@ class PageController extends Controller
     }
 
     /**
-     * Show blog post
+     * Filter blog post
      */
-    public function filtersBlog(){
+    public function filtersBlog(Request $request): array {
+        $tags = array_filter(explode(',', $request->get('tags', ''))); 
+        $posts = Post::query()->orderBy("published_at", "DESC");
+        $locale = app()->getLocale();
+    
+        if ($request->has('search')){
+            $posts->whereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(title, '$.\"".app()->getLocale()."\"'))) LIKE ?", ["%{$request->get('search')}%"]);
+        }
 
+        if ($request->has('archives') && $request->get('archives') !== 'NONE') {
+            $archives = Carbon::createFromFormat('Y M', $request->get('archives'));
+            $posts->whereYear('published_at', $archives->year)
+                ->whereMonth('published_at', $archives->month);
+        }
+    
+        if (!empty($tags)) {
+            $posts->where(function ($query) use ($tags, $locale) {
+                foreach ($tags as $tag) {
+                    $query->orWhereJsonContains("tags->$locale", $tag);
+                }
+            });
+        }
+    
+        $result = $posts->get();
+
+        $html = view('includes.layout.blog.blogs', [
+            'posts' => $result,
+        ])->render();
+    
+        return [
+            'status' => 200,
+            'tags' => $tags,
+            'archives' => $archives->month ?? null,
+            'posts' => $result,
+            'html' => $html,
+        ];
     }
+    
 
     /**
      * Show blog post
      */
-    public function show(Request $request) : View
+    public function show(Request $request) : View|array
     {
-
-
         $slug = $request->route('slug');
 
         $post = Post::whereRaw('JSON_SEARCH(slug, "all", :value) IS NOT NULL', ['value' => $slug])
             ->firstOrFail();
+        
+        // If has comments to load 
+        if(request()->has('page')){
+            $page = $request->query('page');
+            $type = $request->query('type');
+            
+            $comments = $this->getCommentsFormated($post->id, $page , $type);
+
+            return [
+                'status' => 200,
+                'comments' => $comments,
+                'page' => $page,
+            ];
+        }
         
         //Update Countity Views
         $post->update([
@@ -276,7 +293,7 @@ class PageController extends Controller
         $relatedPosts = null;
         $tags = $post->tags ;
         $tagsAll = $post->getTranslations('tags', ['en', 'ru', 'ro']);
-        $comments = Comment::where('blog_id', $post->id)->orderByDesc('created_at')->get() ?? null;
+        $comments = Comment::where('blog_id', $post->id)->orderByDesc('created_at')->where('reply_id', null)->where('reply_user_id', null)->paginate(4) ?? null;
 
         if ($post->tags !== null) {
             $locale = app()->getLocale();
@@ -294,7 +311,6 @@ class PageController extends Controller
         $archives = null;
 
         $latestPostsBlog = Post::orderBy('created_at', 'desc')->take(3)->get();
-
         return view('pages.blog-show',
             compact(
                 'post',
@@ -302,6 +318,7 @@ class PageController extends Controller
                 'tags',
                 'relatedPosts',
                 'latestPostsBlog',
+                'slug'
             )
         );
     }

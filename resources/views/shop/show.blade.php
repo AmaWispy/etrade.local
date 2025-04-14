@@ -10,13 +10,13 @@
 <x-app-layout class="xl:mx-0 mx-4">
 
     @section('title', __('template.shop') . ' - ' . $product->name)
-
     <div class="mt-16" x-data='{follow:false}'>
         <!-- Card Show Start-->
             <div class="container flex xl:flex-row flex-col 2xl:gap-3 xl:gap-5 justify-between">
                 <!-- Images Show Start -->
                     @include('gallery.card',[
                         'images' => $product->getMedia("product-images"),
+                        'product' => $product
                     ])
                 <!-- Images Show End -->
 
@@ -27,16 +27,25 @@
                                 <h1 class="lg:text-3xl md:text-2xl text-xl font-semibold">{{ $product->name }}</h1>
                             </li>
                             <li>
-                                <h1 class="font-medium lg:text-xl md:text-lg text-base">$155-$200</h1>
+                                <h1 class="font-medium lg:text-xl md:text-lg text-base">
+                                    @if($product->onSale())
+                                        <ul class="font-bold flex gap-2 text-xl">
+                                            <li>
+                                                <span>{{$product->getExchangedPrice(false)}}</span>
+                                            </li>
+                                            <li>
+                                                <del class="text-[12px] text-neutral-400">{{$product->getExchangedPrice(true)}}</del>
+                                            </li>
+                                        </ul>
+                                    @else
+                                        <span class="font-bold text-xl">{{$product->getExchangedPrice()}}</span>
+                                    @endif
+                                </h1>
                             </li>
                             <li>
-                                <ul class="flex gap-1">
-                                    <li><i class="bi bi-star"></i></li>
-                                    <li><i class="bi bi-star"></i></li>
-                                    <li><i class="bi bi-star"></i></li>
-                                    <li><i class="bi bi-star"></i></li>
-                                    <li><i class="bi bi-star"></i> <span class="text-neutral-500">(0 {{ __('template.customer_reviews') }})</span></li>
-                                </ul>
+                                <div>
+                                    @include('includes.products.rating-product', ['rating' => $rating, 'ratingQntyUsers' => $ratingQntyUsers])
+                                </div>
                             </li>
                         </ul>
 
@@ -110,9 +119,9 @@
                             <form class="flex md:items-center md:flex-row flex-col items-center md:gap-5 gap-3 mt-3 md:mt-0">
                                 <!-- Qnty Select Product Start-->
                                     <div class="relative flex items-center">
-                                        <button type="button" id="decrement" class="text-xl text-black bg-gray-200 w-fit h-fit px-[6px] py-[4px] rounded-full flex justify-center items-center text-center xl:hover:bg-blue-500 xl:hover:text-white cursor-pointer"><i class="bi bi-dash-lg text-sm"></i></button>
+                                        <button type="button" id="decrement" class="text-xl text-black bg-gray-200 w-7 h-7 p-1.5 rounded-full flex justify-center items-center text-center xl:hover:bg-blue-500 xl:hover:text-white cursor-pointer"><i class="bi bi-dash-lg text-sm"></i></button>
                                         <input id="quantity" data-action="update-item-quantity-show" type="text" autocomplete="off" name="quantity" class="w-14 font-medium !m-0 focus:border-transparent focus:border-white bg-transparent !p-0 text-center border-transparent outline-none ring-0 focus:ring-transparent" value="1" required />
-                                        <button type="button" id="increment" class="increment text-xl  text-black bg-gray-200 w-fit h-fit px-[6px] py-[3px] rounded-full flex justify-center items-center text-center xl:hover:bg-blue-500 xl:hover:text-white cursor-pointer"><i class="bi bi-plus-lg text-sm"></i></button>
+                                        <button type="button" id="increment" class="increment text-xl  text-black bg-gray-200 w-7 h-7 p-1.5 rounded-full flex justify-center items-center text-center xl:hover:bg-blue-500 xl:hover:text-white cursor-pointer"><i class="bi bi-plus-lg text-sm"></i></button>
                                     </div>
                                 <!-- Qnty Select Product Start-->
 
@@ -214,87 +223,13 @@
                 <!-- Additional Information End -->
 
                 <!-- Reviews Start -->
-                    <div x-show='reviews' x-cloak class="flex gap-20 lg:flex-row flex-col-reverse">
-                        <div class="lg:w-1/2 flex flex-col gap-4">
-                            <h1 class="text-xl font-bold">3 {{ __('template.review_for_this_product') }}</h1>
-                            <!-- Users comment Start -->
-                                <div class="flex flex-col gap-4">
-                                    <div class="flex gap-2">
-                                        <div class="rounded-full !w-[70px] !h-16">
-                                            <img src="{{ asset('template/images/user-template.png') }}" class="h-full w-full rounded-full object-cover" alt="User Nick Name">
-                                        </div>
-                                        <ul class="flex flex-col gap-2 w-full">
-                                            <div class="flex justify-between">
-                                                <li>
-                                                    <h1 class="text-xl font-medium">Eleanor Pena</h1>
-                                                </li>
-                                                <li>
-                                                    <ul class="flex gap-1">
-                                                        <li><i class="bi bi-star"></i></li>
-                                                        <li><i class="bi bi-star"></i></li>
-                                                        <li><i class="bi bi-star"></i></li>
-                                                        <li><i class="bi bi-star"></i></li>
-                                                        <li><i class="bi bi-star"></i></li>
-                                                    </ul>
-                                                </li>
-                                            </div>
-                                            <li>
-                                                <p class="text-neutral-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur harum eveniet doloremque? Eos deserunt cumque atque praesentium omnis nihil, quia deleniti necessitatibus tempore neque, facilis nulla ad. Provident recusandae.</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="flex gap-2">
-                                        <div class="rounded-full !w-[70px] !h-16">
-                                            <img src="{{ asset('template/images/user-template.png') }}" class="h-full w-full rounded-full object-cover" alt="User Nick Name">
-                                        </div>
-                                        <ul class="flex flex-col gap-2 w-full">
-                                            <div class="flex justify-between">
-                                                <li>
-                                                    <h1 class="text-xl font-medium">Eleanor Pena</h1>
-                                                </li>
-                                                <li>
-                                                    <ul class="flex gap-1">
-                                                        <li><i class="bi bi-star"></i></li>
-                                                        <li><i class="bi bi-star"></i></li>
-                                                        <li><i class="bi bi-star"></i></li>
-                                                        <li><i class="bi bi-star"></i></li>
-                                                        <li><i class="bi bi-star"></i></li>
-                                                    </ul>
-                                                </li>
-                                            </div>
-                                            <li>
-                                                <p class="text-neutral-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur harum eveniet doloremque? Eos deserunt cumque atque praesentium omnis nihil, quia deleniti necessitatibus tempore neque, facilis nulla ad. Provident recusandae voluptatum rerum repudiandae pariatur eius distinctio laborum reiciendis quis natus. Sint esse corporis asperiores nihil! Doloremque veritatis at obcaecati rerum eum.</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="flex gap-2">
-                                        <div class="rounded-full !w-[70px] !h-16">
-                                            <img src="{{ asset('template/images/user-template.png') }}" class="h-full w-full rounded-full object-cover" alt="User Nick Name">
-                                        </div>
-                                        <ul class="flex flex-col gap-2 w-full">
-                                            <div class="flex justify-between">
-                                                <li>
-                                                    <h1 class="text-xl font-medium">Eleanor Pena</h1>
-                                                </li>
-                                                <li>
-                                                    <ul class="flex gap-1">
-                                                        <li><i class="bi bi-star"></i></li>
-                                                        <li><i class="bi bi-star"></i></li>
-                                                        <li><i class="bi bi-star"></i></li>
-                                                        <li><i class="bi bi-star"></i></li>
-                                                        <li><i class="bi bi-star"></i></li>
-                                                    </ul>
-                                                </li>
-                                            </div>
-                                            <li>
-                                                <p class="text-neutral-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum doloribus voluptatem repellat hic tenetur, odit officiis magni, consequuntur ipsam aperiam labore numquam ab! Itaque dolores voluptatibus excepturi! Consequatur quam alias doloribus similique reiciendis, ab delectus debitis facilis quae vero officiis voluptate blanditiis, id laborum magnam itaque veniam nesciunt magni accusantium et. Atque sequi delectus corrupti voluptatibus saepe officiis asperiores omnis.</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            <!-- Users comment End -->
-                        </div>
-
+                    <div x-show='reviews' x-cloak class="flex gap-20 lg:flex-row flex-col-reverse"  x-data="{ comment_id: null, comment_reply_user_id: null, user_name: null }"> 
+                        <!-- Comments Start --->
+                            <div class="lg:w-1/2 flex flex-col !gap-4">
+                                @include('includes.buttons.comments')
+                            </div>
+                        <!-- Comments End --->
+                    
                         <div class="lg:w-1/2 w-full flex flex-col gap-4">
                             <ul class="flex flex-col gap-3">
                                 <li>
@@ -306,61 +241,48 @@
                             </ul>
 
                             <!-- Send Review Start -->
-                                <form action='' class="flex flex-col gap-3" x-cloak x-data='{star1:false, star2:false, star3:false, star4:false, star5:false,}'>
-                                    <ul class="flex gap-4">
-                                        <li>
-                                            <h1>{{ __('template.your_rating') }}<span class="text-red-500">*</span></h1>
-                                        </li>
-                                        <div class="flex gap-2">
+                                <form action='' class="flex flex-col gap-3" id="form_send_comment" x-cloak>
+                                    @csrf
+                                    <input type="hidden" x-model="comment_id" name="comment_id" id="comment_id">
+                                    <input type="hidden" x-model="comment_reply_user_id" name="comment_reply_user_id" id="comment_reply_user_id">
+                                    <div class="flex items-center justify-between h-14">
+                                        <ul class="flex gap-4">
                                             <li>
-                                                <button type="button" x-on:click='star1 = true; star2 = false; star3 = false; star4 = false; star5 = false;'>
-                                                    <i x-show='!star1' class="bi bi-star"></i>
-                                                    <i x-show='star1' class="bi bi-star-fill text-yellow-500"></i>
-                                                </button>
+                                                <h1>{{ __('template.your_rating') }}<span class="text-red-500">*</span></h1>
                                             </li>
+                                            @include('includes.buttons.stars')
+                                        </ul>
+                                        <ul class="flex items-center justify-end gap-2 my-2" x-show="user_name !== null" x-cloak>
                                             <li>
-                                                <button type="button" x-on:click='star1 = true; star2 = true; star3 = false; star4 = false; star5 = false;'>
-                                                    <i x-show='!star2' class="bi bi-star"></i>
-                                                    <i x-show='star2' class="bi bi-star-fill text-yellow-500"></i>
-                                                </button>
+                                                <h1 class="text-lg font-medium">{{ __('template.answer') }}: </h1>
                                             </li>
-                                            <li>
-                                                <button type="button" x-on:click='star1 = true; star2 = true; star3 = true; star4 = false; star5 = false;'>
-                                                    <i x-show='!star3' class="bi bi-star"></i>
-                                                    <i x-show='star3' class="bi bi-star-fill text-yellow-500"></i>
-                                                </button>
+                                            <li class="flex items-center text-base border rounded-xl bg-blue-500 text-white px-2.5 py-1.5 gap-2 w-fit">
+                                                <h1 x-text="user_name"></h1>
+                                                <button
+                                                type="button"
+                                                @click="comment_id = null; user_name = null; comment_reply_user_id = null">x</button>
                                             </li>
-                                            <li>
-                                                <button type="button" x-on:click='star1 = true; star2 = true; star3 = true; star4 = true; star5 = false;'>
-                                                    <i x-show='!star4' class="bi bi-star"></i>
-                                                    <i x-show='star4' class="bi bi-star-fill text-yellow-500"></i>
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <button type="button" x-on:click='star1 = true; star2 = true; star3 = true; star4 = true; star5 = true;'>
-                                                    <i x-show='!star5' class="bi bi-star"></i>
-                                                    <i x-show='star5' class="bi bi-star-fill text-yellow-500"></i>
-                                                </button>
-                                            </li>
-                                        </div>
-                                    </ul>
-
-                                    <label for="notes" class="relative w-full">
-                                        <span class="text-neutral-500 absolute bg-orange-50 -top-2.5 left-4 text-sm">{{ __('template.notes') }}</span>
-                                        <textarea type="text" id="notes" name="notes" class="w-full border !border-neutral-300 rounded-md h-60 resize-none bg-transparent" placeholder="{{ __('template.order_notes') }}"></textarea>
-                                    </label>
-
-                                    <div class="flex xl:justify-between xl:gap-0 lg:flex-row flex-col gap-3">
-                                        <label for="first_name" class="relative w-full">
-                                            <span class="text-neutral-500 absolute bg-orange-50 -top-2.5 left-4 text-sm">{{ __('template.first_name') }} <span class="text-red-500">*</span></span>
-                                            <input type="text" id="first_name" name="first_name" required class="w-full border !border-neutral-300 bg-transparent rounded-md h-14" placeholder="Adam">
-                                        </label>
-                                        <label for="last_name" class="relative w-full">
-                                            <span class="text-neutral-500 absolute bg-orange-50 -top-2.5 left-4 text-sm">{{ __('template.last_name') }} <span class="text-red-500">*</span></span>
-                                            <input type="text" id="last_name" name="last_name" required class="w-full border !border-neutral-300 bg-transparent rounded-md h-14" placeholder="John">
-                                        </label>
+                                        </ul>
                                     </div>
-                                    <button class="py-3 text-lg rounded-lg font-semibold lg:w-fit w-full px-10 bg-blue-500 xl:hover:bg-blue-600 text-white">{{ __('template.submit_comment') }}</button>
+
+                                    <label for="message" class="relative w-full">
+                                        <span class="text-neutral-500 absolute bg-orange-50 -top-2.5 left-4 text-sm">{{ __('template.notes') }}</span>
+                                        <textarea 
+                                            type="text" 
+                                            id="message" 
+                                            name="message" 
+                                            maxlength="225" minlength="10"
+                                            class="w-full border !border-neutral-300 rounded-md h-60 resize-none bg-transparent" 
+                                            placeholder="{{ __('template.order_notes') }}"></textarea>
+                                    </label>
+                                    @auth
+                                        <button 
+                                        id='send-btn' 
+                                        class="py-3 text-lg rounded-lg font-semibold lg:w-fit w-full px-10 bg-blue-500 xl:hover:bg-blue-600 text-white">{{ __('template.submit_comment') }}</button>
+                                    @endauth
+                                    @guest
+                                        <a href="{{ route('auth.index') }}" class="py-3 text-lg rounded-lg font-semibold lg:w-fit w-full px-10 bg-blue-500 xl:hover:bg-blue-600 text-white">{{ __('template.submit_comment') }}</a>
+                                    @endguest
                                 </form>
                             <!-- Send Review End -->
                         </div>
@@ -392,12 +314,19 @@
             <!-- Icons End -->
         </div>
         <!-- Description, Information, Reviews End -->
+
+        <!-- Viewed Items Start -->
+            <div class="mx-auto container mt-12">
+                @include('includes.products.carousel.viewed-items')
+            </div>
+        <!-- Viewed Items End -->
     </div>
 </x-app-layout>
 <script type="module">
     $('#quantity').val(1)
 
     let count = parseInt($('#quantity').val());
+    
     $(document).on('quantityReset', function (){
         count = parseInt($('#quantity').val());
     })
@@ -413,4 +342,5 @@
             $('#quantity').val(count); 
         }
     });
+
 </script>

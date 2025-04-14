@@ -1,7 +1,7 @@
 /*================================================
 [  Table of contents  ]
 ================================================
-
+0.LocalStorage Viewed
 1. Variables
 2. Mobile Menu
 3. Mega Menu
@@ -49,6 +49,31 @@
     "use strict";
 
     jQuery(document).ready(function () {
+        console.log(JSON.parse(localStorage.getItem('viewed_items')))
+        /* --------------------------------------------------------
+            0. LocaleStorage Save Viewed Items
+        --------------------------------------------------------- */
+        $('[data-action="add-viewed-item"]').on('click', function(e){
+            let $button = $(this),
+                item = {
+                    'id': $button.data('id'),
+                    'type': $button.data('type'),
+                    'date': new Date().toISOString().replace('T', ' ').substring(0, 19),
+                };
+
+                let viewed = JSON.parse(localStorage.getItem('viewed_items')) || [];
+
+                viewed = viewed.filter(el => !(el.id === item.id && el.type === item.type) );
+    
+                // В начало 
+                viewed.unshift( item );
+    
+                // Ограничение
+                viewed = viewed.slice(0, 7);
+    
+                localStorage.setItem('viewed_items', JSON.stringify(viewed));
+            });
+    
         /* --------------------------------------------------------
             1. Variables
         --------------------------------------------------------- */

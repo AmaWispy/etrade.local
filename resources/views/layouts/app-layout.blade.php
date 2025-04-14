@@ -40,9 +40,8 @@
         @yield('microdata')
     </head>
 
-    <body class="relative" x-data="{body:false}" x-bind:class="body ? 'overflow-y-hidden' : 'overflow-y-auto'">
+    <body class="relative" x-data="{body:false, searchOpen:false}" x-bind:class="body ? 'overflow-y-hidden' : 'overflow-y-auto'">
         <!-- Body main Start-->
-        
             <!-- Header Start-->
                 @if (!in_array(request()->path(), ['auth/view']))
                     @include('includes.layout.header.index')
@@ -65,7 +64,12 @@
                 @endif
             <!-- Footer End-->
 
-                <!-- Modal Show Product Start-->
+
+            <!-- Search Popup Start -->
+                @include('includes.products.item.search-popup')
+            <!-- Search Popup End -->
+
+            <!-- Modal Show Product Start-->
                 <div 
                     {{-- x-bind:class=" open ? 'opacity-100' : 'opacity-0' "  --}}
                     {{-- x-bind:style="open ? 'visibility: visible' : 'visibility: hidden'"  --}}
@@ -75,6 +79,7 @@
                     id="popup">
                     @include('includes.products.item.popap')
                 </div>
+                
             <!-- Modal Show Product End-->
 
         <!-- Body main end -->
@@ -99,12 +104,15 @@
         <!-- Success Alert End -->
 
         @livewire('notifications')
-        @include('includes.scripts.cart-scripts')
+        @auth
+            @include('includes.scripts.cart-scripts')
+        @endauth
         @include('includes.scripts.product')
         @include('includes.scripts.add-to-cart')
         @include('includes.scripts.add-to-follow')
         
         <!-- Template JS Assets -->
+            <script src="https://cdn.jsdelivr.net/npm/countdown"></script>
             <script src="{{ asset('template/js/plugins.js') }}"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha512-AIOTidJAcHBH2G/oZv9viEGXRqDNmfdPVPYOYKGy3fti0xIplnlgMHUGfuNRzC6FkzIo0iIxgFnr9RikFxK+sw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
             <script src="{{ asset('template/js/main.js') }}"></script>

@@ -92,10 +92,10 @@ Route::prefix('blog')->group(function () {
         ->name('blog.home');
     // Route::get('{category}', [PageController::class, 'list'])
     //     ->name('blog.list');
+    Route::get('/filter-comment', [PageController::class, 'filtersBlog'])
+    ->name('blog.filter-comment');
     Route::get('/{slug}', [PageController::class, 'show'])
         ->name('blog.show');
-    Route::post('/send-comment', [PageController::class, 'comment'])
-        ->name('blog.comment');
 });
 
 // Shop
@@ -118,6 +118,8 @@ Route::get('/product/{slug}/{id}', [ShopController::class, 'showProductCard'])
 // Route::get('/product/{id}/{item}', [ShopController::class, 'showProduct']);
 Route::post('/product-composition/{id}', [ShopController::class, 'calcTotal'])
     ->name('shop.calcTotal');
+Route::post('/product/search', [ShopController::class, 'searchProduct'])
+    ->name('shop.search.product');
 
 
 // Cart
@@ -135,6 +137,12 @@ Route::group(['prefix' => 'cart', 'middleware' => ['auth']], function () {
     Route::post('/remove', [CartController::class, 'remove'])
         ->name('cart.remove');
 });
+
+//Viewed Products/Blogs & Comments
+Route::post('/viewed-items', [ShopController::class, 'viwedItems'])
+    ->name('show.viewed.items');
+Route::post('/send-comment', [PageController::class, 'comment'])
+->name('comment.store');
 
 // Follow
 Route::group(['prefix' => 'follow', 'middleware' => ['auth']], function () {

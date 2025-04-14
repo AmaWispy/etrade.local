@@ -15,19 +15,20 @@ use Illuminate\Support\Facades\Cookie;
 
 class FollowController extends Controller
 {
-    public function view(): View
+    public function view()
     {
         $follow = null;
 
-        if(session()->has('follow')){
-            $followData = session()->get('follow');
-            $follow = Follow::where('code', $followData['code'])->first();
+        if(auth()->check()){
+            $follow = Follow::where('user_id', auth()->user()->id)->first();
+            return view('follow.index',
+                compact(
+                    'follow',
+                )
+            );
+        } else {
+            return redirect()->route('auth.index');
         }
-        return view('follow.index',
-            compact(
-                'follow',
-            )
-        );
     }
 
     public function add(Request $request)
@@ -66,8 +67,7 @@ class FollowController extends Controller
         if(!session()->has('follow')){
             $follow = $this->newFollow();
         } else {
-            $followData = session()->get('follow');
-            $follow = Follow::where('code', $followData['code'])->first();
+            $follow = Follow::where('user_id', auth()->user()->id)->first();
             /**
              * In case the follow was not found by code from session
              * create a new one
@@ -174,17 +174,12 @@ class FollowController extends Controller
 
     protected function newFollow()
     {
-        // TODO: Verify if code isn`t allready exists
-        $code = Str::random(32);
-
         $follow = Follow::create([
-            'code' => $code
+            'user_id' => auth()->user()->id 
         ]);
 
         if($follow){
-            Cookie::queue('follow', $code); 
             session()->put('follow', [
-                'code' => $follow->code,
                 'totalItems' => $follow->total_items,
             ]);
         }
@@ -211,6 +206,7 @@ class FollowController extends Controller
 
         $followData = [
             'code' => $follow->code,
+            'user_id' => $follow->user_id,
             'totalItems' => $follow->total_items,
         ];
         session()->put('follow', $followData);

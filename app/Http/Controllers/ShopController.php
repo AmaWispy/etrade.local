@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Address;
-use App\Models\viewdItems;
+use App\Models\Comment;
 use Illuminate\View\View;
 use App\Models\Shop\Order;
+use App\Models\viewdItems;
 use App\Models\Shop\Follow;
 use App\Models\Shop\Product;
 use Illuminate\Http\Request;
@@ -22,6 +24,158 @@ use Illuminate\Support\Facades\View as ViewFacade;
 
 class ShopController extends Controller
 {
+
+    public function viwedItems(Request $request){
+        $data = $request->post('viewed') ?? null;
+        $products = collect($data)->filter(fn($el) => $el['type'] === 'product')->all() ?? null;
+
+
+        $products = null;
+        $blogs = null;
+
+        $maxCountProducts = 7;
+        $maxCountBlogs = 7;
+        
+        if(auth()->check()){
+            $viewedItemsQuery = ViewdItems::where('user_id', auth()->id())->where('type', 'product');
+            $Newest = $viewedItemsQuery->get()->sortByDesc('updated_at');
+
+            $oldest = $viewedItemsQuery->orderBy('updated_at')->get();
+            $countViwedItems = $viewedItemsQuery->get()->count();
+
+            $createItems = function ($values, $has_id = false){
+                ViewdItems::create([
+                    'user_id' => auth()->id(),
+                    'shop_product_id' => $has_id ? (int) $values['id'] : (int) $values,
+                    'type' => 'product',
+                ]);
+            };
+
+            if($data !== null){
+                foreach($data as $el){
+                    if($el['type'] === 'product'){
+                        $products[] = $el;
+                    }
+                }
+                if($products !== null){
+                    if( $viewedItemsQuery->get()->isNotEmpty() ){
+                        // Exists id in front and db
+                        $existsProductsId = collect($products)->pluck('id')->intersect($viewedItemsQuery->pluck('shop_product_id')->toArray());
+    
+                        // Not exists ids an db
+                        $ProductsIdNews = collect($products)->pluck('id')->diff($viewedItemsQuery->pluck('shop_product_id')->toArray());
+    
+                        //Update updated_at items whitch exists
+                        foreach($existsProductsId as $existsId){
+                            ViewdItems::updateOrCreate([
+                                'user_id' => auth()->id(),
+                                'shop_product_id' => (int) $existsId,
+                                'type' => 'product',
+                            ],[
+                                'updated_at' => Carbon::now()
+                            ]);
+                    
+                        }
+    
+                        //Deleted Oldest Items
+                        if(($countViwedItems + count($ProductsIdNews)) > $maxCountProducts || $countViwedItems === $maxCountProducts ){
+                            for($i = 0; $i < count($ProductsIdNews); $i++ ){
+                                $oldest[$i]->delete();
+                            }
+
+                            foreach($ProductsIdNews as $newProduct){
+                                $createItems($newProduct);
+                            }
+                        }
+    
+                        //add new items
+                        if(($countViwedItems + count($ProductsIdNews)) < $maxCountProducts || $countViwedItems < $maxCountProducts){
+                            foreach($ProductsIdNews as $newProduct){
+                                $createItems($newProduct);
+                            }
+                        }
+                    } else {
+                        foreach($products as $product){
+                            $createItems($product, true);
+                        }
+                    }
+                }
+            }
+
+            $productsFormated = [];
+            $rightLayoutFormatedProducts = [];
+            $proudctsHasUser = auth()->user()->hasViewed;
+
+            $productsNewestIds = Product::whereIn('id', $Newest->pluck("shop_product_id")->toArray())->get();
+            
+            foreach($Newest as $new){
+                $productsFormated[] = [
+                    'html' => '<div class="w-80 xl:mr-6 mx-3">' . view('includes.products.item.default', ['product' => collect($productsNewestIds)->firstWhere('id', $new['shop_product_id'])])->render() . '</div>',
+                    'date' => $new['updated_at']->format('Y-m-d H:i:s')
+                ];
+            }
+
+            foreach($proudctsHasUser as $viewed){
+                $product = Product::where('id', (int) $viewed['shop_product_id'])->first();
+
+                $rightLayoutFormatedProducts[] = [
+                    'id' => $product->id,
+                    'name' => $product->name,
+                    'price_default' => $product->getExchangedPrice(true),
+                    'price_on_sale' => $product->getExchangedPrice(false),
+                    'image' => $product->getImage(),
+                    'on_sale' => $product->onSale(),
+                    'link' => route('shop.card', ['slug' => $product->slug, 'id' => $product->id]),
+                    'date' => $viewed['updated_at']->format('Y-m-d H:i:s'),
+                ];
+                
+            }
+
+            return [
+                'status' => 200,
+                'data_storage' => $data ?? ($viewedItemsQuery->get() ?? null),
+                'formated_data' =>   $productsFormated,
+                'is_auth' => true,
+                'right_layout_formated_viwed_products' => $rightLayoutFormatedProducts,
+                'products' => $products,
+                'blogs' => $blogs ,
+            ];
+        } else {
+            $productsFormated = [];
+            $rightLayoutFormatedProducts = [];
+
+            foreach($data as $viewed){
+                $product = Product::where('id', (int) $viewed['id'])->first();
+                $productsFormated[] = [
+                    'html' => '<div class="w-80 xl:mr-6 mx-3">' . view('includes.products.item.default', ['product' => $product])->render() . '</div>',
+                    'date' => $viewed['date'],
+                ];
+
+                $rightLayoutFormatedProducts[] = [
+                    'id' => $product->id,
+                    'name' => $product->name,
+                    'price_default' => $product->getExchangedPrice(true),
+                    'price_on_sale' => $product->getExchangedPrice(false),
+                    'image' => $product->getImage(),
+                    'on_sale' => $product->onSale(),
+                    'link' => route('shop.card', ['slug' => $product->slug, 'id' => $product->id]),
+                    'date' => $viewed['date'],
+                ];
+
+
+            }
+
+            return [
+                'status' => 200,
+                'data_storage' => $data,
+                'formated_data' =>   $productsFormated,
+                'right_layout_formated_viwed_products' =>  $rightLayoutFormatedProducts,
+                'is_auth' => false,
+                'products' => $products,
+                'blogs' => $blogs ,
+            ];
+        }
+    } 
 
     public function calcTotal(Request $request,$id){
         try {
@@ -78,6 +232,36 @@ class ShopController extends Controller
         }
     }
 
+    public function searchProduct(Request $request){
+        $data = $request->post('search');
+
+        $results = Product::whereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(name, '$.\"".app()->getLocale()."\"'))) LIKE ?", ["%{$data}%"])->get() ?? null;
+
+        $products = null;
+
+        foreach($results->take(2) as $product){
+            $products[] = [
+                'id' => $product->id,
+                'price_default' => $product->getExchangedPrice(true),
+                'price_on_sale' => $product->getExchangedPrice(false),
+                'on_sale' => $product->onSale(),
+                'name' => $product->name,
+                'slug' => $product->slug,
+                'sku' => $product->sku,
+                'image'=> $product->getImage(),
+                'view_link' => route('shop.card', ['slug' => $product->slug, 'id' => $product->id]),
+            ];
+
+        }
+        
+        return [
+            'status' => 200,
+            'data' => $results,
+            'products' => $products,
+            'results' => count($results) ?? 0,
+        ];
+    }
+
     public function showProductCard($slug, $id){
         $product = Product::where('id', $id)->first();
         // $user = 
@@ -102,8 +286,36 @@ class ShopController extends Controller
         //     ]);
         // }
 
+        $rating = Comment::where('product_id', $id)
+            ->whereNotNull('rating')
+            ->avg('rating');
+        $ratingQntyUsers = Comment::where('product_id', $id)
+            ->distinct('user_id') // Отбираем только уникальные user_id
+            ->count('user_id'); // Считаем количество уникальных пользователей
+        
+
+        if(request()->has('page')){
+            $page = request()->get('page');
+            $type = request()->get('type');
+            
+            $comments = $this->getCommentsFormated($product->id, $page , $type);
+
+            return [
+                'status' => 200,
+                'rating' => $rating ?? 0,
+                'ratingQntyUsers' =>  $ratingQntyUsers ?? 0,
+                'comments' => $comments,
+            ];
+        }
+        $comments = Comment::where('product_id', $product->id)->orderByDesc('created_at')->where('reply_id', null)->where('reply_user_id', null)->paginate(4) ?? null;
+
+
         return view('shop.show', [
             'product' => $product,
+            'slug' => $slug,
+            'rating' => $rating ?? 0,
+            'comments' =>  $comments,
+            'ratingQntyUsers' =>  $ratingQntyUsers ?? 0,
         ]);
     }
 
@@ -114,6 +326,14 @@ class ShopController extends Controller
             if($itemId !== null){
                 $cartItem = CartItem::where('id', (int)$itemId)->first();
             }
+
+            $rating = Comment::where('product_id', $id)
+                ->whereNotNull('rating')
+                ->avg('rating');
+            $ratingQntyUsers = Comment::where('product_id', $id)
+                ->distinct('user_id') // Отбираем только уникальные user_id
+                ->count('user_id'); // Считаем количество уникальных пользователей
+        
 
             $imagesThumb = null;
             $imagesThumbSm = null;
@@ -154,6 +374,11 @@ class ShopController extends Controller
                 'product_images_thumb_sm' => $imagesThumbSm,
                 'product_images_main' => $imagesMain,
                 'product_is_follow' => $isFollow,
+                'rating' => $rating ?? 0,
+                'ratingQntyUsers' =>  $ratingQntyUsers ?? 0,
+                'price_default' => $product->getExchangedPrice(true),
+                'price_on_sale' => $product->getExchangedPrice(false),
+                'on_sale' => $product->onSale(),
             ];
         } catch (\Exception $e) {
             Log::error( $e->getTraceAsString(). ' => Error in showProduct: ' . $e->getMessage() . ' line:' . $e->getLine());
@@ -299,7 +524,7 @@ class ShopController extends Controller
                 "maxPrice" => $filters['maxPrice'],
                 "minPriceChanged" => $filters['minPriceChanged'],
                 'maxPriceChanged' => $filters['maxPriceChanged'],
-                ]
+            ]
         );
     }
 
@@ -449,5 +674,40 @@ class ShopController extends Controller
 
     }
 
+    private function formatedDataProducts($productsGet): array {
+        $products = [];
+        $productsFormated = [];
+
+        foreach($productsGet as $productGet){
+            $productsFormated[] = Product::where('id', $productGet['shop_product_id'])->first();
+        }
+
+        $followCode = Cookie::get('follow');
+        $follow = Follow::where('code', $followCode)->first();
+        
+        foreach($productsFormated as $product){
+            if(Follow::where('code', $followCode)->first()){
+                $isFollow = optional(FollowItems::where('follow_id', $follow['id'])->where('shop_product_id', $product['id'])->first())->exists ?? false;
+            } else{
+                $isFollow = false;
+            }
+    
+            $products[] = [
+                'id' => $product->id,
+                'price_default' => $product->getExchangedPrice(true),
+                'price_on_sale' => $product->getExchangedPrice(false),
+                'on_sale' => $product->onSale() ?? false,
+                'is_follow' => $isFollow,
+                'is_new' =>  $product->isNew() ?  __('template.new') : false,
+                'name' => $product->name,
+                'slug' => $product->slug,
+                'sku' => $product->sku,
+                'image'=> $product->getImage(),
+                'view_link' => route('shop.card', ['slug' => $product->slug, 'id' => $product->id]),
+            ];
+        }
+
+        return $products;
+    }
 
 }

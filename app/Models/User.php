@@ -53,8 +53,15 @@ class User extends Authenticatable implements FilamentUser, HasTenants, MustVeri
         return $this->belongsTo(viewdItems::class, 'user_id');
     }
 
+    public function hasViewed(){
+        return $this->hasMany(ViewdItems::class, 'user_id');
+    }
+
     public function comments(){
         return $this->hasMany(Comment::class, 'user_id');
+    }
+    public function comment(){
+        return $this->belongsTo(Comment::class, 'user_id', 'id');
     }
     
     public function replies(){

@@ -18,15 +18,14 @@ class GetCart
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Cookie::has('cart')) {
+        if(Cookie::has('cart') && auth()->check()) {
             $cart = Cookie::get('cart');
-            $cart = Cart::where('code', $cart)->first();
-
+            $cart = Cart::where('code', $cart)->where('user_id', auth()->user()->id)->first();
             /**
              * In case the order is processed, 
              * remove cart from cookies and session
              */
-            if(null !== $cart->order && $cart->order->status === Order::PROCESSING){
+            if( $cart === null || (null !== $cart->order && $cart->order->status === Order::PROCESSING) ){
                 Cookie::forget('cart');
                 session()->forget('shipping');
                 session()->forget('cart');

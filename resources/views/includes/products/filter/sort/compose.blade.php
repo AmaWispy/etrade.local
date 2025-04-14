@@ -1,5 +1,5 @@
 
-<button id="dropdownSearchButton" data-dropdown-toggle="dropdownSearchFlower" class="nice-select inline-flex items-center px-4 py-2 text-sm font-medium text-center border rounded-lg" type="button">{{ __('template.flowers_in_composition') }}</button>
+<button id="dropdownSearchButton" data-dropdown-toggle="dropdownSearchFlower" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center border rounded-lg" type="button">{{ __('template.flowers_in_composition') }}</button>
 
 <!-- Dropdown menu -->
 <div id="dropdownSearchFlower" class="z-10 hidden bg-white rounded-lg shadow w-60">
@@ -21,31 +21,31 @@
 </div>
 
 <script type="module">
-$(document).ready(function () {
-    $('#applyFilterButtonFlower').on('click', function () {
-      // Собираем отмеченные значения чекбоксов
-        var selectedFlowers = [];
-        $('#dropdownSearchFlower input[type="checkbox"]:checked').each(function () {
-            selectedFlowers.push($(this).val());
+    $(document).ready(function () {
+        $('#applyFilterButtonFlower').on('click', function () {
+        // Собираем отмеченные значения чекбоксов
+            var selectedFlowers = [];
+            $('#dropdownSearchFlower input[type="checkbox"]:checked').each(function () {
+                selectedFlowers.push($(this).val());
+            });
+            
+            var currentUrl = window.location.href;
+
+            // Убираем старый параметр "color" из URL, если он есть
+            currentUrl = currentUrl.replace(/[?&]flower=[^&]*/, '');
+
+            // Если есть выбранные цвета, добавляем их в URL
+            if (selectedFlowers.length !== 0) {
+                // Формируем новый URL с параметрами
+                var newUrl = currentUrl + (currentUrl.includes('?') ? '&' : '?') + 'flower=' + selectedFlowers.join(',');
+
+                // Перенаправляем пользователя на новый URL
+                window.location.href = newUrl;
+            } else {
+                // Если нет выбранных цветов, просто перенаправляем на URL без параметра "color"
+                window.location.href = currentUrl;
+            }
+
         });
-        
-        var currentUrl = window.location.href;
-
-        // Убираем старый параметр "color" из URL, если он есть
-        currentUrl = currentUrl.replace(/[?&]flower=[^&]*/, '');
-
-        // Если есть выбранные цвета, добавляем их в URL
-        if (selectedFlowers.length !== 0) {
-            // Формируем новый URL с параметрами
-            var newUrl = currentUrl + (currentUrl.includes('?') ? '&' : '?') + 'flower=' + selectedFlowers.join(',');
-
-            // Перенаправляем пользователя на новый URL
-            window.location.href = newUrl;
-        } else {
-            // Если нет выбранных цветов, просто перенаправляем на URL без параметра "color"
-            window.location.href = currentUrl;
-        }
-
     });
-});
 </script>

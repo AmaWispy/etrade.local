@@ -1,5 +1,5 @@
 
-<button id="dropdownSearchButton" data-dropdown-toggle="dropdownSearchSize" class="nice-select inline-flex items-center px-4 py-2 text-sm font-medium text-center border rounded-lg" type="button">{{ __('template.sizes') }}</button>
+<button id="dropdownSearchButton" data-dropdown-toggle="dropdownSearchSize" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center border rounded-lg" type="button">{{ __('template.sizes') }}</button>
 
 <!-- Dropdown menu -->
 <div id="dropdownSearchSize" class="z-10 hidden bg-white rounded-lg shadow w-60">

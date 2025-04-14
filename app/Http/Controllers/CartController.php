@@ -10,6 +10,7 @@ use App\Models\Shop\Product;
 use Illuminate\Http\Request;
 use App\Models\Shop\CartItem;
 use App\Models\Shop\Category;
+use App\Models\Shop\Order;
 use Illuminate\Support\Facades\Log;
 use App\Models\Shop\ProductVariation;
 use App\Models\viewdItems;
@@ -26,34 +27,40 @@ class CartController extends Controller
 
     public function show(){
         try {
-            $cart = Cart::where('code', session()->get('cart')['code'])->first();
-            $productsCart = CartItem::where('shop_cart_id', $cart['id'])->get();
-            $products = null;
-
-            foreach ($productsCart as $product) {
-                if($product->product->type === \App\Models\Shop\Product::VARIABLE){
-                    $image = $product->variation->getImage();
-                    $name = $product->variation->name;
-                } else {
-                    $image = $product->product->getImage();
-                    $name = $product->product->name;
+            $cart = $this->getCart();
+            if($cart !== null){
+                $productsCart = CartItem::where('shop_cart_id', $cart['id'])->get();
+                $products = null;
+    
+                foreach ($productsCart as $product) {
+                    if($product->product->type === \App\Models\Shop\Product::VARIABLE){
+                        $image = $product->variation->getImage();
+                        $name = $product->variation->name;
+                    } else {
+                        $image = $product->product->getImage();
+                        $name = $product->product->name;
+                    }
+    
+                    $products[] = [
+                        'id' => $product->id,
+                        'product_id' => $product->product->id,
+                        'image' => $image ?? null,
+                        'name' => $name ?? null ,
+                        'price' => $product->getUnitSubtotal(),
+                        'qty' => $product->qty ?? null ,
+                        'link'=> route('shop.card', ['slug' => $product->product->slug, 'id' => $product->product->id]),
+                    ];
                 }
-
-                $products[] = [
-                    'id' => $product->id,
-                    'product_id' => $product->product->id,
-                    'image' => $image ?? null,
-                    'name' => $name ?? null ,
-                    'price' => $product->getUnitSubtotal(),
-                    'qty' => $product->qty ?? null ,
+                return [
+                    'status' => 200,
+                    'products_info' => $products ?? null,
+                    'products_Cart' => $productsCart ?? null,
                 ];
             }
-
             return [
-                'status' => 200,
-                'products_info' => $products ?? null,
-                'products_Cart' => $productsCart ?? null,
+                'status' => 500,
             ];
+
         } catch (\Exception $message) {
             return [
                 'status' => 500,
@@ -63,7 +70,7 @@ class CartController extends Controller
 
     public function view(): View
     {
-        $cart = null;
+        $cart = $this->getCart();
         $oldDataCard = null;
         $category = Category::whereRaw('JSON_SEARCH(slug, "all", ?) IS NOT NULL', ['suplimente'])->first();
 
@@ -75,10 +82,10 @@ class CartController extends Controller
                 })->get();
         }
 
-        if(session()->has('cart')){
-            $cartData = session()->get('cart');
-            $cart = Cart::where('code', $cartData['code'])->first();
-        }
+        // if(session()->has('cart')){
+        //     $cartData = session()->get('cart');
+        //     $cart = Cart::where('code', $cartData['code'])->where('user_id', auth()->user()->id)->first();
+        // }
 
         if(session()->has('card') && session()->get('card.note') !== null && session()->get('card.checkbox') === 'on'){
             $oldDataCard = session()->get('card');
@@ -143,28 +150,30 @@ class CartController extends Controller
         $item = CartItem::where([
             'shop_cart_id' => $cart->id,
             'shop_product_id' => $product->id,
-            'changed_composition' => $post['composition'] !== null ? json_encode($post['composition']['total_product']) : null,
+            // 'changed_composition' => $post['composition'] !== null ? json_encode($post['composition']['total_product']) : null,
             'shop_product_variation_id' => $variable ? $post['cartItem']['variation'] : null,
         ])->first();
 
         if(!$item){
-            if( $variable || $post['composition'] !== null ){
-                if( $variable && $post['composition'] !== null ){
-                    $price = $variation->getPrice() + (float)$post['composition']['total_mdl'];
-                } elseif( $variable ){
-                    $price = $variation->getPrice();
-                } elseif( $post['composition'] !== null ){
-                    $price = (float)$post['composition']['total_mdl'];
-                }
-            } else {
-                $price =  $product->getPrice();
-            }
+            // if( $variable || $post['composition'] !== null ){
+            //     if( $variable && $post['composition'] !== null ){
+            //         $price = $variation->getPrice() + (float)$post['composition']['total_mdl'];
+            //     } elseif( $variable ){
+            //         $price = $variation->getPrice();
+            //     } elseif( $post['composition'] !== null ){
+            //         $price = (float)$post['composition']['total_mdl'];
+            //     }
+            // } else {
+            //     $price =  $product->getPrice();
+            // }
+
+            $price =  $product->getPrice();
 
             $item = CartItem::create([
                 'shop_cart_id' => $cart->id,
                 'shop_product_id' => $product->id,
                 'shop_product_variation_id' => $variable ? $post['cartItem']['variation'] : null,
-                'changed_composition' => $post['composition'] !== null ? $post['composition']['total_product'] : null,
+                // 'changed_composition' => $post['composition'] !== null ? $post['composition']['total_product'] : null,
                 'qty' => $post['cartItem']['quantity'],
                 'unit_price' => $price
             ]);
@@ -264,12 +273,21 @@ class CartController extends Controller
 
     protected function newCart()
     {
-        // TODO: Verify if code isn`t allready exists
-        $code = Str::random(32);
+        $missingCarts = $this->getCart();
 
-        $cart = Cart::create([
-            'code' => $code
-        ]);
+        if(isset($missingCarts)){
+            $cart = $missingCarts;
+        } else {
+            // TODO: Verify if code isn`t allready exists
+            $code = Str::random(32);
+    
+            $cart = Cart::create([
+                'code' => $code,
+                'user_id' => auth()->user()->id,
+            ]);
+
+        }
+
 
         if($cart){
             Cookie::queue('cart', $code, 30 * 24 * 60); 
@@ -311,6 +329,16 @@ class CartController extends Controller
         session()->put('cart', $cartData);
 
         return $cartData;
+    }
+
+    private function getCart():?Cart{
+        $carts = Cart::where('user_id', auth()->user()->id)->get()->pluck('id')->toArray();
+        $orders = Order::whereIn('shop_cart_id', $carts)->get()->pluck('shop_cart_id')->toArray();
+
+        $missingCartIds = array_diff($carts, $orders);
+        $cart = Cart::whereIn('id', $missingCartIds)->first();
+        
+        return $cart;
     }
 
 }

@@ -57,13 +57,12 @@ class SiteController extends Controller
 
 
         /**
-         * Often Buy 1
-         * Just a random collection for now
+         * Products
          */
-        $oftenBuy = Product::query()
+        $products = Product::query()
             ->where('is_visible', true)
             // ->inRandomOrder()
-            ->take(24)
+            ->take(16)
             ->get();
 
         /**
@@ -89,8 +88,7 @@ class SiteController extends Controller
         return view('home',
             compact(
                 'carousels',
-                'oftenBuy',
-                'brands'
+                'products',
             )
         );
     }

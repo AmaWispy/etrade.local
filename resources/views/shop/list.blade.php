@@ -74,7 +74,7 @@
     <!-- BREADCRUMB AREA END -->
 
     <!-- PRODUCT DETAILS AREA START -->
-        <div class=" lg:container lg:mx-auto" x-data="{filter:{{ session('filter', null) === 'true' ? 'true' : 'false' }}}">
+        <div class=" lg:container lg:mx-auto z-0" x-data="{filter:{{ session('filter', null) === 'true' ? 'true' : 'false' }}}">
             <!-- Filter Btn toggle Start-->
                 <div class="mx-2.5 my-2 flex justify-between items-center">
                     <h1 class="text-4xl font-semibold">{{ $category->name }}</h1>
@@ -90,7 +90,7 @@
                 </div>
             <!-- Filter Btn toggle End-->
 
-            <div class="">
+            <div class="z-0">
                 <!-- Filter Product Start-->
                     <div x-show='filter' x-cloak >
                         @include('includes.products.filter.layout')

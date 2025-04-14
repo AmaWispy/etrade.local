@@ -130,6 +130,8 @@
                 /* 
                 * Clear
                 */
+                $('#rating_product_stars').html('')
+
                 $('#add-to-cart-btn').removeAttr('data-product data-type');
 
                 $('#quantity').val(1);
@@ -168,6 +170,14 @@
                         $('#product_is_new').removeClass('hidden').addClass('inline-flex')
                     } else{
                         $('#product_is_new').removeClass('inline-flex').addClass('hidden')
+                    }
+                    $('#price-on-sale').text(response.on_sale === true ? response.price_on_sale : response.price_default)
+                    $('#price-default').text(response.on_sale === true ? response.price_default : '')
+                    $('#qnty_rating_users').text(response.ratingQntyUsers)
+                    for (let i = 0; i < 5; i++) {
+                        $('#rating_product_stars').append(`
+                            <i class="bi bi-star${i < Math.floor(response.rating) ? '-fill' : ''} text-yellow-400"></i>
+                        `)
                     }
 
                     /* 

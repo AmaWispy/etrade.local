@@ -188,128 +188,43 @@
                         
                         <!-- Coments Start -->
                             <div>
-                                <h1 class="text-xl font-semibold mb-4">{{ count($comments) . ' ' . __('template.comments') }}</h1>
-                                <!-- Coments Users Start -->
-                                    <div class="flex flex-col gap-4" id="comments-block">
-                                        @if ($comments->isNotEmpty())
-                                            @foreach ($comments as $comment )
-                                                @if ($comment->reply_id === null) 
-                                                    <div class="flex flex-col gap-4" x-data='{see_replys: {{ count($comment->replies) > 1 ? "false" : "true" }} }'>
-                                                        <!-- Main Coment Start -->
-                                                            <div class="flex gap-3.5">
-                                                                <div class="lg:h-16 lg:w-16 md:w-12 md:h-12 h-10 w-10 rounded-full overflow-hidden">
-                                                                    <img src="{{ asset('template/images/user-template.png') }}" class="h-full w-full object-cover" alt="Cameron Williamson">
-                                                                </div>
-                                                                <div class="w-4/5">
-                                                                    <ul class="flex flex-col gap-1">
-                                                                        <li>
-                                                                            <h1 class="lg:text-lg text-base font-semibold">{{ $comment->user->name }}</h1>
-                                                                        </li>
-                                                                        <li class="flex gap-2 lg:text-base text-sm text-neutral-500">
-                                                                            <p>{{ $comment->formattedDate() }}</p>
-                                                                            <button
-                                                                                type="button" 
-                                                                                @click="comment_id = {{ $comment->id }}; user_name = '{{ $comment->user->name }}'"
-                                                                                class="text-blue-500 xl:hover:text-blue-600 font-semibold">{{ __('template.reply') }}</button>
-                                                                        </li>
-                                                                        <li>
-                                                                            <p class="lg:text-base text-sm">{{ $comment->content }}</p>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        <!-- Main Coment End -->
-
-                                                        <!-- Reply Start -->
-                                                            <div class="overflow-hidden flex flex-col gap-2">
-                                                                <div x-show='see_replys'>
-                                                                    @foreach ($comment->replies as $replies)
-                                                                        <div class="md:pl-16 pl-5 flex flex-col gap-4">
-                                                                            <div class="flex gap-3.5">
-                                                                                <div class="lg:h-16 lg:w-16 md:w-12 md:h-12 h-10 w-10 rounded-full overflow-hidden">
-                                                                                    <img src="{{ asset('template/images/user-template.png') }}" class="h-full w-full object-cover" alt="Cameron Williamson">
-                                                                                </div>
-                                                                                <div class="w-4/5">
-                                                                                    <ul class="flex flex-col gap-1">
-                                                                                        <li class="flex items-center gap-2">
-                                                                                            <h1 class="lg:text-lg text-base font-semibold">{{ $replies->user->name }}</h1>
-                                                                                            @if (isset($replies->replyUser) && $replies->user_id !== $replies->reply_user_id)
-                                                                                                <span class="flex items-center text-sm border rounded-xl text-white bg-neutral-500 px-2 py-[3px] gap-1"><i class="bi bi-reply-all"></i> {{ $replies->replyUser->name }}</span>
-                                                                                            @endif
-                                                                                        </li>
-                                                                                        <li class="flex gap-2 lg:text-base text-sm text-neutral-500">
-                                                                                            <p>{{ $replies->formattedDate() }}</p>
-                                                                                            <button
-                                                                                                type="button" 
-                                                                                                @click="comment_id = {{ $comment->id }}; user_name = '{{ $comment->user->name }}'; comment_reply_user_id = {{ $replies->user_id }};"
-                                                                                                class="text-blue-500 xl:hover:text-blue-600 font-semibold">{{ __('template.reply') }}</button>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <p class="lg:text-base text-sm">{{ $replies->content }}</p>
-                                                                                        </li>
-                                                                                    </ul>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    @endforeach
-                                                                </div>
-                                                                @if ($comment->replies !== null && count($comment->replies) > 1)
-                                                                    <button type="button" class="text-lg flex items-center justify-center gap-1.5" x-on:click='see_replys = !see_replys'>{{ __('template.view_answers') . ' (' . count($comment->replies) . ')' }}
-                                                                        <span class="duration-300" x-bind:class=' see_replys ? "rotate-180" : "rotate-0" '>
-                                                                            <i class="bi bi-chevron-compact-up"></i>
-                                                                        </span>
-                                                                    </button>
-                                                                @endif
-                                                            </div> 
-                                                        <!-- Reply End -->
-                                                    </div>
-                                                @endif
-                                            @endforeach
-                                        @else
-                                            <p class="text-center text-xl font-semibold text-neutral-500 my-14">{{ __('template.empty') }}...</p>
-                                        @endif
-                                    </div>
-                                <!-- Coments Users End -->
+                                @include('includes.buttons.comments')
                             </div>
                         <!-- Coments End -->
 
                         <!-- Send Comment Start -->
                             <div>
-                                <ul>
+                                <h1 class="text-2xl font-semibold my-5">{{ __('template.leave_a_comment') }}</h1>
+                                <ul class="flex items-center justify-end gap-2 my-2" x-show="user_name !== null" x-cloak>
                                     <li>
-                                        <h1 class="text-2xl font-semibold my-5">{{ __('template.leave_a_comment') }}</h1>
-                                        <ul class="flex items-center justify-end gap-2 my-2" x-show="user_name !== null" x-cloak>
-                                            <li>
-                                                <h1 class="text-lg font-medium">{{ __('template.answer') }}: </h1>
-                                            </li>
-                                            <li class="flex items-center text-base border rounded-xl bg-blue-500 text-white px-2.5 py-1.5 gap-2 w-fit">
-                                                <h1 x-text="user_name"></h1>
-                                                <button
-                                                @click="comment_id = null; user_name = null; comment_reply_user_id = null">x</button>
-                                            </li>
-                                        </ul>
-                                        
-                                        <form class="flex flex-col gap-3">
-                                            @csrf
-                                            <input type="hidden" x-model="comment_id" name="comment_id" id="comment_id">
-                                            <input type="hidden" x-model="comment_reply_user_id" name="comment_reply_user_id" id="comment_reply_user_id">
-                                            <label for="message" class="relative w-full">
-                                                <span class="text-neutral-500 absolute bg-white -top-2.5 left-4 text-sm">{{ __('template.message') }}<span class="text-red-500">*</span></span>
-                                                <textarea name="message" id="message" maxlength="225" minlength="10" class="resize-none w-full h-40 border !border-neutral-300 rounded-md"></textarea>
-                                            </label>
-                                            @auth
-                                                <button 
-                                                    id='send-btn' 
-                                                    class="text-white bg-blue-500 rounded-lg w-fit h-fit px-4 py-3 font-semibold"
-                                                >{{ __('template.send_message') }}</button>
-                                            @endauth
-
-                                            @guest
-                                                <a href="{{ route('auth.index') }}" class="text-white bg-blue-500 rounded-lg w-fit h-fit px-4 py-3 font-semibold">{{ __('template.send_message') }}</a>
-                                            @endguest
-                                        </form>
+                                        <h1 class="text-lg font-medium">{{ __('template.answer') }}: </h1>
+                                    </li>
+                                    <li class="flex items-center text-base border rounded-xl bg-blue-500 text-white px-2.5 py-1.5 gap-2 w-fit">
+                                        <h1 x-text="user_name"></h1>
+                                        <button
+                                        @click="comment_id = null; user_name = null; comment_reply_user_id = null">x</button>
                                     </li>
                                 </ul>
+                                
+                                <form class="flex flex-col gap-3" id="form_send_comment">
+                                    @csrf
+                                    <input type="hidden" x-model="comment_id" name="comment_id" id="comment_id">
+                                    <input type="hidden" x-model="comment_reply_user_id" name="comment_reply_user_id" id="comment_reply_user_id">
+                                    <label for="message" class="relative w-full">
+                                        <span class="text-neutral-500 absolute bg-white -top-2.5 left-4 text-sm">{{ __('template.message') }}<span class="text-red-500">*</span></span>
+                                        <textarea name="message" id="message" maxlength="225" minlength="10" class="resize-none w-full h-40 border !border-neutral-300 rounded-md"></textarea>
+                                    </label>
+                                    @auth
+                                        <button 
+                                            id='send-btn' 
+                                            class="text-white bg-blue-500 rounded-lg w-fit h-fit px-4 py-3 font-semibold"
+                                        >{{ __('template.send_message') }}</button>
+                                    @endauth
+
+                                    @guest
+                                        <a href="{{ route('auth.index') }}" class="text-white bg-blue-500 rounded-lg w-fit h-fit px-4 py-3 font-semibold">{{ __('template.send_message') }}</a>
+                                    @endguest
+                                </form>
                             </div>
                         <!-- Send Comment End -->
                     </div>
@@ -381,6 +296,8 @@
             slidesToShow: slidesToShow,
             slidesToScroll: 1,
             adaptiveHeight: false,
+
+            
             arrows: false, // Отключаем стандартные кнопки
             dots: false,
             infinity:true,
@@ -411,140 +328,6 @@
                 $(slider).slick('slickNext');
             });
         });
-
-        /**
-         * Send Comment
-         */
-        $('#send-btn').on('click', function (e) {
-            e.preventDefault()
-            const $button = $(this);
-            // $button.prop('disabled', true); // Disable the button
-            let message = $('#message').val(),
-                comment_id = $('#comment_id').val(),
-                comment_reply_user_id = $('#comment_reply_user_id').val(),
-                data = {
-                    message: message,
-                    comment_id: comment_id,
-                    comment_reply_user_id: comment_reply_user_id,
-                    type: 'blog',
-                    blog_id: {{$post->id}},
-                };
-
-            console.log(data)
-
-            $.ajax({
-                url: `/blog/send-comment`,
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                dataType: 'json',
-                data: data,
-    
-                success: function (response) {
-                    if(response.status === 200){
-                        $('#message').val(''); // Clear the textarea
-                        $('#comments-block').html('')
-
-                        response.comments.forEach(comment => {
-                            if (comment.reply_id === null){
-                                console.log(comment)
-                                let commentBlock = `<div class="flex flex-col gap-4" x-data='{see_replys: ${comment.comment_replies.length > 1 ? false : true} }'>
-                                    <!-- Main Comment Start -->
-                                    <div class="flex gap-3.5">
-                                        <div class="lg:h-16 lg:w-16 md:w-12 md:h-12 h-10 w-10 rounded-full overflow-hidden">
-                                            <img src="{{ asset('template/images/user-template.png') }}" class="h-full w-full object-cover" alt="${comment.comment_user.name}">
-                                        </div>
-                                        <div class="w-4/5">
-                                            <ul class="flex flex-col gap-1">
-                                                <li>
-                                                    <h1 class="lg:text-lg text-base font-semibold">${comment.comment_user.name}</h1>
-                                                </li>
-                                                <li class="flex gap-2 lg:text-base text-sm text-neutral-500">
-                                                    <p>${comment.created_at}</p>
-                                                    <button
-                                                        type="button" 
-                                                        @click="comment_id = ${comment.id}; user_name = '${comment.comment_user.name}'"
-                                                        class="text-blue-500 xl:hover:text-blue-600 font-semibold">{{ __('template.reply') }}</button>
-                                                </li>
-                                                <li>
-                                                    <p class="lg:text-base text-sm">${comment.content}</p>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <!-- Main Comment End -->
-    
-                                    <!-- Reply Start -->
-                                    <div class="overflow-hidden flex flex-col gap-2">
-                                        <div x-show='see_replys'>`;
-    
-                                comment.comment_replies.forEach(reply => {
-                                    commentBlock += `
-                                        <div class="md:pl-16 pl-5 flex flex-col gap-4">
-                                            <div class="flex gap-3.5">
-                                                <div class="lg:h-16 lg:w-16 md:w-12 md:h-12 h-10 w-10 rounded-full overflow-hidden">
-                                                    <img src="{{ asset('template/images/user-template.png') }}" class="h-full w-full object-cover" alt="${reply.comment_reply_user.name}">
-                                                </div>
-                                                <div class="w-4/5">
-                                                    <ul class="flex flex-col gap-1">
-                                                        <li class="flex items-center gap-2">
-                                                            <h1 class="lg:text-lg text-base font-semibold">${reply.comment_reply_user.name}</h1>`;
-                                                            
-                                                            if (reply.reply_user && reply.reply_user_id !== reply.comment_reply_user.id) {
-                                                                commentBlock += `
-                                                                <span class="flex items-center text-sm border rounded-xl text-white bg-neutral-500 px-2 py-[3px] gap-1">
-                                                                    <i class="bi bi-reply-all"></i> ${reply.reply_user.name}
-                                                                </span>`;
-                                                            }
-                                                            
-                                    commentBlock += `
-                                                        </li>
-                                                        <li class="flex gap-2 lg:text-base text-sm text-neutral-500">
-                                                            <p>${reply.reply.created_at}</p>
-                                                            <button
-                                                                type="button" 
-                                                                @click="comment_id = ${comment.id}; user_name = '${comment.comment_user.name}'; comment_reply_user_id = ${reply.comment_reply_user.id }"
-                                                                class="text-blue-500 xl:hover:text-blue-600 font-semibold">{{ __('template.reply') }}</button>
-                                                        </li>
-                                                        <li>
-                                                            <p class="lg:text-base text-sm">${reply.reply.content}</p>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>`;
-                                });
-    
-                                commentBlock += `</div>`;
-    
-                                // **Кнопка "Показать ответы", если больше 1 ответа**
-                                if (comment.comment_replies.length > 1) {
-                                    commentBlock += `
-                                        <button type="button" class="text-lg flex items-center justify-center gap-1.5" x-on:click='see_replys = !see_replys'>{{ __('template.view_answers') }}  ${comment.comment_replies.length}
-                                            <span class="duration-300" x-bind:class=' see_replys ? "rotate-180" : "rotate-0" '>
-                                                <i class="bi bi-chevron-compact-up"></i>
-                                            </span>
-                                        </button>`;
-                                }
-    
-                                commentBlock += `</div> <!-- Reply End -->
-                                </div>`;
-                                $('#comments-block').append(commentBlock);
-                            };
-
-                        });
-// #TODO:: Сделать так чтобы мог показщывать определенное кол во коментов а остальные скрыты и их показать при клике показаать
-                        console.log(response)
-                    }
-                    $button.prop('disabled', false); // Disable the button
-                },
-    
-                error:function(xhr, status, error) {
-                    console.error('Error:', xhr, status, error);
-                }
-            })
-        })
 
     })
 </script>

@@ -141,6 +141,110 @@
     <!-- SHOPING CART AREA END -->
 </x-app-layout>
 
-<!-- Scripts Start-->
-    @include('includes.scripts.cart-scripts')
-<!-- Scripts End -->
+<script type="module">
+    let timeout;
+
+    $(document).on('click', 'button[data-action="decrement"]', function() {
+        const productId = $(this).data('item'); // Get the product ID from the button data attribute
+        var $input = $(this).siblings('input'),
+            val = parseInt($input.val());
+        if(val > 1){
+            $input.val(val - 1).trigger('change');
+        }
+        
+        updateCart()
+    });
+
+    $(document).on('click', 'button[data-action="increment"]', function() {
+        var $input = $(this).siblings('input'),
+        val = parseInt($input.val());
+        $input.val(val + 1).trigger('change');
+        
+        updateCart()
+    });
+
+    let cartData = [];
+
+    // delete 
+    $(document).on('click', 'button[data-action="remove-cart-item"]', function(e) {
+        cartData = []
+        e.preventDefault();
+        var $button = $(this),
+            productId = $button.data('id'),
+            item = {
+                'item': $button.data('item'),
+            };
+
+        // Disable button while ajax in progress
+        $button.prop('disabled', true);
+
+        // Perform the AJAX POST request to remove the item
+        $.ajax({
+            url: '/cart/remove',
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            dataType: 'json',
+            data: item,
+            success: function(response) {
+                if(response.status === 200){
+                    $('[data-counter="cart-total-items"]').html(response.cart.totalItems);
+                    $('.cart-total-price').text(response.cart.totalPrice);
+                    if(response.cart.totalItems > 1){
+                        $('#box-cart-item-' + response.item.id).remove();
+                        $('.box-cart-item-' + response.item.id).remove();
+                    }
+                }   
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', xhr, status, error);
+                // Handle error response
+            }
+        });
+    });
+
+    function updateCart() {
+        clearTimeout(timeout);
+        
+        timeout = setTimeout(function() {
+            $('[data-action="increment"], [data-action="decrement"]').prop('disabled', true);
+            $('[data-action="update-cart-item-quantity"]').each(function() {
+                var product = $(this); 
+                let data = {
+                    'item': product.data('item'),    
+                    'quantity': product.val(),      
+                };
+
+                // Проверяем, был ли этот товар уже отправлен
+                if (!cartData.some(existingItem => existingItem.item === data.item && existingItem.quantity === data.quantity)) {
+                    // Добавляем товар в список отправленных товаров
+                    cartData.push(data);
+
+                    $.ajax({
+                        url: '/cart/update',
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        dataType: 'json',
+                        data: data,
+                        success: function(response) {
+                            $('[data-action="increment"], [data-action="decrement"]').prop('disabled', false);
+                            
+                            $('.item-' + response.item.id + '-subtotal2').text(response.item.subtotal);
+                            
+                            $('.cart-total-price').text(response.cart.totalPrice);
+                            console.log(response);
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Error:', xhr, status, error);
+                            $('[data-action="increment"], [data-action="decrement"]').prop('disabled', false);
+                        }
+                    });
+                    console.log(data);
+                }
+            });
+        }, 1500); // Ожидание 1500 мс перед отправкой запроса
+    }
+</script>
