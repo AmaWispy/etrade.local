@@ -30,4 +30,10 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'api' => [
+        'url' => env('API_URL'),
+        'username' => env('API_AUTH_USERNAME'),
+        'password' => env('API_AUTH_PASSWORD'),
+    ],
+
 ];

@@ -26,8 +26,13 @@ class FetchClientsData extends Command
      */
     public function handle()
     {
-        $this->info('Starting clients data fetch...');
-        ApiService::fetchAndStoreClients();
-        $this->info('Clients data fetch completed.');
+        $this->info('Starting to fetch clients data...');
+        
+        try {
+            ApiService::fetchAndStoreClients();
+            $this->info('Clients data fetched and stored successfully!');
+        } catch (\Exception $e) {
+            $this->error('Error fetching clients data: ' . $e->getMessage());
+        }
     }
 }

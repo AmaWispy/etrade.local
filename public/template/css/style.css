@@ -16053,7 +16053,9 @@ input.cart-plus-minus-box {
 .body-scroll-off body{
     overflow-y: hidden;
 }
-
+.pl-0{
+    padding-left: 0;
+}
 /* ----------------------------------------------------
     END
 ---------------------------------------------------- */

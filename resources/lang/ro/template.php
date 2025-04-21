@@ -405,4 +405,8 @@ return [
     'get_weekly_update' => 'Primiți actualizări săptămânale',
     'subscribe' => 'Abonează-te',
 
+    /* OTHERS */
+    'login' => 'Autentificare',
+    'access_code' => 'Cod acces',
+    'invalid_access_code' => 'Cod acces invalid',
 ];            

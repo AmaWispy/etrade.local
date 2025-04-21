@@ -385,4 +385,8 @@ return [
     'newsletter' => 'Newsletter',
     'get_weekly_update' => 'Get weekly update',
     'subscribe' => 'Subscribe',
+    /* OTHERS */
+    'login' => 'Login',
+    'access_code' => 'Access Code',
+    'invalid_access_code' => 'Invalid access code',
 ];  

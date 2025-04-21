@@ -103,7 +103,7 @@ use App\Models\Shop\Cart;
                                 </button>
                             </li>
                             <li>
-                                <a href="{{ route('account.index') }}" 
+                                <a href="{{ Session::has('client_code') ? route('custom.logout') : route('custom.login') }}"
                                     class="duration-500 text-center xl:hover:bg-florarColor xl:hover:text-white rounded-full flex items-center justify-center p-2 w-9 h-9">
                                     <i class="bi bi-person"></i>
                                 </a>

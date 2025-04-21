@@ -93,6 +93,10 @@ class SiteController extends Controller
         );
     }
 
+    public function test(){
+        return \App\Services\ApiService::fetchAndStoreClients();
+    }
+
     // public function testSmtp(){
     //     $to = 'vlad@garm.email';
     //     $subject = 'Test Email';

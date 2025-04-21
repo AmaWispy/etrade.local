@@ -107,7 +107,7 @@
                         <div>
                             <ul>
                                 <li class="mt-2">
-                                    <a class="!text-black hover:border-b border-neutral-400" href="{{ route('account.index') }}">{{ __('template.account') }}</a>
+                                    <a class="!text-black hover:border-b border-neutral-400" href="{{ route('custom.login') }}">{{ __('template.account') }}</a>
                                 </li>       
                                 <li class="mt-2">
                                     <a class="!text-black hover:border-b border-neutral-400" href="{{ route('cart.view') }}">{{ __('template.cart') }}</a>

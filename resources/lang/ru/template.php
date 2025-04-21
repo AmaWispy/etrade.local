@@ -398,4 +398,9 @@ return [
     'get_weekly_update' => 'Получайте еженедельные обновления',
     'subscribe' => 'Подписаться',
 
+    /* OTHERS */
+    'login' => 'Вход',
+    'access_code' => 'Код доступа',
+    'invalid_access_code' => 'Неверный код доступа',
+
 ];      

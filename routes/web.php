@@ -16,10 +16,14 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\UesfulPagesController;
 use App\Http\Controllers\Payments\PaynetController;
+use App\Http\Controllers\AuthCustomController;
 
 //Route::get('form', Form::class);
 Route::get('/test-smtp', [SiteController::class, 'testSmtp'])
         ->name('home.test-smtp');
+
+Route::get('/test', [SiteController::class, 'test'])
+        ->name('home.test');
 
 // Default route for home page
 Route::get('/', [SiteController::class, 'home'])
@@ -35,6 +39,13 @@ Route::group(['prefix' => 'artisan'], function () {
         Artisan::call('storage:link');
         return 'Symlink to storage created';
     });
+});
+
+// Authentication routes
+Route::group(['prefix' => 'client'], function () {
+    Route::get('/login', [AuthCustomController::class, 'showLoginForm'])->name('custom.login');
+    Route::post('/login', [AuthCustomController::class, 'login']);
+    Route::match(['get', 'post'], '/logout', [AuthCustomController::class, 'logout'])->name('custom.logout');
 });
 
 // Switchers
@@ -174,12 +185,12 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 //Account 
-Route::group(['prefix' => __('template.account'), 'middleware' => ['auth']], function(){
+/* Route::group(['prefix' => __('template.account'), 'middleware' => ['auth']], function(){
     Route::get('/view', [AccountController::class, 'view'])
         ->name('account.index');
     Route::post('/update-password', [AccountController::class, 'updatePassword'])
     ->name('account.update.password'); 
-});
+}); */
 
 // Checkout
 Route::group(['prefix' => 'checkout'], function () {

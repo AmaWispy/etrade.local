@@ -10,6 +10,7 @@ return new class extends Migration
     {
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
+            $table->string('access_code')->unique();
             $table->json('data')->nullable();
             $table->timestamps();
         });
