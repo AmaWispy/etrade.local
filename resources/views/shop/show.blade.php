@@ -65,7 +65,7 @@
                         </ul>
 
                         <div>
-                            <p class="text-neutral-500 lg:text-base text-sm">{{ $product->description }}</p>
+                            <p class="text-neutral-500 lg:text-base text-sm">{{ $product->getTranslation('description', app()->getLocale()) }}</p>
                         </div>
 
                         <div class="flex flex-col gap-3 mt-3">

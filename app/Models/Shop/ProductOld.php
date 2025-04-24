@@ -20,7 +20,6 @@ use Spatie\Image\Manipulations;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Storage;
 
 class Product extends UnicodeModel implements HasMedia
 {
@@ -31,49 +30,28 @@ class Product extends UnicodeModel implements HasMedia
     /**
      * @var string
      */
-    protected $table = 'products';
-    public $timestamps = false;
-
-    protected $fillable = [
-        'id',
-        'code',
-        'name',
-        'name_ru',
-        'name_en',
-        'name_full',
-        'slug',
-        'sku',
-        'articul',
-        'brand',
-        'brand_code',
-        'category',
-        'category_code',
-        'additional_cat',
-        'additional_cat_code',
-        'description',
-        'unit_type',
-        'stock_quantity',
-        'reserved',
-        'price',
-        'currency',
-        'default_price',
-        'default_currency'
-    ];
+    protected $table = 'shop_products';
 
     /**
      * @var array<string, string>
      */
     protected $casts = [
-        'id' => 'integer',
-        'stock_quantity' => 'integer',
-        'reserved' => 'integer',
-        'price' => 'decimal:2',
-        'default_price' => 'decimal:2',
-        'slug' => 'array'
+        'featured' => 'boolean',
+        'is_visible' => 'boolean',
+        'manage_stock' => 'boolean',
+        'backorder' => 'boolean',
+        'requires_shipping' => 'boolean',
+        'published_at' => 'date',
+        'options' => 'array',
+        'composition' => 'array'
     ];
 
     public $translatable = [
-        'description'
+        'name',
+        'slug', 
+        'description',
+        'seo_title',
+        'seo_description'
     ];
 
     /**
@@ -83,190 +61,20 @@ class Product extends UnicodeModel implements HasMedia
     const VARIABLE = 'variable';
     const COMPLEX = 'complex';
 
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($product) {
-            if (empty($product->slug)) {
-                $product->slug = [
-                    'ru' => Str::slug($product->name_ru == "" ? $product->name : $product->name_ru),
-                    'ro' => Str::slug($product->name == "" ? $product->name_ru : $product->name),
-                    'en' => Str::slug($product->name_en == "" ? $product->name : $product->name_en)
-                ];
-            }
-
-            // Если описание не является массивом (т.е. пришло из API), устанавливаем его для всех языков
-            if (!is_array($product->description) && !empty($product->description)) {
-                $product->setDescriptionForAllLanguages($product->description);
-            }
-        });
-
-        static::updating(function ($product) {
-            if ($product->isDirty(['name', 'name_ru', 'name_en']) && empty($product->slug)) {
-                $product->slug = [
-                    'ru' => Str::slug($product->name_ru == "" ? $product->name : $product->name_ru),
-                    'ro' => Str::slug($product->name == "" ? $product->name_ru : $product->name),
-                    'en' => Str::slug($product->name_en == "" ? $product->name : $product->name_en)
-                ];
-            }
-
-            // Если описание не является массивом (т.е. пришло из API), устанавливаем его для всех языков
-            if ($product->isDirty('description') && !is_array($product->description) && !empty($product->description)) {
-                $product->setDescriptionForAllLanguages($product->description);
-            }
-        });
-    }
-
     public function registerMediaConversions(Media $media = null): void
     {
-        $this->addMediaConversion('thumb')
-            ->width(100)
-            ->height(100)
-            ->sharpen(10);
+        $this->addMediaConversion('thumb-sm')
+            ->width(120)
+            ->height(135)
+            ->crop('crop-center', 120, 135);
 
-        $this->addMediaConversion('medium')
-            ->width(400)
-            ->height(400)
-            ->sharpen(10);
-
+        $this->addMediaConversion('thumb-md')
+            ->width(500)
+            ->height(525)
+            ->crop('crop-center', 500, 525);
+        
         // FIT_MAX prevents of generating oversized media
         $this->addMediaConversion('main')->fit(Manipulations::FIT_MAX, 992, 992);
-    }
-
-    /**
-     * Get all product images
-     */
-    public function getImages(): array
-    {
-        $images = [];
-        $media = $this->getMedia('product-images');
-
-        if ($media->isEmpty()) {
-            return [
-                [
-                    'original' => url('storage/no-image_620x620.png'),
-                    'thumb' => url('storage/no-image_420x420.png'),
-                    'medium' => url('storage/no-image_620x620.png')
-                ]
-            ];
-        }
-
-        foreach ($media as $item) {
-            $images[] = [
-                'original' => $item->getUrl(),
-                'thumb' => $item->getUrl('thumb'),
-                'medium' => $item->getUrl('medium')
-            ];
-        }
-
-        return $images;
-    }
-
-    /**
-     * Get first product image
-     */
-    public function getFirstImage(): array
-    {
-        $media = $this->getFirstMedia('product-images');
-        
-        if (!$media) {
-            return [
-                'original' => url('storage/no-image_620x620.png'),
-                'thumb' => url('storage/no-image_420x420.png'),
-                'medium' => url('storage/no-image_620x620.png')
-            ];
-        }
-
-        return [
-            'original' => $media->getUrl(),
-            'thumb' => $media->getUrl('thumb'),
-            'medium' => $media->getUrl('medium')
-        ];
-    }
-
-    /**
-     * Get all thumbnails
-     */
-    public function getThumbs(): array
-    {
-        $thumbs = [];
-        $media = $this->getMedia('product-images');
-
-        if ($media->isEmpty()) {
-            return [url('storage/no-image_420x420.png')];
-        }
-
-        foreach ($media as $item) {
-            $thumbs[] = $item->getUrl('thumb');
-        }
-
-        return $thumbs;
-    }
-
-    /**
-     * Get all medium images
-     */
-    public function getMediumImages(): array
-    {
-        $mediums = [];
-        $media = $this->getMedia('product-images');
-
-        if ($media->isEmpty()) {
-            return [url('storage/no-image_620x620.png')];
-        }
-
-        foreach ($media as $item) {
-            $mediums[] = $item->getUrl('medium');
-        }
-
-        return $mediums;
-    }
-
-    /**
-     * Get all original images
-     */
-    public function getOriginalImages(): array
-    {
-        $originals = [];
-        $media = $this->getMedia('product-images');
-
-        if ($media->isEmpty()) {
-            return [url('storage/no-image_620x620.png')];
-        }
-
-        foreach ($media as $item) {
-            $originals[] = $item->getUrl();
-        }
-
-        return $originals;
-    }
-
-    /**
-     * Get first thumbnail
-     */
-    public function getFirstThumb(): string
-    {
-        $media = $this->getFirstMedia('product-images');
-        return $media ? $media->getUrl('thumb') : url('storage/no-image_420x420.png');
-    }
-
-    /**
-     * Get first medium image
-     */
-    public function getFirstMedium(): string
-    {
-        $media = $this->getFirstMedia('product-images');
-        return $media ? $media->getUrl('medium') : url('storage/no-image_620x620.png');
-    }
-
-    /**
-     * Get first original image
-     */
-    public function getFirstOriginal(): string
-    {
-        $media = $this->getFirstMedia('product-images');
-        return $media ? $media->getUrl() : url('storage/no-image_620x620.png');
     }
 
     /**
@@ -439,14 +247,21 @@ class Product extends UnicodeModel implements HasMedia
         return url('storage/no-image_620x620.png');
     }
 
-    public function getPriceAttribute($value)
+    public function getBasePriceAttribute($value)
     {
-        return number_format($value, 2, '.', '');
-    }
+        $price = $value;
 
-    public function getDefaultPriceAttribute($value)
-    {
-        return number_format($value, 2, '.', '');
+        /**
+         * In case product is complex, calculate price according to composition
+         */
+        if($this->compositionList()->count() > 0){
+            $price = 0;
+            foreach($this->compositionList as $item){
+                $price += $item->unit_price * $item->qty;
+            }
+        }
+
+        return $price;
     }
 
     public function getActiveDiscount()
@@ -635,19 +450,6 @@ class Product extends UnicodeModel implements HasMedia
         }
 
         return $routes;
-    }
-
-    /**
-     * Set description for all languages
-     */
-    public function setDescriptionForAllLanguages($description)
-    {
-        $this->description = [
-            'ru' => $description,
-            'ro' => $description,
-            'en' => $description
-        ];
-        return $this;
     }
 
 }

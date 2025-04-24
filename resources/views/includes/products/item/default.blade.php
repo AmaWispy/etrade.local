@@ -2,12 +2,12 @@
     <div class="w-full relative flex flex-col gap-1 @if(isset($circle)) !gap-3 @endif">
             <div class="w-full xl:h-[290px] lg:h-[320px] md:h-[330px] overflow-hidden rounded-lg @if(isset($circle)) !rounded-full  xl:!h-[310px] lg:!h-[330px] md:!h-[330px] @endif group">
                 <a 
-                    href="{{ route('shop.card', ['slug' => $product->slug, 'id' => $product->id]) }}" 
+                    href="{{ route('shop.card', ['slug' => $product->slug[app()->getLocale()], 'id' => $product->id]) }}" 
                     data-action="add-viewed-item"
                     data-id = '{{ $product->id }}'
                     data-type = 'product'
                     class="w-full h-full overflow-hidden">
-                    <img src="{{ $product->getThumb() }}" class="w-full h-full duration-300 group-hover:transform group-hover:scale-110 object-cover rounded-lg @if(isset($circle)) !rounded-full @endif" alt="Image {{ $product->name }}">
+                    <img src="{{ $product->getFirstThumb() }}" class="w-full h-full duration-300 group-hover:transform group-hover:scale-110 object-cover rounded-lg @if(isset($circle)) !rounded-full @endif" alt="Image {{ $product->name }}">
                 </a>
                 
                 <!-- Follow Add to Cart and show Start-->
@@ -53,7 +53,7 @@
             </div>
         <!-- Sale or New End -->
 
-        <a href="{{ route('shop.card', ['slug' => $product->slug, 'id' => $product->id]) }}" class="text-neutral-400 xl:hover:text-blue-500 duration-300 font-medium truncate w-[95%]">{{ $product->name }}</a>
+        <a href="{{ route('shop.card', ['slug' => $product->slug[app()->getLocale()], 'id' => $product->id]) }}" class="text-neutral-400 xl:hover:text-blue-500 duration-300 font-medium truncate w-[95%]">{{ $product->name }}</a>
     </div>
     @if($product->onSale())
         <ul class="font-bold flex gap-2 text-xl">

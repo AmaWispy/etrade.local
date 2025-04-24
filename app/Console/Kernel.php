@@ -4,11 +4,13 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Log;
 
 class Kernel extends ConsoleKernel
 {
     protected $commands = [
         Commands\FetchClientsData::class,
+        Commands\FetchProductsData::class,
     ];
 
     /**
@@ -19,6 +21,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('clients:fetch')
+            ->dailyAt('12:00');
+        $schedule->command('fetch:products')
             ->dailyAt('12:00');
     }
 

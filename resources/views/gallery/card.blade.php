@@ -11,7 +11,7 @@
         @if ($images)
             @foreach ($images as $image )
                 <div class="2xl:!w-[85px] 2xl:!h-[82px] xl:!h-[78px] xl:!w-[80px]  mr-6 xl:mb-2 rounded-xl">
-                    <img src="{{ $image->getUrl('thumb-sm') }}" class="h-full w-full object-cover rounded-xl" alt="Product">
+                    <img src="{{ $image->getUrl('medium') }}" class="h-full w-full object-cover rounded-xl" alt="Product">
                 </div>
             @endforeach
         @endif
@@ -21,8 +21,8 @@
         @if ($images)
             @foreach ($images as $image )
                 <div class="single-large-img !h-full !w-full rounded-xl overflow-hidden">
-                    <a href="{{ $image->getUrl('main') }}" data-rel="lightcase:myCollection" class="!w-full !h-full rounded-xl">
-                        <img src="{{ $image->getUrl('thumb-md') }}" class="!h-full !w-full object-cover" alt="Product">
+                    <a href="{{ $image->getUrl('medium') }}" data-rel="lightcase:myCollection" class="!w-full !h-full rounded-xl">
+                        <img src="{{ $image->getUrl('medium') }}" class="!h-full !w-full object-cover" alt="Product">
                     </a>
                 </div>
             @endforeach
@@ -44,7 +44,7 @@
             @if ($images)
                 @foreach ($images as $image )
                     <div class="block !h-full lg:!w-[68px] md:!w-[60px] lg:mr-8 mr-4 xl:mb-2 rounded-xl">
-                        <img src="{{ $image->getUrl('thumb-sm') }}" class="h-full w-full object-cover rounded-xl" alt="Product">
+                        <img src="{{ $image->getUrl('medium') }}" class="h-full w-full object-cover rounded-xl" alt="Product">
                     </div>
                 @endforeach
             @endif
