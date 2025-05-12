@@ -152,15 +152,15 @@
 
         <!-- CopyRight Start-->
             <div>
-                <h1 class="text-neutral-500 sm:text-xs lg:text-sm ">&copy;{{date('Y')}} Florar.md  {{ __('template.flower_delivery_service') }}</h1>
+                <h1 class="text-neutral-500 sm:text-xs lg:text-sm ">&copy;{{date('Y')}} Scop Distribution</h1>
             </div>
         <!-- CopyRight Start-->
 
         <!-- Payments Accept Start-->
-            <div class="sm:h-4 inline-flex items-center gap-2">
+            <!-- <div class="sm:h-4 inline-flex items-center gap-2">
                 <p class="text-xs text-neutral-500">{{ __('template.accept_for ') }}</p>
                 @include('includes.links.payments-accept')
-            </div>
+            </div> -->
     <!-- Payments Accept End-->
     </div>
 </footer>

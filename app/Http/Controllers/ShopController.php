@@ -406,7 +406,9 @@ class ShopController extends Controller
         $category = Category::whereRaw('JSON_SEARCH(slug, "all", ?) IS NOT NULL', [$segment])->first();
         if(null !== $category){
             $query = Product::query()
-                ->where('is_visible', true)
+                ->where('stock_quantity', '>', 0)
+                ->whereRaw('stock_quantity > reserved')
+                ->where('price', '>', 0)
                 ->whereHas('categories', function ($query) use ($category) {
                     $query->where('id', $category->id);
                 });
@@ -504,7 +506,9 @@ class ShopController extends Controller
         /**
          * Get shop products
          */
-        $query = Product::query()->where('is_visible', true);
+        $query = Product::query()->where('stock_quantity', '>', 0)
+                                ->whereRaw('stock_quantity > reserved')
+                                ->where('price', '>', 0);
 
         $filters = $this->getFilters($request, $query);
 
@@ -592,7 +596,7 @@ class ShopController extends Controller
         /**
         * Get name flowers sort
         */
-            $flowersVariations = Product::whereHas('variations')->where('is_visible', true)->get();
+            $flowersVariations = Product::whereHas('variations')->get();
             $flowers = $request->get('flower') ? explode(',', $request->get('flower')) : [];
             
             $filterFlowers = $flowersVariations->whereIn('slug', $flowers)->pluck('id')->toArray();
@@ -607,31 +611,38 @@ class ShopController extends Controller
         /**
          * Get price sort
          */
-            $maxPrice =  Currency::exchange($query->max('base_price'));
-            $minPrice =  Currency::exchange($query->min('base_price'));
-
+        if (\Auth::guard('client')->check()){
+            $maxPrice =  Currency::exchange($query->max('price'));
+            $minPrice =  Currency::exchange($query->min('price'));  
+        } else{
+            $maxPrice =  Currency::exchange($query->max('default_price'));
+            $minPrice =  Currency::exchange($query->min('default_price'));
+        }
+            
             $minPriceChanged =  round($request->get('min', $minPrice));
             $maxPriceChanged =   round($request->get('max', $maxPrice));
-            
-            
         /**
          * Apply sorting to the query
          */
         switch ($sorting) {
             case 'latest':
-                $query->orderBy('published_at', 'desc');
+                $query->orderBy('id', 'desc');
                 break;
             case 'low_to_high':
-                $query->orderBy('base_price', 'asc');
+                $query->orderBy('price', 'asc');
                 break;
             case 'high_to_low':
-                $query->orderBy('base_price', 'desc');
+                $query->orderBy('price', 'desc');
                 break;
         }
 
         // Apply sort to price
         if($minPriceChanged !== null || $maxPriceChanged !== null){
-            $query->whereBetween('base_price', [  Currency::exchangeToMdl($minPriceChanged),  Currency::exchangeToMdl($maxPriceChanged)])->get();
+            if(\Auth::guard('client')->check()){
+                $query->whereBetween('price', [Currency::exchange($minPriceChanged), Currency::exchange($maxPriceChanged)])->get();
+            } else {
+                $query->whereBetween('default_price', [Currency::exchange($minPriceChanged), Currency::exchange($maxPriceChanged)])->get();
+            }
         }
 
         return [

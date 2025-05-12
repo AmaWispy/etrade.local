@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Models\Shop\CartItem;
 use App\Models\Shop\Category;
 use App\Models\Shop\Order;
+use App\Models\OrderCustom;
 use Illuminate\Support\Facades\Log;
 use App\Models\Shop\ProductVariation;
 use App\Models\viewdItems;
@@ -76,7 +77,6 @@ class CartController extends Controller
 
         if($category !== null){
             $productsCategory = Product::query()
-                ->where('is_visible', true)
                 ->whereHas('categories', function ($query) use ($category) {
                     $query->where('id', $category->id);
                 })->get();
@@ -167,16 +167,20 @@ class CartController extends Controller
             //     $price =  $product->getPrice();
             // }
 
-            $price =  $product->getPrice();
+            $price =  $product->price;
+
+            //dd($price);
 
             $item = CartItem::create([
                 'shop_cart_id' => $cart->id,
                 'shop_product_id' => $product->id,
-                'shop_product_variation_id' => $variable ? $post['cartItem']['variation'] : null,
+                // 'shop_product_variation_id' => $variable ? $post['cartItem']['variation'] : null,
+                'shop_product_variation_id' => null,
                 // 'changed_composition' => $post['composition'] !== null ? $post['composition']['total_product'] : null,
                 'qty' => $post['cartItem']['quantity'],
                 'unit_price' => $price
             ]);
+            //dd($item);
             
         } else {
             // Just add new amount to existing quantity
@@ -283,18 +287,18 @@ class CartController extends Controller
     
             $cart = Cart::create([
                 'code' => $code,
-                'user_id' => auth()->user()->id,
+                'user_id' => \Auth::guard('client')->user()->id,//auth()->user()->id,
             ]);
 
         }
 
-
         if($cart){
-            Cookie::queue('cart', $code, 30 * 24 * 60); 
+            Cookie::queue('cart', $cart->code, 30 * 24 * 60); 
             session()->put('cart', [
                 'code' => $cart->code,
                 'totalItems' => $cart->total_items,
-                'totalPrice' => $cart->total_price
+                'totalPrice' => $cart->total_price,
+                'currency' => session('currency')['iso_alpha'] ?? null,
             ]);
         }
 
@@ -332,8 +336,9 @@ class CartController extends Controller
     }
 
     private function getCart():?Cart{
-        $carts = Cart::where('user_id', auth()->user()->id)->get()->pluck('id')->toArray();
-        $orders = Order::whereIn('shop_cart_id', $carts)->get()->pluck('shop_cart_id')->toArray();
+        $carts = Cart::where('user_id', \Auth::guard('client')->user()->id)->get()->pluck('id')->toArray();
+        
+        $orders = OrderCustom::whereIn('cart_id', $carts)->get()->pluck('cart_id')->toArray();
 
         $missingCartIds = array_diff($carts, $orders);
         $cart = Cart::whereIn('id', $missingCartIds)->first();

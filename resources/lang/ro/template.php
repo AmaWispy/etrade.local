@@ -409,4 +409,6 @@ return [
     'login' => 'Autentificare',
     'access_code' => 'Cod acces',
     'invalid_access_code' => 'Cod acces invalid',
+    'for_our_clients' => "Pentru clienții noștri",
+    'for_you' => "Pentru tine",
 ];            

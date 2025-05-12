@@ -168,4 +168,9 @@ class ShippingMethodResource extends Resource
             'edit' => Pages\EditShippingMethod::route('/{record}/edit'),
         ];
     }    
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
 }

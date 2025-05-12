@@ -124,4 +124,9 @@ class ProjectResource extends Resource
             'edit' => Pages\EditProject::route('/{record}/edit'),
         ];
     }    
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
 }

@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\Auth\ClientLoginRequest;
 use App\Models\Client;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Validation\ValidationException;
 
 class AuthCustomController extends Controller
 {
@@ -23,28 +29,51 @@ class AuthCustomController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function login(Request $request)
+    public function login(ClientLoginRequest $request)
     {
-        $credentials = $request->validate([
-            'access_code' => ['required', 'string'],
-            'email' => ['required', 'string'],
+        $request->ensureIsNotRateLimited();
+
+        $client = Client::where('email', $request->email)->first();
+
+        Log::info('Login attempt', [
+            'email' => $request->email,
+            'client_found' => !is_null($client),
+            'access_code_length' => strlen($request->access_code),
         ]);
 
-        // Find client by access_code
-        $client = Client::where('access_code', $credentials['access_code'])->first();
-
-        if ($client) {
-            // Create session for the client
-            $request->session()->put('client_id', $client->id);
-            $request->session()->put('client_code', $client->access_code);
-            $request->session()->regenerate();
-            
-            return redirect()->intended('/');
+        if (!$client) {
+            Log::warning('Client not found', ['email' => $request->email]);
+            RateLimiter::hit($request->throttleKey());
+            throw ValidationException::withMessages([
+                'email' => [trans('auth.failed')],
+            ]);
         }
 
-        return back()->withErrors([
-            'access_code' => __('template.invalid_access_code'),
-        ])->onlyInput('access_code');
+        $isValid = $client->verifyAccessCode($request->access_code);
+        Log::info('Access code verification', [
+            'is_valid' => $isValid,
+            'client_id' => $client->id,
+        ]);
+
+        if (!$isValid) {
+            RateLimiter::hit($request->throttleKey());
+            throw ValidationException::withMessages([
+                'email' => [trans('auth.failed')],
+            ]);
+        }
+
+        Auth::guard('client')->login($client);
+
+        RateLimiter::clear($request->throttleKey());
+
+        if ($request->wantsJson()) {
+            return response()->json([
+                'message' => 'Login successful',
+                'client' => $client
+            ]);
+        }
+
+        return redirect()->intended('/');
     }
 
     /**
@@ -55,9 +84,14 @@ class AuthCustomController extends Controller
      */
     public function logout(Request $request)
     {
-        $request->session()->forget('client_id');
+        Auth::guard('client')->logout();
+
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
+        if ($request->wantsJson()) {
+            return response()->json(['message' => 'Logged out successfully']);
+        }
 
         return redirect('/');
     }
@@ -70,11 +104,12 @@ class AuthCustomController extends Controller
      */
     public function client(Request $request)
     {
-        $clientId = $request->session()->get('client_id');
-        $client = $clientId ? Client::find($clientId) : null;
+        $client = Auth::guard('client')->user();
 
-        return response()->json([
-            'client' => $client
-        ]);
+        if (!$client) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+
+        return response()->json($client);
     }
 }

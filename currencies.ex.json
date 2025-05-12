@@ -1,0 +1,42 @@
+[
+  {
+    "Code": "4",
+    "Id": "4",
+    "Name": "EUR",
+    "CharCode": "EUR",
+    "Value": "19.59",
+    "IsActive": "1"
+  },
+  {
+    "Code": "1",
+    "Id": "1",
+    "Name": "MDL",
+    "CharCode": "MDL",
+    "Value": "1",
+    "IsActive": "1"
+  },
+  {
+    "Code": "7",
+    "Id": "7",
+    "Name": "RON",
+    "CharCode": "RON",
+    "Value": "3.95",
+    "IsActive": "1"
+  },
+  {
+    "Code": "6",
+    "Id": "6",
+    "Name": "RUB",
+    "CharCode": "RUB",
+    "Value": "0",
+    "IsActive": "1"
+  },
+  {
+    "Code": "2",
+    "Id": "2",
+    "Name": "USD",
+    "CharCode": "USD",
+    "Value": "17.99",
+    "IsActive": "1"
+  }
+]

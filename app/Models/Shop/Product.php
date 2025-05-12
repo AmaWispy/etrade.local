@@ -458,9 +458,9 @@ class Product extends UnicodeModel implements HasMedia
             return $this->discounts->first();
         }
         
-        if($this->mainCategory->discounts->isNotEmpty()){
+        /* if($this->mainCategory->discounts->isNotEmpty()){
             return $this->mainCategory->discounts->first();
-        }
+        } */
 
         return null;
     }
@@ -505,6 +505,7 @@ class Product extends UnicodeModel implements HasMedia
      */
     public function isNew()
     {
+        return false;
         $publishDate = Carbon::parse($this->published_at);
         $currentDate = Carbon::now();
         return $publishDate->diffInDays($currentDate) <= 30;
@@ -586,6 +587,32 @@ class Product extends UnicodeModel implements HasMedia
         return str_replace(['.00', ','], ['', ' '], $exchanged);
     }
 
+    public function getExchangedPriceCustom($basePrice = false, $format = true)
+    {
+        $price = $basePrice ? $this->price : $this->default_price;
+        
+        $exchanged = $basePrice ? Currency::exchange($price, 'usd') : Currency::exchange($price);
+
+        if($format){
+            $exchanged = Currency::format($exchanged);
+        }
+        
+        return str_replace(['.00', ','], ['', ' '], $exchanged);
+    }
+
+    public function getExchangedPriceCustom2($basePrice = false, $format = true)
+    {
+        $price = $basePrice ? $this->price : $this->default_price;
+        
+        $exchanged = Currency::exchange($price);
+
+        if($format){
+            $exchanged = Currency::format($exchanged);
+        }
+        
+        return str_replace(['.00', ','], ['', ' '], $exchanged);
+    }
+
     /**
      * Make excerpt by limiting content length
      */
@@ -648,6 +675,15 @@ class Product extends UnicodeModel implements HasMedia
             'en' => $description
         ];
         return $this;
+    }
+
+    public function getTranslatedName()
+    {
+        return match(app()->getLocale()) {
+            'ru' => $this->name_ru,
+            'en' => $this->name_en,
+            default => $this->name,
+        };
     }
 
 }

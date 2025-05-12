@@ -99,4 +99,9 @@ class PaymentMethodResource extends Resource
             'edit' => Pages\EditPaymentMethod::route('/{record}/edit'),
         ];
     }    
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
 }

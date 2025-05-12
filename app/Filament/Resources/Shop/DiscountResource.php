@@ -148,4 +148,9 @@ class DiscountResource extends Resource
             'edit' => Pages\EditDiscount::route('/{record}/edit'),
         ];
     }    
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
 }

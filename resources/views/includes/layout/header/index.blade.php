@@ -11,6 +11,7 @@
 @php
 use Illuminate\Support\Facades\Cookie;
 use App\Models\Shop\Cart;
+use Illuminate\Support\Facades\Auth;
     $HeaderMenu = \App\Models\Navigation\Menu::where('key', 'header-nav')->first();
     $cart = null;
 
@@ -84,26 +85,30 @@ use App\Models\Shop\Cart;
                         </ul>
                         
                         <ul class="flex items-center lg:w-auto w-full lg:justify-normal justify-end gap-2 text-xl">
+                            @if(Auth::guard('client')->check())
+                                <li>
+                                    <a href="{{ route('follow.view') }}" 
+                                        class="duration-500 xl:hover:bg-florarColor xl:hover:text-white rounded-full flex items-center text-center justify-center p-2 w-9 h-9">
+                                        <i class="bi bi-heart"></i>
+                                    </a>
+                                </li>
+                            @endif
+                            @if(Auth::guard('client')->check())
+                                <li>
+                                    <button type="button" 
+                                        id="cart" 
+                                        x-on:click='body = !body'
+                                        data-drawer-target="drawer-right-example" 
+                                        data-drawer-show="drawer-right-example" 
+                                        data-drawer-placement="right" 
+                                        aria-controls="drawer-right-example" 
+                                        class="duration-500 text-center xl:hover:bg-florarColor xl:hover:text-white rounded-full flex items-center justify-center p-2 w-9 h-9">
+                                        <i class="bi bi-cart3"></i>
+                                    </button>
+                                </li>
+                            @endif
                             <li>
-                                <a href="{{ route('follow.view') }}" 
-                                    class="duration-500 xl:hover:bg-florarColor xl:hover:text-white rounded-full flex items-center text-center justify-center p-2 w-9 h-9">
-                                    <i class="bi bi-heart"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <button type="button" 
-                                    id="cart" 
-                                    x-on:click='body = !body'
-                                    data-drawer-target="drawer-right-example" 
-                                    data-drawer-show="drawer-right-example" 
-                                    data-drawer-placement="right" 
-                                    aria-controls="drawer-right-example" 
-                                    class="duration-500 text-center xl:hover:bg-florarColor xl:hover:text-white rounded-full flex items-center justify-center p-2 w-9 h-9">
-                                    <i class="bi bi-cart3"></i>
-                                </button>
-                            </li>
-                            <li>
-                                <a href="{{ Session::has('client_code') ? route('custom.logout') : route('custom.login') }}"
+                                <a href="{{ Auth::guard('client')->check() ? route('custom.logout') : route('custom.login') }}"
                                     class="duration-500 text-center xl:hover:bg-florarColor xl:hover:text-white rounded-full flex items-center justify-center p-2 w-9 h-9">
                                     <i class="bi bi-person"></i>
                                 </a>
@@ -183,7 +188,7 @@ use App\Models\Shop\Cart;
                                 {{ str_replace([',', '.00'], [' ', ''], Currency::format(session()->get('checkout.totalCost'))) }}
                             @else
                                 @if ($cart !== null)
-                                    {{null !== $cart->order ? $cart->order->total : $cart->getTotal() }} 
+                                    {{null !== $cart->order ? $cart->order->total : $cart->getTotal() }}
                                 @else 
                                     0
                                 @endif
@@ -196,7 +201,7 @@ use App\Models\Shop\Cart;
                         <a href="{{ route('cart.view') }}" class="block text-center bg-blue-500 text-white font-semibold  py-3 h-fit !w-full rounded-lg">{{ __('template.view_cart') }}</a>
                     </li>
                     <li class="w-full">
-                        <a href="{{ route('checkout.index') }}" class="block text-center bg-florarColor text-white font-semibold py-3 h-fit w-full rounded-lg">{{ __('template.checkout') }}</a>
+                        <a href="{{ route('checkout.custom.place-order') }}" class="block text-center bg-florarColor text-white font-semibold py-3 h-fit w-full rounded-lg">{{ __('template.proceed_to_checkout') }}</a>
                     </li>
                 </ul>
             </div>

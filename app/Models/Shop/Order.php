@@ -68,7 +68,7 @@ class Order extends Model
         return $this->belongsTo(ShippingDetails::class, 'shipping_details_id');
     }
 
-    public static function getShippingPrice()
+    public function getShippingPrice()
     {
         $price = Currency::exchange($this->shipping);
         return Currency::format($price);

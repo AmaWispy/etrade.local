@@ -20,12 +20,12 @@ class GetCart
     {
         if(Cookie::has('cart') && auth()->check()) {
             $cart = Cookie::get('cart');
-            $cart = Cart::where('code', $cart)->where('user_id', auth()->user()->id)->first();
+            $cart = Cart::where('code', $cart)->where('user_id', \Auth::guard('client')->user()->id)->first();
             /**
              * In case the order is processed, 
              * remove cart from cookies and session
              */
-            if( $cart === null || (null !== $cart->order && $cart->order->status === Order::PROCESSING) ){
+            if( $cart === null || (null !== $cart->order && $cart->orderCustom->status === Order::PROCESSING) ){
                 Cookie::forget('cart');
                 session()->forget('shipping');
                 session()->forget('cart');

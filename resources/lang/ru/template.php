@@ -141,7 +141,7 @@ return [
     'contact_phone' => 'Контактный телефон',
     'receive_order_myself' => 'Я получаю заказ сам',
     'order_placed' => 'Заказ #:order успешно размещён!',
-    'order_paid' => 'Заказ #:order успешно оплачен!',
+    'order_paid' => 'Заказ #:order успешно размещён!',
     'order_awaiting_payment' => 'Заказ #:order в ожидании оплаты!',
     'order_awaiting_verification' => 'Заказ #:order в ожидании подтверждения оплаты!',
     'may_take_time' => 'Это может занять некоторое время. Страница обновится через 5 секунд.',
@@ -402,5 +402,6 @@ return [
     'login' => 'Вход',
     'access_code' => 'Код доступа',
     'invalid_access_code' => 'Неверный код доступа',
-
+    'for_our_clients' => "Для наших клиентов",
+    'for_you' => "Для вас",
 ];      

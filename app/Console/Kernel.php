@@ -20,10 +20,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('clients:fetch')
-            ->dailyAt('12:00');
+        /* $schedule->command('clients:fetch')
+            ->dailyAt('12:00'); */
         $schedule->command('fetch:products')
             ->dailyAt('12:00');
+        $schedule->command('currencies:fetch')
+            ->dailyAt('12:10');
     }
 
     /**

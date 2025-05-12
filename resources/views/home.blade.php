@@ -581,8 +581,7 @@
                     @foreach ($products as $product )
                         <div class="xl:!w-[350px] lg:!w-[330px] md:!w-[330px]  xl:!mx-4 lg:!mx-5 !mx-9">
                             @include('includes.products.item.default', [
-                                'product' => $product,
-                                'circle' => true
+                                'product' => $product
                             ])
                         </div>
                     @endforeach

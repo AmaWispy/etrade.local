@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\OrderCustom;
 
 class Cart extends Model
 {
@@ -34,6 +35,11 @@ class Cart extends Model
     public function order(): HasOne
     {
         return $this->hasOne(Order::class, 'shop_cart_id');
+    }
+
+    public function orderCustom(): HasOne
+    {
+        return $this->hasOne(OrderCustom::class, 'cart_id');
     }
 
     public function getTotal($format = true)

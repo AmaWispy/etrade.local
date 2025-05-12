@@ -26,7 +26,7 @@ use Filament\Infolists\Components\TextEntry;
 class OrderResource extends Resource
 {
     // Temporary disabled, remove or comment line below to enable
-    // protected static bool $shouldRegisterNavigation = false;
+    protected static bool $shouldRegisterNavigation = false;
     
     protected static ?string $model = Order::class;
 

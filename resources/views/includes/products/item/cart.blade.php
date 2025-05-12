@@ -19,7 +19,7 @@
 
                     <!-- Image product Start-->
                         <div class="!h-20 !w-20">
-                            <a href="{{ route('shop.card', ['slug' => $item->product->slug, 'id' => $item->product->id]) }}"  data-id="{{ $item->product->id }}" data-item="{{ $item->id }}"  class="h-full w-full rounded-lg btn-popup">
+                            <a href="{{ route('shop.card', ['slug' => $item->product->slug[app()->getLocale()], 'id' => $item->product->id]) }}"  data-id="{{ $item->product->id }}" data-item="{{ $item->id }}"  class="h-full w-full rounded-lg btn-popup">
                                 @if(!$item->product->type === \App\Models\Shop\Product::VARIABLE)
                                     <img src="{{$item->variation->getImage()}}" class= "h-full w-full object-cover rounded-lg" alt="{{$item->variation->name}}">
                                 @else
@@ -33,10 +33,10 @@
                         <div  class="inline-flex flex-col justify-center sm:w-full lg:w-auto ">
                             <div class="!w-full sm:h-full flex justify-between">
                                 @if($item->product->type === \App\Models\Shop\Product::VARIABLE)
-                                    <a href="{{ route('shop.card', ['slug' => $item->product->slug, 'id' => $item->product->id]) }}" data-id="{{ $item->product->id }}" data-item="{{ $item->id }}" class="btn-popup text-start truncate 2xl:w-80 xl:!w-60 lg:!w-60 sm:!w-40 md:!w-64 hover:text-neutral-500">{{$item->variation->name}}
+                                    <a href="{{ route('shop.card', ['slug' => $item->product->slug[app()->getLocale()], 'id' => $item->product->id]) }}" data-id="{{ $item->product->id }}" data-item="{{ $item->id }}" class="btn-popup text-start truncate 2xl:w-80 xl:!w-60 lg:!w-60 sm:!w-40 md:!w-64 hover:text-neutral-500">{{$item->variation->name}}
                                     </a>
                                 @else
-                                    <a href="{{ route('shop.card', ['slug' => $item->product->slug, 'id' => $item->product->id]) }}" data-id="{{ $item->product->id }}" data-item="{{ $item->id }}" class="btn-popup text-start w-full">
+                                    <a href="{{ route('shop.card', ['slug' => $item->product->slug[app()->getLocale()], 'id' => $item->product->id]) }}" data-id="{{ $item->product->id }}" data-item="{{ $item->id }}" class="btn-popup text-start w-full">
                                         <h4  class="lg:text-lg sm:text-sm  font-semibold !m-0 2xl:w-80 xl:!w-60 lg:!w-60 sm:!w-48 md:!w-64 truncate hover:text-neutral-500">{{$item->product->name}}</h4 >
                                     </a>
                                 @endif
@@ -80,7 +80,7 @@
                 <div class="">
                     <!-- Image Start-->
                     <div class="lg:h-28 lg:w-28 md:h-24 md:w-24 h-20 w-20">
-                        <a href="{{ route('shop.card', ['slug' => $item->product->slug, 'id' => $item->product->id]) }}" data-id="{{ $item->product->id }}" data-item="{{ $item->id }}" class="h-full w-full rounded-lg btn-popup">
+                        <a href="{{ route('shop.card', ['slug' => $item->product->slug[app()->getLocale()], 'id' => $item->product->id]) }}" data-id="{{ $item->product->id }}" data-item="{{ $item->id }}" class="h-full w-full rounded-lg btn-popup">
                             @if(!$item->product->type === \App\Models\Shop\Product::VARIABLE)
                                 <img src="{{$item->variation->getImage()}}" class= "h-full w-full object-cover rounded-lg" alt="{{$item->variation->name}}">
                             @else
@@ -95,10 +95,10 @@
                         <ul class="flex justify-between border-b py-3 w-full">
                             <li>
                                 @if($item->product->type === \App\Models\Shop\Product::VARIABLE)
-                                        <a href="{{ route('shop.card', ['slug' => $item->product->slug, 'id' => $item->product->id]) }}" data-id="{{ $item->product->id }}" data-item="{{ $item->id }}" class="btn-popup text-start truncate 2xl:w-80 xl:!w-60 lg:!w-80 sm:!w-40 md:!w-60 hover:text-neutral-500">{{$item->variation->name}}
+                                        <a href="{{ route('shop.card', ['slug' => $item->product->slug[app()->getLocale()], 'id' => $item->product->id]) }}" data-id="{{ $item->product->id }}" data-item="{{ $item->id }}" class="btn-popup text-start truncate 2xl:w-80 xl:!w-60 lg:!w-80 sm:!w-40 md:!w-60 hover:text-neutral-500">{{$item->variation->name}}
                                         </a>
                                     @else
-                                        <a href="{{ route('shop.card', ['slug' => $item->product->slug, 'id' => $item->product->id]) }}" data-id="{{ $item->product->id }}" data-item="{{ $item->id }}" class="btn-popup text-start w-full">
+                                        <a href="{{ route('shop.card', ['slug' => $item->product->slug[app()->getLocale()], 'id' => $item->product->id]) }}" data-id="{{ $item->product->id }}" data-item="{{ $item->id }}" class="btn-popup text-start w-full">
                                             <h4  class="lg:text-lg sm:text-sm font-semibold !m-0 2xl:w-80 xl:!w-60 lg:!w-80 sm:!w-40 md:!w-60 truncate hover:text-neutral-500">{{$item->product->name}}</h4 >
                                         </a>
                                     @endif

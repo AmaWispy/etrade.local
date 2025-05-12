@@ -38,7 +38,19 @@
                                             </li>
                                         </ul>
                                     @else
-                                        <span class="font-bold text-xl">{{$product->getExchangedPrice()}}</span>
+                                        @if(\Auth::guard('client')->check())
+                                            <ul class="font-bold flex gap-2 text-xl">
+                                                <li>
+                                                    <span>{{$product->getExchangedPriceCustom2(false)}}</span>
+                                                </li>
+                                                <li>
+                                                    <span class="text-[12px] text-neutral-400">{{__('template.for_you')}}</span>
+                                                </li>
+                                            </ul>
+                                            <span class="font-bold text-xl">{{$product->getExchangedPriceCustom2(false)}}</span>
+                                        @else
+                                            <span class="font-bold text-xl">{{$product->getExchangedPriceCustom2(false)}}</span>
+                                        @endif
                                     @endif
                                 </h1>
                             </li>
@@ -70,7 +82,7 @@
 
                         <div class="flex flex-col gap-3 mt-3">
                             <!-- Filters Start -->
-                                <div class="flex flex-col gap-2">
+                                <!-- <div class="flex flex-col gap-2">
                                     <ul class="flex justify-between !items-center lg:gap-5 gap-4 w-52">
                                         <li>
                                             <h1 class="lg:text-2xl md:text-xl text-lg font-medium">{{ __('template.colors') }}:</h1>
@@ -114,9 +126,10 @@
                                             </ul>
                                         </li>
                                     </ul>
-                                </div>
+                                </div> -->
                             <!-- Filters End -->
-                            <form class="flex md:items-center md:flex-row flex-col items-center md:gap-5 gap-3 mt-3 md:mt-0">
+                            @if(\App\Services\HelperService::isClientAuth())
+                                <form class="flex md:items-center md:flex-row flex-col items-center md:gap-5 gap-3 mt-3 md:mt-0">
                                 <!-- Qnty Select Product Start-->
                                     <div class="relative flex items-center">
                                         <button type="button" id="decrement" class="text-xl text-black bg-gray-200 w-7 h-7 p-1.5 rounded-full flex justify-center items-center text-center xl:hover:bg-blue-500 xl:hover:text-white cursor-pointer"><i class="bi bi-dash-lg text-sm"></i></button>
@@ -125,7 +138,7 @@
                                     </div>
                                 <!-- Qnty Select Product Start-->
 
-                                <div class="flex xl:!gap-3 gap-3 w-full items-center">
+                                    <div class="flex xl:!gap-3 gap-3 w-full items-center">
                                     <!-- Add To Cart Btn Start-->
                                         <button  
                                         type="button"
@@ -142,10 +155,10 @@
                                     <div class="border border-black rounded-lg py-2.5 px-2">
                                         @include('includes.buttons.follow')
                                     </div>
-                                    <!-- Add to Follow End -->
-                                </div>
-                            </form>
-                                
+                                        <!-- Add to Follow End -->
+                                    </div>
+                                </form>
+                            @endif
                         </div>
                     </div>
                 <!-- Product Infos End-->

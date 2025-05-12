@@ -31,17 +31,32 @@ class Currency extends UnicodeModel
 
         $default = self::where('is_default', true)->first();
         $exchangeRate = $default->rate / $this->rate;
-        return round($exchangeRate, 4);
+        return round($exchangeRate, 6);
     }
 
-    public static function exchange($amount)
-    {   
+    public static function exchange($amount, $curr = 'mdl')
+    {
+        if ($curr == 'usd') {
+            $usdCurrency = self::where('iso_alpha', 'USD')->first();
+            if ($usdCurrency) {
+                $amount = $amount * $usdCurrency->rate;
+            }
+        }
         $currency = session('currency');
         if(!$currency['default'] ){
             $amount = $amount *  $currency['exchange_rate'];
-            //$amount = ceil($amount * 100) / 100;
+        //$amount = ceil($amount * 100) / 100;
         }
-        
+        return $amount;
+    }
+
+    public static function exchangeUSD($amount)
+    {
+        $usdCurrency = self::where('iso_alpha', 'USD')->first();
+        if ($usdCurrency) {
+            $amount = $amount * $usdCurrency->rate;
+        }
+
         return $amount;
     }
 

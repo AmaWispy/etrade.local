@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Filament\Widgets;
-use App\Models\Shop\Order;
+use App\Models\OrderCustom;
 use Carbon\Carbon;
 
 use Filament\Widgets\ChartWidget;
@@ -25,7 +25,7 @@ class CustomersChart extends ChartWidget
         $currentMonth = Carbon::now()->startOfMonth();
 
         // Calculate totals for the last 12 months
-        $tickets = Order::selectRaw('DATE_FORMAT(created_at, "%b") as month_name, SUM(total) as revenue')
+        $tickets = OrderCustom::selectRaw('DATE_FORMAT(created_at, "%b") as month_name, SUM(total) as revenue')
             ->where('created_at', '>=', $currentMonth->copy()->subMonths(11)) // Starting from 12 months ago
             ->groupBy('month_name')
             ->get();

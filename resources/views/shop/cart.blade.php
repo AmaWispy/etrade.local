@@ -70,8 +70,8 @@
             <form class="bg-orange-50 2xl:w-2/6 xl:w-[45%] w-full lg:p-[35px] p-[25px] flex flex-col gap-4 rounded-lg">
                 <h1 class="text-xl font-medium">{{ __('template.order_summary') }}</h1>
                 <div class="bg-white flex flex-col p-3">
-                    <!-- Subtotal Start -->
-                        <ul class="flex justify-between items-center border-b py-3">
+                    <!-- Subtotal Start border-b-->
+                        <ul class="flex justify-between items-center py-3">
                             <li>
                                 <h1>{{ __('template.subtotal') }}</h1>
                             </li>
@@ -88,7 +88,7 @@
                     <!-- Subtotal End -->
     
                     <!-- Shipping Start-->
-                        <div class="border-b py-3 flex justify-between items-center">
+                        <!-- <div class="border-b py-3 flex justify-between items-center">
                             <h1>{{ __('template.shipping') }}</h1>
                             <div class="w-1/2 flex flex-col gap-2">
                                 <div class="flex items-center gap-2">
@@ -104,33 +104,33 @@
                                     <label for="default-radio-3" class="text-sm">{{ __('template.flat_rate') }}: $12.59</label>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     <!-- Shipping End-->
 
                     <!-- State Tax Start-->
-                        <ul class="flex justify-between items-center border-b py-3">
+                        <!-- <ul class="flex justify-between items-center border-b py-3">
                             <li>
                                 <h1>{{ __('template.state_tax') }}</h1>
                             </li>
                             <li class="w-1/2">
                                 <h1>$8.00</h1>
                             </li>
-                        </ul>
+                        </ul> -->
                     <!-- State Tax End-->
     
                     <!-- Total Start-->
-                        <ul class="flex justify-between items-center py-3">
+                        <!-- <ul class="flex justify-between items-center py-3">
                             <li>
                                 <h1>{{ __('template.total') }}</h1>
                             </li>
                             <li class="w-1/2">
                                 <h1 class="font-bold text-blue-500 text-lg">$125.00</h1>
                             </li>
-                        </ul>
+                        </ul> -->
                     <!-- Total End-->
                 </div>
                 {{-- <button class="py-3 rounded-lg bg-blue-500 hover:bg-blue-600 duration-500 text-white font-semibold">{{ __('template.process_to_checkout') }}</button> --}}
-                <a href="{{ route('checkout.index') }}" class="block items-center text-center py-3 rounded-lg bg-blue-500 hover:bg-blue-600 duration-500 text-white font-semibold">{{ __('template.process_to_checkout') }}</a> 
+                <a href="{{ route('checkout.custom.place-order') }}" class="block items-center text-center py-3 rounded-lg bg-blue-500 hover:bg-blue-600 duration-500 text-white font-semibold">{{ __('template.proceed_to_checkout') }}</a> 
                 {{-- eубрать ссылку когда буду уже подкл бэк --}}
             </form>
         </div>

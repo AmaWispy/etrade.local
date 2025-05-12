@@ -637,4 +637,38 @@ class CheckoutController extends Controller
     
         return $string;
     }
+
+    public function placeOrderCustom(Request $request){
+        $cartCode = session('cart.code');
+        if (!$cartCode) {
+            return redirect('/');
+        }
+
+        $cart = \App\Models\Shop\Cart::where('code', $cartCode)->first();
+        if (!$cart) {
+            return redirect('/');
+        }
+
+        $order = new \App\Models\OrderCustom();
+        $order->client_id = \Auth::guard('client')->check() ? \Auth::guard('client')->id() : null;
+        $order->cart_id = $cart->id;
+        $order->status = 'processing';
+        $order->comments = null;
+        $order->total = $cart->total_price;
+        $order->save();
+
+        $sessionDelete = ['checkout', 'card', 'shipping_method', 'cart'];
+
+        foreach($sessionDelete as  $delete){
+            session()->forget($delete);
+        }
+
+        $emptyCart = Cookie::forget('cart');
+
+        return response()->view('shop.checkout-result-congrat',
+            compact(
+                'cart'
+            )
+        )->cookie($emptyCart);
+    }
 }

@@ -39,6 +39,10 @@ Route::group(['prefix' => 'artisan'], function () {
         Artisan::call('storage:link');
         return 'Symlink to storage created';
     });
+    Route::get('clear-sessions', function() {
+        Artisan::call('session:clear');
+        return 'All sessions have been cleared';
+    });
 });
 
 // Authentication routes
@@ -134,7 +138,7 @@ Route::post('/product/search', [ShopController::class, 'searchProduct'])
 
 
 // Cart
-Route::group(['prefix' => 'cart', 'middleware' => ['auth']], function () {
+Route::group(['prefix' => 'cart', 'middleware' => ['auth:client']], function () {
     Route::get('/show', [CartController::class, 'show'])
         ->name('cart.show');
     Route::get('/view', [CartController::class, 'view'])
@@ -169,8 +173,11 @@ Route::group(['prefix' => 'follow', 'middleware' => ['auth']], function () {
 
 //Auth
 Route::group(['prefix' => 'auth'], function () {
-    Route::get('/view', [AuthController::class, 'view'])
-        ->name('auth.index');     
+    /* Route::get('/view', [AuthController::class, 'view'])
+        ->name('auth.index');      */
+    Route::get('/view', function () {
+        return redirect('/');
+    })->name('auth.redirect');
 });
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
@@ -208,6 +215,8 @@ Route::group(['prefix' => 'checkout'], function () {
         ->name('checkout.calculate-fixed-time');
     Route::post('/place-order', [CheckoutController::class, 'placeOrder'])
         ->name('checkout.place-order');
+    Route::get('/place-order-client', [CheckoutController::class, 'placeOrderCustom'])
+        ->name('checkout.custom.place-order');
     Route::get('/result/{cart_code}', [CheckoutController::class, 'result'])
         ->name('checkout.result');
 });

@@ -95,7 +95,20 @@ class SiteController extends Controller
     }
 
     public function test(){
-        return \App\Services\ApiService::fetchAndStoreClients();
+        //return \App\Services\ApiService::fetchAndStoreProducts();
+
+        //dd(session()->all());
+        Cookie::forget('cart');
+        dd(Cookie::get('cart'));
+        $price = 50;
+        $currency = 'MDL';
+        // Переводим цену в основную валюту
+        if ($price > 0) {
+            $convertedPrice = \App\Models\Shop\Currency::exchangeUSD($price);
+        } else {
+            $convertedPrice = 0;
+        }
+        return $convertedPrice;
     }
 
     // public function testSmtp(){

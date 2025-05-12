@@ -152,4 +152,9 @@ class ShippingZoneResource extends Resource
             'edit' => Pages\EditShippingZone::route('/{record}/edit'),
         ];
     }    
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
 }

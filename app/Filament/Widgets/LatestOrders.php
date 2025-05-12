@@ -2,7 +2,8 @@
 
 namespace App\Filament\Widgets;
 
-use App\Filament\Resources\Shop\OrderResource;
+use App\Filament\Resources\OrderCustomResource;
+use App\Models\OrderCustom;
 use App\Models\Shop\Order;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -18,61 +19,40 @@ class LatestOrders extends BaseWidget
     public function table(Table $table): Table
     {
         return $table
-            ->query(OrderResource::getEloquentQuery())
+            ->query(OrderCustomResource::getEloquentQuery())
             ->defaultPaginationPageOption(5)
             ->defaultSort('created_at', 'desc')
             ->columns([
                 Tables\Columns\TextColumn::make('id')
+                    ->label('ID')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('client.name')
+                    ->label('Client')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->label('Order Date')
-                    ->date()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('customer.name')
-                    ->searchable()
-                    ->sortable(),
-                Tables\Columns\BadgeColumn::make('status')
-                    ->colors([
-                        'info' => 'new',
-                        'warning' => 'pending',
-                        'success' => 'processing',
-                        //'success' => fn ($state) => in_array($state, ['delivered', 'shipped']),
-                    ]),
-                /*Tables\Columns\TextColumn::make('currency')
-                    ->getStateUsing(fn ($record): ?string => Currency::find($record->currency)?->name ?? null)
-                    ->searchable()
-                    ->sortable(),*/
-                Tables\Columns\TextColumn::make('subtotal')
-                    ->searchable()
-                    ->sortable()
-                    ->summarize([
-                        Tables\Columns\Summarizers\Sum::make(),
-                    ]),
-                Tables\Columns\TextColumn::make('shipping')
-                    ->label('Shipping cost')
-                    ->searchable()
-                    ->sortable()
-                    ->summarize([
-                        Tables\Columns\Summarizers\Sum::make(),
-                    ]),
-                Tables\Columns\TextColumn::make('fixed_time')
-                    ->label('Fixed Time cost')
-                    ->searchable()
-                    ->sortable()
-                    ->summarize([
-                        Tables\Columns\Summarizers\Sum::make(),
-                    ]),
                 Tables\Columns\TextColumn::make('total')
-                    ->searchable()
-                    ->sortable()
-                    ->summarize([
-                        Tables\Columns\Summarizers\Sum::make(),
-                    ]),
+                    ->label('Amount')
+                    ->money('MDL')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('cart.total_items')
+                    ->label('Items Count')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('status')
+                    ->label('Status')
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'processing' => 'warning',
+                        'completed' => 'success',
+                        'deleted' => 'danger',
+                    }),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('Created')
+                    ->dateTime('d.m.Y H:i')
+                    ->sortable(),
             ])
             ->actions([
                 Tables\Actions\Action::make('open')
-                    ->url(fn (Order $record): string => OrderResource::getUrl('edit', ['record' => $record])),
+                    ->url(fn (OrderCustom $record): string => OrderCustomResource::getUrl('edit', ['record' => $record])),
             ]);
     }
 }

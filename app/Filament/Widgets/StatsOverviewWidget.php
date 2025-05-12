@@ -4,7 +4,7 @@ namespace App\Filament\Widgets;
 
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
-use App\Models\Shop\Order;
+use App\Models\OrderCustom;
 use App\Models\Shop\Customer;
 use Carbon\Carbon;
 
@@ -32,17 +32,17 @@ class StatsOverviewWidget extends BaseWidget
         /**
          * Total revenue for current month
          */
-        $currentMonth = Order::whereYear('created_at', '=', Carbon::now()->year)
+        $currentMonth = OrderCustom::whereYear('created_at', '=', Carbon::now()->year)
             ->whereMonth('created_at', '=', Carbon::now()->month)
-            ->where('status', Order::PROCESSING)
+            ->where('status', OrderCustom::PROCESSING)
             ->sum('total');
 
         /**
          * Total revenue for previous month
          */
-        $previousMonth = Order::whereYear('created_at', '=', Carbon::now()->subMonth()->year)
+        $previousMonth = OrderCustom::whereYear('created_at', '=', Carbon::now()->subMonth()->year)
             ->whereMonth('created_at', '=', Carbon::now()->subMonth()->month)
-            ->where('status', Order::PROCESSING)
+            ->where('status', OrderCustom::PROCESSING)
             ->sum('total');
 
         /**
@@ -67,14 +67,14 @@ class StatsOverviewWidget extends BaseWidget
         /**
          * Total orders for current month
          */
-        $currentMonth = Order::whereYear('created_at', '=', Carbon::now()->year)
+        $currentMonth = OrderCustom::whereYear('created_at', '=', Carbon::now()->year)
             ->whereMonth('created_at', '=', Carbon::now()->month)
             ->count();
 
         /**
          * Total orders for previous month
          */
-        $previousMonth = Order::whereYear('created_at', '=', Carbon::now()->subMonth()->year)
+        $previousMonth = OrderCustom::whereYear('created_at', '=', Carbon::now()->subMonth()->year)
             ->whereMonth('created_at', '=', Carbon::now()->subMonth()->month)
             ->count();
 

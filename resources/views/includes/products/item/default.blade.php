@@ -7,30 +7,25 @@
                     data-id = '{{ $product->id }}'
                     data-type = 'product'
                     class="w-full h-full overflow-hidden">
-                    <img src="{{ $product->getFirstThumb() }}" class="w-full h-full duration-300 group-hover:transform group-hover:scale-110 object-cover rounded-lg @if(isset($circle)) !rounded-full @endif" alt="Image {{ $product->name }}">
+                    <img src="{{ $product->getImages()[0]['medium'] }}" class="w-full h-full duration-300 group-hover:transform group-hover:scale-110 object-cover rounded-lg @if(isset($circle)) !rounded-full @endif" alt="Image {{ $product->name }}">
                 </a>
                 
                 <!-- Follow Add to Cart and show Start-->
-                    @if(!isset($circle)) 
+                    @if(!isset($circle) && Auth::guard('client')->user())
                         <div class="absolute bottom-9 left-1/2 w-fit -translate-x-1/2 !h-fit opacity-0 group-hover:opacity-100 transition-all duration-300 xl:inline hidden">
                             <ul class="flex items-center gap-1 text-sm h-10">
                                 <li class="h-full">
                                     @include('includes.buttons.follow')
                                 </li>
                                 <li class="text-center">
-                                    <a  
-                                    @guest
-                                        href="{{ route('register') }}"
-                                    @endguest
-                                    @auth
+                                    <a
                                         href="#" 
                                         data-disabled-label="{{__('template.adding')}}"
                                         data-action="add-to-cart"
                                         data-product="{{$product->id}}"
                                         data-type="{{$product->type}}"
-                                    @endauth
-                                    title="{{__('template.to_cart')}}" 
-                                    class="text-white block bg-florarColor h-10 w-[160px] py-2.5 font-medium rounded-md text-center" 
+                                        title="{{__('template.to_cart')}}" 
+                                        class="text-white block bg-florarColor h-10 w-[160px] py-2.5 font-medium rounded-md text-center" 
                                     >{{ __('template.add_to_cart') }}</a>
                                 </li>
                                 <li class="h-full">
@@ -53,19 +48,31 @@
             </div>
         <!-- Sale or New End -->
 
-        <a href="{{ route('shop.card', ['slug' => $product->slug[app()->getLocale()], 'id' => $product->id]) }}" class="text-neutral-400 xl:hover:text-blue-500 duration-300 font-medium truncate w-[95%]">{{ $product->name }}</a>
+        <a href="{{ route('shop.card', ['slug' => $product->slug[app()->getLocale()], 'id' => $product->id]) }}" class="xl:hover:text-blue-500 duration-300 font-medium truncate w-[95%]">{{ $product->getTranslatedName() }}</a>
     </div>
     @if($product->onSale())
         <ul class="font-bold flex gap-2 text-xl">
             <li>
-                <span>{{$product->getExchangedPrice(false)}}</span>
+                <span>{{$product->default_price}}</span>
             </li>
             <li>
-                <del class="text-[12px] text-neutral-400">{{$product->getExchangedPrice(true)}}</del>
+                <del class="text-[12px] text-neutral-400">{{$product->default_price}}</del>
             </li>
         </ul>
     @else
-        <span class="font-bold text-xl">{{$product->getExchangedPrice()}}</span>
+        @if(Auth::guard('client')->user())
+            <ul class="font-bold flex gap-2 text-xl">
+                <li>
+                    <span>{{$product->getExchangedPriceCustom2(true)}}</span>
+                </li>
+                <li>
+                    <span class="text-[12px] text-neutral-400">{{__('template.for_you')}}</span>
+                </li>
+            </ul>
+            <span class="font-bold text-xl">{{$product->getExchangedPriceCustom2(false)}}</span>
+        @else
+            <span class="font-bold text-xl">{{$product->getExchangedPriceCustom2(false)}}</span>
+        @endif
     @endif
 
     <!-- Follow Add to Cart and show Start-->
@@ -77,16 +84,13 @@
                     </li>
                     <li class="text-center">
                         <a  
-                        @guest
-                            href="{{ route('register') }}"
-                        @endguest
-                        @auth
-                            href="#" 
+                        href="{{ Auth::guard('client')->user() ? '#' : route('custom.login') }}"
+                        @if(Auth::guard('client')->user())
                             data-disabled-label="{{__('template.adding')}}"
                             data-action="add-to-cart"
                             data-product="{{$product->id}}"
                             data-type="{{$product->type}}"
-                        @endauth
+                        @endif
                         title="{{__('template.to_cart')}}" 
                         class="text-white block bg-florarColor h-10 w-[160px] py-2.5 font-medium rounded-md text-center" 
                         >{{ __('template.add_to_cart') }}</a>
