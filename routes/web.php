@@ -50,6 +50,7 @@ Route::group(['prefix' => 'client'], function () {
     Route::get('/login', [AuthCustomController::class, 'showLoginForm'])->name('custom.login');
     Route::post('/login', [AuthCustomController::class, 'login']);
     Route::match(['get', 'post'], '/logout', [AuthCustomController::class, 'logout'])->name('custom.logout');
+    Route::get('/profile', [ProfileController::class, 'show'])->name('custom.profile');
 });
 
 // Switchers

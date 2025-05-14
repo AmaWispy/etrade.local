@@ -79,7 +79,7 @@
 
     <!-- Address and Map Box Start-->
         <div class="flex flex-col gap-5 md:container md:mx-auto px-1 mt-5">
-            <div id="map" class="w-full md:h-[55vh] sm:h-[200px] z-10"></div>
+            <div id="map" class="w-full md:h-[55vh] sm:h-[500px] z-10"></div>
         </div>
     <!-- Address and Map Box Start-->
 </x-app-layout>

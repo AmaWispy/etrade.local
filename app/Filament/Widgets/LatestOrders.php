@@ -41,9 +41,11 @@ class LatestOrders extends BaseWidget
                     ->label('Status')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
+                        'new' => 'info',
+                        'error' => 'danger',
                         'processing' => 'warning',
                         'completed' => 'success',
-                        'deleted' => 'danger',
+                        
                     }),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Created')

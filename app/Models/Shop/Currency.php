@@ -43,9 +43,15 @@ class Currency extends UnicodeModel
             }
         }
         $currency = session('currency');
-        if(!$currency['default'] ){
-            $amount = $amount *  $currency['exchange_rate'];
-        //$amount = ceil($amount * 100) / 100;
+        \Illuminate\Support\Facades\Log::info('Currency debug', [
+            'currency' => $currency,
+            'type' => gettype($currency),
+            'is_array' => is_array($currency),
+            'amount' => $amount
+        ]);
+
+        if(is_array($currency) && isset($currency['exchange_rate'])) {
+            $amount = $amount * $currency['exchange_rate'];
         }
         return $amount;
     }
@@ -65,6 +71,22 @@ class Currency extends UnicodeModel
         $currency = session('currency');
 
         $amount = round($amount * 100) / 100;
+
+        return number_format($amount, 2)." ".$currency['sign'];
+    }
+
+    public static function formatCustom($amount, $currency)
+    {
+        // If currency is a JSON string, decode it
+        if (is_string($currency)) {
+            $currency = json_decode($currency, true);
+        }
+
+        if (!is_array($currency) || !isset($currency['exchange_rate']) || !isset($currency['sign'])) {
+            return number_format($amount, 2);
+        }
+
+        $amount = round($amount * $currency['exchange_rate'] * 100) / 100;
 
         return number_format($amount, 2)." ".$currency['sign'];
     }

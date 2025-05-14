@@ -383,7 +383,7 @@ return [
     'this_month' => 'Luna aceasta',
     'dont_miss' => 'Nu ratați!!',
     'our_products_v2' => 'Produsele noastre',
-    'users_feedback' => 'Feedback-ul utilizatorilor',
+    'users_feedback' => 'Feedback-ul',
     'explore_our_products' => 'Explorează produsele noastre',
     'let_s_shopping_today' => 'Haideți să cumpărăm astăzi',
     'best_sellers' => 'Cele mai vândute',

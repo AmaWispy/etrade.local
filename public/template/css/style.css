@@ -16059,3 +16059,20 @@ input.cart-plus-minus-box {
 /* ----------------------------------------------------
     END
 ---------------------------------------------------- */
+.axil-section-gap {
+    padding: 80px 0;
+}
+.axil-dashboard-warp .axil-dashboard-author {
+    margin-bottom: 50px;
+}
+.axil-dashboard-warp .axil-dashboard-author .media {
+    align-items: center;
+}
+.axil-dashboard-warp .axil-dashboard-author .thumbnail {
+    margin-bottom: 10px;
+}
+.axil-dashboard-warp .axil-dashboard-author .joining-date {
+    font-size: 14px;
+    color: var(--color-body);
+    font-weight: var(--s-medium);
+}

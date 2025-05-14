@@ -21,19 +21,23 @@ use Illuminate\Support\Facades\Auth;
     }
 @endphp
 
-<header class="@if(!in_array(request()->route()->getName(), ['home.default', 'home.localized'])) sticky top-0 z-[9999] @endif bg-white shadow-sm" x-bind:class='body ? "!z-10" : ""'>
+<header class="@if(!in_array(request()->route()->getName(), ['home.default', 'home.localized'])) sticky top-0 border-2 border-blue-500 z-[9999] @endif bg-white shadow-sm" x-bind:class='body ? "!z-0" : ""'>
     <div class="flex flex-col">
         <!-- Switchers, logo and search Start -->
-            <div class="xl:container xl:!mx-auto mx-2 flex justify-between items-center w-full h-[62px] py-2.5">
+            <div class="xl:container xl:!mx-auto px-2 flex justify-between items-center w-full h-[62px] py-2.5">
                 <a href="{{\App\Models\Navigation\Menu::getHomePageLink()}}" class="w-40 h-full items-center flex">
                     <img src="{{ asset($templateSettings['logo-image']) }}" class="w-full" alt="Logo Site">
                 </a>
                 <div class="flex lg:justify-end gap-3 w-full h-full !items-center">
-                    <div class="lg:w-[80%] w-[95%]  mb-0 h-full items relative cursor-text" x-on:click='searchOpen = !searchOpen; body = !body'>   
+                    <div class="lg:w-[80%] w-[95%]  mb-0 h-full items relative cursor-text lg:flex hidden" x-on:click='searchOpen = !searchOpen; body = !body'>   
                         <div class="absolute inset-y start-0 flex items-center ps-3 pointer-events-none w-full h-full">
                             <i class="bi bi-search "></i>
                         </div>
                         <button id="default-search" class="block w-full cursor-text h-full ps-10 text-sm text-start text-gray-900 border border-gray-300 rounded-lg bg-white focus:ring-blue-400 focus:border-blue-400">{{ __('template.what_are_you_looking_for') }}</button>
+                    </div>
+
+                    <div class="lg:hidden w-full">
+                        @include('includes.layout.header.links')
                     </div>
             
                     <div class="lg:flex gap-3 h-full z-0 hidden">
@@ -45,7 +49,7 @@ use Illuminate\Support\Facades\Auth;
         <!-- Switchers, logo and search End -->
     
         <!-- Links Pages And Menus Start-->
-            <nav class="@if(in_array(request()->route()->getName(), ['home.default', 'home.localized'])) bg-gray-100 @endif items-center h-14">
+            <nav class="@if(in_array(request()->route()->getName(), ['home.default', 'home.localized'])) bg-gray-100 @endif items-center h-14 lg:block hidden">
                 <div class="xl:container xl:!mx-auto w-full h-full flex items-center gap-5">
                     @if (in_array(request()->route()->getName(), ['home.default', 'home.localized']))
                         <ul class="h-full">
@@ -65,7 +69,7 @@ use Illuminate\Support\Facades\Auth;
                         </ul>
                     @endif
                     <div class="flex items-center lg:justify-between w-full">
-                        <ul class="lg:flex hidden gap-3 font-semibold">
+                        <ul class="flex gap-3 font-semibold">
                             <li class="flex flex-col gap-[.5px] group">
                                 <a href="{{ route('home.default') }}" class="!text-black">{{ __('template.home') }}</a>
                                 <div class="h-[2px] group-hover:w-full group-hover:opacity-100 duration-500  bg-black w-1 opacity-0"></div>
@@ -84,47 +88,7 @@ use Illuminate\Support\Facades\Auth;
                             @endforeach 
                         </ul>
                         
-                        <ul class="flex items-center lg:w-auto w-full lg:justify-normal justify-end gap-2 text-xl">
-                            @if(Auth::guard('client')->check())
-                                <li>
-                                    <a href="{{ route('follow.view') }}" 
-                                        class="duration-500 xl:hover:bg-florarColor xl:hover:text-white rounded-full flex items-center text-center justify-center p-2 w-9 h-9">
-                                        <i class="bi bi-heart"></i>
-                                    </a>
-                                </li>
-                            @endif
-                            @if(Auth::guard('client')->check())
-                                <li>
-                                    <button type="button" 
-                                        id="cart" 
-                                        x-on:click='body = !body'
-                                        data-drawer-target="drawer-right-example" 
-                                        data-drawer-show="drawer-right-example" 
-                                        data-drawer-placement="right" 
-                                        aria-controls="drawer-right-example" 
-                                        class="duration-500 text-center xl:hover:bg-florarColor xl:hover:text-white rounded-full flex items-center justify-center p-2 w-9 h-9">
-                                        <i class="bi bi-cart3"></i>
-                                    </button>
-                                </li>
-                            @endif
-                            <li>
-                                <a href="{{ Auth::guard('client')->check() ? route('custom.logout') : route('custom.login') }}"
-                                    class="duration-500 text-center xl:hover:bg-florarColor xl:hover:text-white rounded-full flex items-center justify-center p-2 w-9 h-9">
-                                    <i class="bi bi-person"></i>
-                                </a>
-                            </li>
-                            <li class="lg:hidden">
-                                <button type="button" id="menu" 
-                                    x-on:click='body = !body'
-                                    data-drawer-target="drawer-menu" 
-                                    data-drawer-show="drawer-menu" 
-                                    data-drawer-placement="right" 
-                                    aria-controls="drawer-menu" 
-                                    class="duration-500 text-center xl:hover:bg-florarColor xl:hover:text-white rounded-full flex items-center justify-center p-2 w-9 h-9">
-                                    <i class="bi bi-list text-xl"></i>
-                                </button>
-                            </li>
-                        </ul>
+                        @include('includes.layout.header.links')
                     </div>
                 </div>
             </nav>
@@ -314,3 +278,15 @@ use Illuminate\Support\Facades\Auth;
         </div>
     </div>
 <!-- Categories Menu End -->
+
+<script type="module">
+    $(document).ready(function () {
+        $('select[name="currency"]').on('change', function () {
+            $(this).closest('form').submit();
+        });
+
+        $('select[name="locale"]').on('change', function () {
+            $(this).closest('form').submit();
+        });
+    });
+</script>

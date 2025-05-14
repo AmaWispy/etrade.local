@@ -41,7 +41,7 @@
                                         @if(\Auth::guard('client')->check())
                                             <ul class="font-bold flex gap-2 text-xl">
                                                 <li>
-                                                    <span>{{$product->getExchangedPriceCustom2(false)}}</span>
+                                                    <span>{{$product->getExchangedPriceCustom2(true)}}</span>
                                                 </li>
                                                 <li>
                                                     <span class="text-[12px] text-neutral-400">{{__('template.for_you')}}</span>
@@ -128,7 +128,7 @@
                                     </ul>
                                 </div> -->
                             <!-- Filters End -->
-                            @if(\App\Services\HelperService::isClientAuth())
+                            @if(\Auth::guard('client')->check())
                                 <form class="flex md:items-center md:flex-row flex-col items-center md:gap-5 gap-3 mt-3 md:mt-0">
                                 <!-- Qnty Select Product Start-->
                                     <div class="relative flex items-center">

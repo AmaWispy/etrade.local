@@ -49,14 +49,20 @@ class OrderCustomResource extends Resource
                 Forms\Components\Select::make('status')
                     ->label('Status')
                     ->options([
+                        'new' => 'New',
+                        'error' => 'Error',
                         'processing' => 'Processing',
                         'completed' => 'Completed',
-                        'deleted' => 'Deleted',
                     ])
                     ->required(),
                 Forms\Components\TextInput::make('cart_id')->label('Cart ID')->numeric(),
                 Forms\Components\Textarea::make('comments')->label('Comments'),
                 Forms\Components\TextInput::make('total')->label('Total')->required()->numeric(),
+                Forms\Components\TextInput::make('formatted_total')
+                    ->label(fn ($record) => 'Total')
+                    ->disabled()
+                    ->dehydrated(false)
+                    ->formatStateUsing(fn ($state, $record) => $record ? \App\Models\Shop\Currency::formatCustom($record->total, $record->currency) : null),
             ]);
     }
 
@@ -74,7 +80,7 @@ class OrderCustomResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('total')
                     ->label('Amount')
-                    ->money('MDL')
+                    ->formatStateUsing(fn ($state, $record) => \App\Models\Shop\Currency::formatCustom($state, $record->currency))
                     ->sortable(),
                 Tables\Columns\TextColumn::make('cart.total_items')
                     ->label('Items Count')
@@ -83,9 +89,10 @@ class OrderCustomResource extends Resource
                     ->label('Status')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
+                        'new' => 'info',
+                        'error' => 'danger',
                         'processing' => 'warning',
                         'completed' => 'success',
-                        'deleted' => 'danger',
                     }),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Created')

@@ -3,7 +3,7 @@
         /**
          * Add to cart
          */
-        $('[data-action="add-to-cart"]').on('click', function(e){
+        $(document).on('click', '[data-action="add-to-cart"]', function(e){
             e.preventDefault();
             let $button = $(this),
                 $qtyInput = $('input[name="quantity"]'),
@@ -15,7 +15,6 @@
                 disabledLabel = $button.data('disabled-label'),
                 defaultLabel = $button.html(),
                 productId = $button.data('product');
-
 
             $button.prop('disabled', true); // Disable the button
             $button.html(disabledLabel); // Change button label

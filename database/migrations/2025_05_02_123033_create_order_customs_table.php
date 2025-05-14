@@ -21,6 +21,7 @@ return new class extends Migration
             $table->json('shipping_address');
             $table->json('billing_address');
             $table->text('notes')->nullable();
+            $table->uuid('guid')->unique();
             $table->timestamps();
         });
     }

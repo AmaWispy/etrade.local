@@ -364,7 +364,7 @@ return [
     'this_month' => 'This Month',
     'dont_miss' => "Don't Miss!!",
     'our_products_v2' => 'Our Products',
-    'users_feedback' => 'Users Feedback',
+    'users_feedback' => 'Feedback',
     'explore_our_products' => 'Explore our Products',
     'let_s_shopping_today' => 'Let\'s Shop Today',
     'best_sellers' => 'Best Sellers',

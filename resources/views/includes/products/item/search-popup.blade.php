@@ -31,7 +31,7 @@
             <!-- Founded Info End -->
 
             <!-- Products views Start -->
-                <div class="flex w-full h-fit  mt-2 rounded-lg p-2.5 flex-col gap-2" id="result-products">
+                <div class="flex w-full h-fit  mt-2 rounded-lg p-2.5 flex-col gap-2 overflow-hidden" id="result-products">
                     <ul class="flex items-center gap-1 h-24 text-center justify-center text-neutral-400 text-base font-semibold">
                         <li>
                             <i class="bi bi-emoji-frown"></i>
@@ -66,7 +66,7 @@
                 },
                 beforeSend: function () {
                     $('#result-products').html(''); 
-                    for (let i = 0; i < 2; i++) {
+                    for (let i = 0; i < 1; i++) {
                         $('#result-products').append(`
                             <div role="status" class="space-y-8 animate-pulse md:space-y-0 md:space-x-8 rtl:space-x-reverse md:flex md:items-center mb-2">
                                 <div class="flex items-center justify-center bg-gray-300 rounded-lg aspect-square lg:w-44 md:w-40 w-28 lg:mb-0 md:mb-10 mb-16 dark:bg-gray-700">
@@ -118,29 +118,38 @@
                                                         <i class="bi bi-star"></i>
                                                         <i class="bi bi-star"></i>
                                                         <i class="bi bi-star"></i>
-                                                        <span class="text-neutral-500 flex gap-[3px]">100+ <span class="md:block hidden">{{ __('template.reviews') }}</span></span> 
+                                                        <span class="text-neutral-500 flex gap-[3px]">${product.stock_quantity} <span class="md:block hidden">{{ __('template.in_stock') }}</span></span> 
                                                     </h1>
                                                 </li>
                                                 <li class="xl:w-96 lg:w-[350px] md:w-[90%] w-32 truncate">
                                                     <a href="${product.view_link}" x-on:click='searchOpen = !searchOpen' class="lg:text-xl md:text-lg text-base truncate !w-full font-semibold text-neutral-500">${product.name}</a>
                                                 </li>
                                                 <li class="flex gap-2 items-center lg:text-lg text-base font-semibold text-neutral-500">
-                                                    <h1 class="text-black">${product.on_sale === true ? product.price_on_sale : product.price_default}</h1>
-                                                    <span class="line-through text-base">${product.on_sale === true ? product.price_default : ''}</span>
+                                                    <h1 class="text-black">${product.price}</h1>
+                                                    ${product.default_price ? `<span class="text-base">${product.default_price}</span>` : ''}
                                                 </li>
                                             </ul>
-                                            <ul class="lg:space-y-3 lg:space-x-0 space-x-3 lg:!flex-col flex-row items-center inline-flex ">
-                                                <li>
-                                                    <button type="button" class="h-10 w-10 border rounded-lg border-neutral-300 duration-300 hover:bg-blue-500 hover:text-white">
-                                                        <i class="bi bi-cart2"></i>
-                                                    </button>
-                                                </li>
-                                                <li >
-                                                    <button type="button" class="h-10 w-10 rounded-lg border border-neutral-500 duration-300 hover:bg-blue-500 hover:text-white">
-                                                        <i class="bi bi-heart"></i>
-                                                    </button>
-                                                </li>
-                                            </ul>
+                                            @if(\Auth::guard('client')->check())
+                                                <ul class="lg:space-y-3 lg:space-x-0 space-x-3 lg:!flex-col flex-row items-center inline-flex ">
+                                                    <li>
+                                                        <button
+                                                            type="button" 
+                                                            class="h-10 w-10 border rounded-lg border-neutral-300 duration-300 hover:bg-blue-500 hover:text-white"
+                                                            data-action="add-to-cart"
+                                                            data-product="${product.id}"
+                                                            data-type
+                                                            title="{{__('template.to_cart')}}" 
+                                                        >
+                                                            <i class="bi bi-cart2"></i>
+                                                        </button>
+                                                    </li>
+                                                    <li >
+                                                        <button type="button" class="h-10 w-10 rounded-lg border border-neutral-500 duration-300 hover:bg-blue-500 hover:text-white">
+                                                            <i class="bi bi-heart"></i>
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                            @endif
                                         </div>
                                     </div>
                                 `)

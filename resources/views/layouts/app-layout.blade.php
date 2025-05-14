@@ -1,10 +1,10 @@
-{{-- @php
-    // @vite fails, builded assets loaded in alternative way
-    // $manifest = json_decode(file_get_contents(public_path('build/manifest.json')), true);
-    // $cssFile = $manifest['resources/css/app.css']['file'] ?? '';
-    // $jsFile = $manifest['resources/js/app.js']['file'] ?? '';
+ @php 
+    //@vite fails, builded assets loaded in alternative way
+     $manifest = json_decode(file_get_contents(public_path('build/manifest.json')), true);
+     $cssFile = $manifest['resources/css/app.css']['file'] ?? '';
+     $jsFile = $manifest['resources/js/app.js']['file'] ?? '';
 
-@endphp --}}
+@endphp 
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -36,10 +36,9 @@
         @filamentStyles
         @vite('resources/css/app.css')
 
-        {{-- <link rel="stylesheet" href="{{ asset('build/' . $cssFile) }}"> --}}
+        <link rel="stylesheet" href="{{ asset('build/' . $cssFile) }}">
         @yield('microdata')
     </head>
-
     <body class="relative" x-data="{body:false, searchOpen:false}" x-bind:class="body ? 'overflow-y-hidden' : 'overflow-y-auto'">
         <!-- Body main Start-->
             <!-- Header Start-->
@@ -47,12 +46,6 @@
                     @include('includes.layout.header.index')
                 @endif
                 <!-- Header End-->
-
-            <!-- Banner and logo Start-->
-                @if (!in_array(request()->path(), ['cart/view', 'checkout']))
-                    @include('includes.layout.header.links')
-                @endif
-            <!-- Banner and logo End-->
 
             <!-- Show Elements Start-->
                 {{ $slot }}
@@ -85,13 +78,10 @@
         <!-- Body main end -->
 
         <!-- preloader area start -->
-            <div class="preloader d-none" id="preloader">
-                <div class="preloader-inner">
-                    <div class="spinner">
-                        <div class="dot1"></div>
-                        <div class="dot2"></div>
-                    </div>
-                </div>
+            <div class="preloader inset-0 fixed w-full h-full bg-white z-[9999] flex items-center justify-center text-black" id="preloader">
+                <div class="2xl:w-80 2xl:h-80 xl:w-52 xl:h-52 lg:w-48 lg:h-48  w-40 h-40">
+                    <img src="{{ asset($templateSettings['logo-image']) }}" class="h-full w-full object-contain" alt="Logo Florar">
+                </div>                       
             </div>
         <!-- preloader area end -->
 
@@ -145,7 +135,7 @@
         @filamentScripts
         @vite('resources/js/app.js')
 
-        {{-- <script src="{{ asset('build/' . $jsFile) }}" defer></script> --}}
+        <script src="{{ asset('build/' . $jsFile) }}" defer></script>
         <script src="//unpkg.com/alpinejs" defer></script>
     </body>
 </html>

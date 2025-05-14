@@ -15,7 +15,9 @@ class OrderCustom extends Model
     const NEW = 'new'; // New order, simply saved in db
     const PENDING = 'pending'; // The client was redirected to payment gateway, waiting for some response from the gateway
     const VERIFICATION = 'verification'; // Notification obtained, seems to be ok, but one more verification required
+    const ERROR = 'error'; // Error in api process
     const PROCESSING = 'processing'; // Will be updated to processing after successful payment (or in case cash on delivery was selected)
+    const COMPLETED = 'completed'; // Order completed
 
     /**
      * Имя таблицы
@@ -35,6 +37,7 @@ class OrderCustom extends Model
         'status',
         'comments',
         'total',
+        'guid',
     ];
 
     /**
@@ -44,6 +47,7 @@ class OrderCustom extends Model
      */
     protected $casts = [
         'total' => 'decimal:2',
+        'currency' => 'array',
     ];
 
     /**

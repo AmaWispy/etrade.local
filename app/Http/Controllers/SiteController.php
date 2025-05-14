@@ -98,7 +98,7 @@ class SiteController extends Controller
         //return \App\Services\ApiService::fetchAndStoreProducts();
 
         //dd(session()->all());
-        Cookie::forget('cart');
+        /* Cookie::forget('cart');
         dd(Cookie::get('cart'));
         $price = 50;
         $currency = 'MDL';
@@ -108,7 +108,9 @@ class SiteController extends Controller
         } else {
             $convertedPrice = 0;
         }
-        return $convertedPrice;
+        return $convertedPrice; */
+        $currency = session()->get('currency')['iso_alpha'];
+        return $currency;
     }
 
     // public function testSmtp(){

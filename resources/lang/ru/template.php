@@ -376,7 +376,7 @@ return [
     'this_month' => 'Этот месяц',
     'dont_miss' => 'Не пропустите!!',
     'our_products_v2' => 'Наши продукты',
-    'users_feedback' => 'Отзывы пользователей',
+    'users_feedback' => 'Отзывы',
     'explore_our_products' => 'Explore our Products',
     'let_s_shopping_today' => 'Давайте делать покупки сегодня',
     'best_sellers' => 'Лучшие продажи',

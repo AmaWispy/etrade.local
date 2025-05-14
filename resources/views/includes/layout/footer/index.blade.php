@@ -81,9 +81,9 @@
         <!-- Footer Links Start-->
             <div class="flex xl:justify-between lg:flex-row sm:flex-col sm:gap-2">
                 <!-- Company info Start-->
-                    <div class="flex flex-col xl:gap-4 sm:gap-1 py-2 lg:w-1/2 w-screen">
+                    <div class="flex flex-col xl:gap-4 sm:gap-1 py-2 lg:w-1/2 w-fit">
                         <h1 class="text-xl font-semibold">{{ __('template.support') }}</h1>
-                        <div>
+                        <div class="!w-fit">
                             {{-- @if (!empty($templateSettings['idno']))
                                 <p class="text-neutral-500 w-64">{{ $templateSettings['idno'] }}</p>
                             @endif --}}
@@ -102,9 +102,9 @@
                 <!-- Company info Start-->
 
                 <!-- Quick Links Start-->
-                    <div class="flex flex-col gap-2 py-2 lg:w-1/2 w-screen" >
+                    <div class="flex flex-col gap-2 py-2 lg:w-1/2 w-fit" >
                         <h1 class="text-xl font-semibold">{{ __('template.account') }}</h1>
-                        <div>
+                        <div class="!w-fit">
                             <ul>
                                 <li class="mt-2">
                                     <a class="!text-black hover:border-b border-neutral-400" href="{{ route('custom.login') }}">{{ __('template.account') }}</a>
@@ -124,9 +124,9 @@
                 <!-- Quick Links End-->
 
                 <!-- Account Links Start-->
-                    <div class="flex flex-col gap-2 py-2 lg:w-1/2 w-screen" >
+                    <div class="flex flex-col gap-2 py-2 lg:w-1/2 w-fit" >
                         <h1 class="text-xl font-semibold">{{ $qucikLinkMenu['name'] }}</h1>
-                        <div>
+                        <div class="!w-fit">
                             <ul>
                                 @foreach($qucikLinkMenu->items as $link)
                                     @if ($link->is_active === 1 )

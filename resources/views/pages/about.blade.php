@@ -78,7 +78,7 @@
 
             <!-- Blocks info Start-->
                 <div class="container relative mt-20">
-                    <div class="flex xl:flex-row flex-col xl:gap-0 gap-5 justify-between absolute top-0 w-full">
+                    <div class="flex xl:flex-row flex-col xl:gap-0 gap-5 justify-between absolute top-0 xl:left-3 left-0 w-full">
                         @foreach ($blockInfo as $info )
                             <div class="flex bg-white rounded-md flex-col gap-2 shadow-lg 2xl:w-96 xl:w-80 p-5">
                                 <div>
@@ -93,7 +93,7 @@
             <!-- Blocks info End-->
 
             <!-- Teams Start-->
-                <div class="bg-neutral-200 xl:mt-56 xl:pt-48 lg:mt-[450px] md:mt-[520px] mt-[540px] pt-[480px] pb-14">
+                <div class="bg-neutral-200 xl:mt-60 xl:pt-48 lg:mt-[550px] md:mt-[600px] mt-[580px] pt-[480px] pb-14">
                     <div class="container">
                         <div class="flex flex-col gap-5">   
                             <div class="flex justify-between items-center">
@@ -110,7 +110,7 @@
                                     <li><button id="next-slide"><i class="bi bi-arrow-right"></i></button></li>
                                 </ul>
                             </div>
-                            <div class="slick-images">
+                            <div class="slick-images space-x-2">
                                 @foreach ( $teams as $team)
                                     <div class="flex flex-col">
                                         <div class="w-80 h-96">
@@ -215,6 +215,7 @@
                 breakpoint: 768, // Когда экран меньше 480px
                 settings: {
                     slidesToShow: 1
+
                 }
             }
         ]

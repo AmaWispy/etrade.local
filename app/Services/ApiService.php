@@ -229,4 +229,77 @@ class ApiService
             }
         }
     }
+
+    public static function putOrder($order)
+    {
+        $maxRetries = 2;
+        $retryCount = 0;
+        $success = false;
+
+        while ($retryCount < $maxRetries && !$success) {
+            try {
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, config('services.api.url') . 'PutOrder');
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+                curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+                curl_setopt($ch, CURLOPT_USERPWD, config('services.api.username') . ":" . config('services.api.password'));
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                    'Content-Type: application/json'
+                ]);
+
+                // Подготовка данных для отправки
+                $requestData = [
+                    'Id' => $order->guid,
+                    'CustomerId' => $order->client->code,
+                    'CreatedOn' => $order->created_at->format('Y-m-d H:i:s'),
+                    'CustomerAccessCode' => $order->client->access_code,
+                    'OrderItems' => []
+                ];
+
+                // Добавляем товары в заказ
+                foreach ($order->items as $index => $item) {
+                    $requestData['OrderItems'][] = [
+                        'Id' => (string)($index + 1),
+                        'ProductCode' => $item->product->code,
+                        'Quantity' => $item->qty
+                    ];
+                }
+
+                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($requestData));
+
+                $response = curl_exec($ch);
+                $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+                curl_close($ch);
+
+                if ($httpCode === 200) {
+                    // Обновляем количество товаров в базе данных
+                    foreach ($order->items as $item) {
+                        $product = $item->product;
+                        $newQuantity = $product->stock_quantity - $item->qty;
+                        $product->update([
+                            'stock_quantity' => max(0, $newQuantity) // Не даем уйти в минус
+                        ]);
+                    }
+                    
+                    $success = true;
+                    Log::info('Order successfully sent to API and stock updated at ' . now()->format('Y-m-d H:i:s'));
+                } else {
+                    throw new \Exception('API request failed with status: ' . $httpCode);
+                }
+            } catch (\Exception $e) {
+                $retryCount++;
+                if ($retryCount >= $maxRetries) {
+                    Log::error('Unable to send order: ' . $e->getMessage() . ' at ' . now()->format('Y-m-d H:i:s'));
+                } else {
+                    Log::warning('Attempt ' . $retryCount . ' failed. Retrying...');
+                    sleep(1); // Ждем 1 секунду перед повторной попыткой
+                }
+            }
+        }
+
+        return $success;
+    }
 }

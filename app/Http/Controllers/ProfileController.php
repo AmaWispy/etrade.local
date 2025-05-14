@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\Models\OrderCustom;
+use App\Models\Shop\Currency;
 
 class ProfileController extends Controller
 {
@@ -56,5 +58,19 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    public function show(Request $request)
+    {
+        if (!\Auth::guard('client')->check())
+            return redirect()->route('custom.login');
+
+        $orders = OrderCustom::where('client_id', \Auth::guard('client')->user()->id)
+                ->orderBy('id', 'desc')
+                ->paginate(10);
+        return view('pages.account', [
+                'user' => \Auth::guard('client')->user(),
+                'orders' => $orders,
+            ]);
     }
 }

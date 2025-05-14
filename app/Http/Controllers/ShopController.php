@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Log;
 use App\Models\Shop\ProductVariation;
 use Illuminate\Support\Facades\Cookie;
 use App\Models\Shop\ProductComposition;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View as ViewFacade;
 
 class ShopController extends Controller
@@ -235,30 +236,45 @@ class ShopController extends Controller
     public function searchProduct(Request $request){
         $data = $request->post('search');
 
-        $results = Product::whereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(name, '$.\"".app()->getLocale()."\"'))) LIKE ?", ["%{$data}%"])->get() ?? null;
+        $results = Product::where(function($query) use ($data) {
+            $query->whereRaw("LOWER(name) LIKE ?", ["%{$data}%"])
+                  ->orWhereRaw("LOWER(name_ru) LIKE ?", ["%{$data}%"])
+                  ->orWhereRaw("LOWER(name_en) LIKE ?", ["%{$data}%"])
+                  ->orWhereRaw("LOWER(name_full) LIKE ?", ["%{$data}%"])
+                  ->orWhereRaw("LOWER(sku) LIKE ?", ["%{$data}%"]);
+        })
+        ->where('stock_quantity', '>', 0)
+        ->whereRaw('stock_quantity > reserved')
+        ->get() ?? null;
 
         $products = null;
 
-        foreach($results->take(2) as $product){
-            $products[] = [
-                'id' => $product->id,
-                'price_default' => $product->getExchangedPrice(true),
-                'price_on_sale' => $product->getExchangedPrice(false),
-                'on_sale' => $product->onSale(),
-                'name' => $product->name,
-                'slug' => $product->slug,
-                'sku' => $product->sku,
-                'image'=> $product->getImage(),
-                'view_link' => route('shop.card', ['slug' => $product->slug, 'id' => $product->id]),
-            ];
-
+        if ($results) {
+            foreach($results->take(2) as $product){
+                $products[] = [
+                    'id' => $product->id,
+                    'name' => $product->name,
+                    'name_ru' => $product->name_ru,
+                    'name_en' => $product->name_en,
+                    'name_full' => $product->name_full,
+                    'price' => Auth::guard('client')->user() ? Currency::format(Currency::exchange($product->price)) : $product->price,
+                    'currency' => $product->currency,
+                    'default_price' => \App\Models\Shop\Currency::format(\App\Models\Shop\Currency::exchange($product->default_price)),
+                    'default_currency' => $product->default_currency,
+                    'stock_quantity' => $product->stock_quantity,
+                    'sku' => $product->sku,
+                    'articul' => $product->articul,
+                    'image' => $product->getImage(),
+                    'view_link' => route('shop.card', ['slug' => $product->slug[app()->getLocale()] ?? $product->slug['ro'], 'id' => $product->id]),
+                ];
+            }
         }
         
         return [
             'status' => 200,
             'data' => $results,
             'products' => $products,
-            'results' => count($results) ?? 0,
+            'results' => $results ? count($results) : 0,
         ];
     }
 

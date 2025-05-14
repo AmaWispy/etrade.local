@@ -20,6 +20,8 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Log; 
 use App\Services\Order as OrderUtils;
 use Illuminate\Support\Str;
+use App\Services\ApiService;
+use App\Models\OrderCustom;
 
 class CheckoutController extends Controller
 {
@@ -649,12 +651,36 @@ class CheckoutController extends Controller
             return redirect('/');
         }
 
+        if (session()->has('currency')){
+            $currency = json_encode([
+                'iso_alpha' => session()->get('currency')['iso_alpha'],
+                'exchange_rate' => session()->get('currency')['exchange_rate'],
+                'sign' => session()->get('currency')['sign']
+            ]);
+        } else {
+            $currency = json_encode([
+                'iso_alpha' => 'MDL',
+                'exchange_rate' => 1,
+                'sign' => 'MDL'
+            ]);
+        }
+
         $order = new \App\Models\OrderCustom();
         $order->client_id = \Auth::guard('client')->check() ? \Auth::guard('client')->id() : null;
         $order->cart_id = $cart->id;
-        $order->status = 'processing';
+        $order->status = OrderCustom::NEW;
         $order->comments = null;
         $order->total = $cart->total_price;
+        $order->currency = $currency;
+        $order->guid = \Illuminate\Support\Str::uuid()->toString();
+        $order->save();
+
+        // Отправляем заказ через API
+        $apiService = app(ApiService::class);
+        $success = $apiService->putOrder($order);
+
+        // Обновляем статус заказа в зависимости от результата
+        $order->status = $success ? OrderCustom::PROCESSING : OrderCustom::ERROR;
         $order->save();
 
         $sessionDelete = ['checkout', 'card', 'shipping_method', 'cart'];
