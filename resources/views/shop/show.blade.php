@@ -70,13 +70,10 @@
                                 <i class="bi bi-check-lg"></i>
                                 <h1>{{ __('template.free_delivery_available') }}</h1>
                             </li>
-                            <li class="flex gap-2 items-center">
-                                <i class="bi bi-check-lg"></i>
-                                <h1>{{ __('template.sales') . ' 30% ' . __('template.off_use_code') . ' MOTIVE30 ' }}</h1>
-                            </li>
                         </ul>
 
                         <div>
+                            <p class="text-neutral-500 lg:text-base text-sm">SKU: {{ $product->sku }}</p>
                             <p class="text-neutral-500 lg:text-base text-sm">{{ $product->getTranslation('description', app()->getLocale()) }}</p>
                         </div>
 

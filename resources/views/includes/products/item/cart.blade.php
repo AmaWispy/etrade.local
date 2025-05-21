@@ -54,12 +54,13 @@
                     <!-- Qnty Product Start-->
                         <div class="flex gap-2 items-center justify-end">
                             <button type="button" data-action="decrement" class="text-xl text-black bg-gray-200 w-fit h-fit px-[6px] py-[3px] rounded-full flex justify-center items-center text-center xl:hover:bg-blue-500 xl:hover:text-white cursor-pointer"><i class="bi bi-dash-lg text-sm"></i></button>
-                            <input 
-                                type="text" 
+                            <input
+                                type="number" 
                                 value="{{$item->qty}}"
+                                min="1"
                                 data-action="update-cart-item-quantity" 
                                 data-item="{{$item->id}}" 
-                                class="w-14 !m-0 focus:border-transparent focus:border-white bg-transparent !p-0 text-center border-transparent outline-none ring-0 focus:ring-transparent"
+                                class="item-qty-input w-14 !m-0 focus:border-transparent focus:border-white bg-transparent !p-0 text-center border-transparent outline-none ring-0 focus:ring-transparent"
                             />
                             <button type="button" data-action="increment" class="increment text-xl  text-black bg-gray-200 w-fit h-fit px-[6px] py-[3px] rounded-full flex justify-center items-center text-center xl:hover:bg-blue-500 xl:hover:text-white cursor-pointer"><i class="bi bi-plus-lg text-sm"></i></button>
                         </div>
@@ -139,7 +140,7 @@
                                     <input 
                                         type="text" 
                                         value="{{$item->qty}}"
-                                        data-action="update-cart-item-quantity" 
+                                        data-action="update-cart-item-quantity1" 
                                         data-item="{{$item->id}}" 
                                         class="w-14 !m-0 focus:border-transparent focus:border-white bg-transparent !p-0 text-center border-transparent outline-none ring-0 focus:ring-transparent"
                                     />

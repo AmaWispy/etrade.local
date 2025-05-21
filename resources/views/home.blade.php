@@ -212,11 +212,11 @@
 
     <div class="container p-0 flex flex-col 2xl:gap-4 gap-5">
         <!-- Categories and recomendated products Start -->
-            <div class="flex items-center gap-4" x-cloak>
+            <div class="flex items-center gap-4" x-cloak style="z-index: -1">
                 <!-- Categories Start -->
                     <div class="h-auto 2xl:block hidden">
-                        <ul class="w-52 border h-auto flex flex-col font-medium  text-base text-neutral-400">
-                            <li class="flex items-center relative group">
+                        <ul class="w-52 h-auto flex flex-col font-medium  text-base text-neutral-400">
+                            <!-- <li class="flex items-center relative group">
                                 <button class="border-t mx-4 w-full border-t-neutral-200 h-12 flex items-center justify-between xl:hover:text-black xl:group-hover:text-black">
                                     <span class="flex gap-3 items-center">
                                         <i class="bi bi-sunglasses text-blue-400 xl:group-hover:text-black"></i> 
@@ -343,7 +343,7 @@
                             </li>
                             <li class="flex items-center">
                                 <a href="#" class="border-t mx-4 w-full border-t-neutral-200 h-12 flex items-center gap-3 xl:hover:text-black"><i class="bi bi-camera text-blue-400"></i> Camera</a>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                 <!-- Categories End -->

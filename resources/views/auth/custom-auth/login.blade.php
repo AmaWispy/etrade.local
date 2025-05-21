@@ -5,8 +5,8 @@
                 <img src="{{ asset('template/images/bg-image-9.jpg') }}" class="h-screen 2xl:w-[700px] xl:w-[800px] object-cover xl:block hidden" alt="Auth logo">
                 <div class="absolute top-0 items-center xl:inline-flex hidden w-full justify-center pt-16">
                     <div class="flex flex-col gap-12">
-                        <div>
-                            <img src="{{ asset('template/images/logo-large.png') }}" class="h-10" alt="logo">
+                        <div class="flex justify-center">
+                            <img style="max-width: 300px;" src="{{ asset($templateSettings['logo-image']) }}" alt="logo">
                         </div>
                         <h1 class="font-semibold text-3xl">{{ __('template.we_offer_the_best_products') }}</h1>
                     </div>
@@ -18,8 +18,8 @@
             <div class="px-3 w-screen">
                 <!-- Iinfo Start-->
                     <div class="flex-col gap-12 xl:hidden inline-flex justify-center items-center w-full mt-5">
-                        <div>
-                            <img src="{{ asset('template/images/logo-large.png') }}" class="h-10" alt="logo">
+                        <div class="flex justify-center">
+                            <img style="max-width: 300px;" src="{{ asset($templateSettings['logo-image']) }}" alt="logo">
                         </div>
                     </div>
                 <!-- Iinfo End-->

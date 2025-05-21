@@ -61,6 +61,7 @@ return [
     'sizes' => "Dimensiuni", 
     'hide_filter' => "Ascunde Filtrul", 
     'filter' => "Filtru",  
+    'brands' => 'Mărci',
     
     /**
      * Headings
@@ -277,7 +278,7 @@ return [
     'we_offer_the_best_products' => "Oferim cele mai bune produse",
     'not_a_member' => "Nu ești membru?",
     'sign_up_now' => "Înscrie-te acum",
-    'sign_in_to_etrade' => "Conectează-te la eTrade.",
+    'sign_in_to_etrade' => "Conectează-te la Scop.",
     'enter_your_detail_below' => "Introduceți detaliile dvs. mai jos.",
     'forget_password' => "Ați uitat parola?",
     'sign_in' => "Autentificare",
@@ -329,7 +330,7 @@ return [
     'new_password' => "Parolă nouă",
     'confirm_new_password' => "Confirmați parola nouă",
     'date' => "Dată",
-    'order' => "Comandă",
+    'order' => 'Comandă',
     'processing_v2' => "În procesare",
     'on_hold' => "În așteptare",
     'for' => "pentru",
@@ -411,4 +412,7 @@ return [
     'invalid_access_code' => 'Cod acces invalid',
     'for_our_clients' => "Pentru clienții noștri",
     'for_you' => "Pentru tine",
+    'close' => 'Închide',
+    'items_2' => 'Produse',
+    'currency' => 'Curs',
 ];            

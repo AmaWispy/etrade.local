@@ -10,7 +10,7 @@
     }
 </style>
 
-<select name="sorting" id="" class="filter-sort nice-select xl:w-56 w-full h-12">
+<select name="sorting" id="" class="filter-sort nice-select xl:w-64 w-full h-12">
     <option value="sorting=latest" {{ $sorting == 'latest' ? 'selected' : '' }}>{{ __('template.latest') }}</option>
     <option value="sorting=low_to_high" {{ $sorting == 'low_to_high' ? 'selected' : '' }}>{{ __('template.low_to_high') }}</option>
     <option value="sorting=high_to_low" {{ $sorting == 'high_to_low' ? 'selected' : '' }}>{{ __('template.high_to_low') }}</option>

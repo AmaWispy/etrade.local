@@ -152,15 +152,16 @@
             $input.val(val - 1).trigger('change');
         }
         
-        updateCart()
+        updateCart($input)
     });
 
     $(document).on('click', 'button[data-action="increment"]', function() {
+        const productId = $(this).data('item'); // Get the product ID from the button data attribute
         var $input = $(this).siblings('input'),
         val = parseInt($input.val());
         $input.val(val + 1).trigger('change');
         
-        updateCart()
+        updateCart($input)
     });
 
     let cartData = [];
@@ -191,7 +192,8 @@
                 if(response.status === 200){
                     $('[data-counter="cart-total-items"]').html(response.cart.totalItems);
                     $('.cart-total-price').text(response.cart.totalPrice);
-                    if(response.cart.totalItems > 1){
+                    console.log(response)
+                    if(response.cart.totalItems >= 1){
                         $('#box-cart-item-' + response.item.id).remove();
                         $('.box-cart-item-' + response.item.id).remove();
                     }
@@ -204,47 +206,58 @@
         });
     });
 
-    function updateCart() {
+    $(document).on('change', '.item-qty-input', function() {
+        if ($(this).val() <= 0) {
+            $(this).val(1)
+        }
+        updateCart($(this))
+    });
+
+    function updateCart(product) {
         clearTimeout(timeout);
         
         timeout = setTimeout(function() {
             $('[data-action="increment"], [data-action="decrement"]').prop('disabled', true);
-            $('[data-action="update-cart-item-quantity"]').each(function() {
-                var product = $(this); 
-                let data = {
-                    'item': product.data('item'),    
-                    'quantity': product.val(),      
-                };
+            product.prop('disabled', true)
+            let data = {
+                'item': product.data('item'),
+                'quantity': product.val(),
+            };
 
-                // Проверяем, был ли этот товар уже отправлен
-                if (!cartData.some(existingItem => existingItem.item === data.item && existingItem.quantity === data.quantity)) {
-                    // Добавляем товар в список отправленных товаров
-                    cartData.push(data);
-
-                    $.ajax({
-                        url: '/cart/update',
-                        method: 'POST',
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        dataType: 'json',
-                        data: data,
-                        success: function(response) {
-                            $('[data-action="increment"], [data-action="decrement"]').prop('disabled', false);
-                            
-                            $('.item-' + response.item.id + '-subtotal2').text(response.item.subtotal);
-                            
-                            $('.cart-total-price').text(response.cart.totalPrice);
-                            console.log(response);
-                        },
-                        error: function(xhr, status, error) {
-                            console.error('Error:', xhr, status, error);
-                            $('[data-action="increment"], [data-action="decrement"]').prop('disabled', false);
-                        }
-                    });
-                    console.log(data);
+            // Проверяем, был ли этот товар уже отправлен
+            if (!cartData.some(existingItem => existingItem.item === data.item && existingItem.quantity === data.quantity)) {
+                // Добавляем товар в список отправленных товаров
+                cartData.push(data);
+            }
+            console.log(cartData)
+            $.ajax({
+                url: '/cart/update',
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                dataType: 'json',
+                data: data,
+                success: function(response) {
+                    console.log(1);
+                    $('[data-action="increment"], [data-action="decrement"]').prop('disabled', false);
+                    
+                    $('.item-' + response.item.id + '-subtotal2').text(response.item.subtotal);
+                    
+                    $('.cart-total-price').text(response.cart.totalPrice);
+                    console.log(response);
+                },
+                error: function(xhr, status, error) {
+                    console.log(2)
+                    console.error('Error:', xhr, status, error);
+                    $('[data-action="increment"], [data-action="decrement"]').prop('disabled', false);
+                },
+                complete: function() {
+                    $('[data-action="increment"], [data-action="decrement"]').prop('disabled', false);
+                    product.prop('disabled', false);
                 }
             });
-        }, 1500); // Ожидание 1500 мс перед отправкой запроса
+            console.log(data); 
+        }, 1000); // Ожидание 1500 мс перед отправкой запроса
     }
 </script>

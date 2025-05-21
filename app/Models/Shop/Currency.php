@@ -43,12 +43,12 @@ class Currency extends UnicodeModel
             }
         }
         $currency = session('currency');
-        \Illuminate\Support\Facades\Log::info('Currency debug', [
+        /* \Illuminate\Support\Facades\Log::info('Currency debug', [
             'currency' => $currency,
             'type' => gettype($currency),
             'is_array' => is_array($currency),
             'amount' => $amount
-        ]);
+        ]); */
 
         if(is_array($currency) && isset($currency['exchange_rate'])) {
             $amount = $amount * $currency['exchange_rate'];
@@ -86,7 +86,10 @@ class Currency extends UnicodeModel
             return number_format($amount, 2);
         }
 
-        $amount = round($amount * $currency['exchange_rate'] * 100) / 100;
+        //dd($amount);
+
+        // Убираем промежуточное округление
+        $amount = $amount * $currency['exchange_rate'];
 
         return number_format($amount, 2)." ".$currency['sign'];
     }

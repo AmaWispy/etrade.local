@@ -11,6 +11,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         Commands\FetchClientsData::class,
         Commands\FetchProductsData::class,
+        Commands\FetchCategoriesData::class,
     ];
 
     /**
@@ -26,6 +27,8 @@ class Kernel extends ConsoleKernel
             ->dailyAt('12:00');
         $schedule->command('currencies:fetch')
             ->dailyAt('12:10');
+        $schedule->command('fetch:categories')
+            ->dailyAt('12:20');
     }
 
     /**

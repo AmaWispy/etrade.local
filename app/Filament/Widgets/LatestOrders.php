@@ -45,6 +45,7 @@ class LatestOrders extends BaseWidget
                         'error' => 'danger',
                         'processing' => 'warning',
                         'completed' => 'success',
+                        default => 'secondary',
                         
                     }),
                 Tables\Columns\TextColumn::make('created_at')

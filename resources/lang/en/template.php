@@ -109,6 +109,7 @@ return [
     'sizes' => "Sizes", 
     'hide_filter' => "Hide Filter", 
     'filter' => "Filter",
+    'brands' => 'Brands',
     
     /**
      * Checkout
@@ -258,7 +259,7 @@ return [
     'we_offer_the_best_products' => "We Offer the Best Products",
     'not_a_member' => "Not a member?",
     'sign_up_now' => "Sign Up Now",
-    'sign_in_to_etrade' => "Sign in to eTrade.",
+    'sign_in_to_etrade' => "Sign in to Scop.",
     'enter_your_detail_below' => "Enter your detail below.",
     'forget_password' => "Forget password?",
     'password' => "Password",
@@ -391,4 +392,7 @@ return [
     'invalid_access_code' => 'Invalid access code',
     'for_our_clients' => "For our clients",
     'for_you' => "For you",
+    'close' => 'Close',
+    'items_2' => 'Products',
+    'currency' => 'Rate',
 ];  

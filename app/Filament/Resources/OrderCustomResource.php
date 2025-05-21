@@ -93,6 +93,7 @@ class OrderCustomResource extends Resource
                         'error' => 'danger',
                         'processing' => 'warning',
                         'completed' => 'success',
+                        default => 'secondary'
                     }),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Created')

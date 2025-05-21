@@ -39,6 +39,7 @@
                         $('[data-counter="cart-total-price"]').html(response.cart.totalPrice);
                         $('.cart-total-price').html(response.cart.totalPrice);
                         $('#box-cart-items').html(response.html);
+                        $('.cart-count-indicator').html(response.cart.totalItems);
 
                         let parent = $(`#box-check-add-${productId}`);
 

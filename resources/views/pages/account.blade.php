@@ -92,9 +92,9 @@
                                         <li class="w-64">
                                             <h1>{{ __('template.total') }}</h1>
                                         </li>
-                                        <!-- <li class="w-[88px]">
+                                        <li class="w-[88px]">
                                             <h1>{{ __('template.actions') }}</h1>
-                                        </li> -->
+                                        </li>
                                     </ul>
 
                                     <!-- Orders Start -->
@@ -122,17 +122,89 @@
                                                     <h1 class="font-medium xl:hidden block">{{ __('template.total') }}:</h1>
                                                     <h1>{{ \App\Models\Shop\Currency::formatCustom($order->total, $order->currency) }}</h1>
                                                 </li>
-                                                <!-- <li class="py-2.5 px-4 border rounded-lg xl:hover:bg-blue-500 xl:hover:text-white duration-300 cursor-pointer w-fit xl:mt-0 mt-2">
-                                                    <a class="lg:text-lg text-[18px] font-medium cursor-pointer">
-                                                        {{ __('view') }}
-                                                    </a>
-                                                </li> -->
+                                                <li class="py-2.5 px-4 border rounded-lg xl:hover:bg-blue-500 xl:hover:text-white duration-300 cursor-pointer w-fit xl:mt-0 mt-2">
+                                                    <button x-on:click="$dispatch('open-modal', 'order-items-{{ $order->id }}')" class="lg:text-lg text-[18px] font-medium cursor-pointer">
+                                                        {{ __('template.view') }}
+                                                    </button>
+                                                </li>
                                             </ul>
                                         </div>
                                     @endforeach
                                     <!-- Orders End -->
                                 </div>
                             <!-- Orders show End -->
+
+                            <!-- Order Items Modals Start -->
+                            @foreach ($orders as $order)
+                                <div x-data="{ show: false }" 
+                                     x-show="show" 
+                                     x-on:open-modal.window="if ($event.detail === 'order-items-{{ $order->id }}') show = true"
+                                     x-on:close-modal.window="show = false"
+                                     x-on:keydown.escape.window="show = false"
+                                     x-effect="show ? document.body.classList.add('overflow-hidden') : document.body.classList.remove('overflow-hidden')"
+                                     x-transition:enter="transition ease-out duration-300"
+                                     x-transition:enter-start="opacity-0"
+                                     x-transition:enter-end="opacity-100"
+                                     x-transition:leave="transition ease-in duration-200"
+                                     x-transition:leave-start="opacity-100"
+                                     x-transition:leave-end="opacity-0"
+                                     class="fixed inset-0 z-50 overflow-y-auto" 
+                                     style="display: none;">
+                                    <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+                                        <div class="fixed inset-0 transition-opacity" aria-hidden="true" x-on:click="show = false">
+                                            <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+                                        </div>
+                                        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                                        <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                                            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                                                <div class="sm:flex sm:items-start">
+                                                    <div class="mt-3 sm:mt-0 sm:text-left w-full">
+                                                        <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">
+                                                            {{ __('template.order') }} #{{ $order->id }}
+                                                        </h3>
+                                                        <div class="mt-2">
+                                                            <div class="border-b pb-2 mb-4">
+                                                                <p class="text-sm text-gray-500">GUID: {{ $order->guid }}</p>
+                                                                <p class="text-sm text-gray-500">{{ __('template.date') }}: {{ $order->created_at->format('d.m.Y H:i') }}</p>
+                                                                <p class="text-sm text-gray-500">{{ __('template.status') }}: {{ $order->status }}</p>
+                                                                <p class="text-sm text-gray-500">{{ __('template.total') }}: {{ \App\Models\Shop\Currency::formatCustom($order->total, $order->currency) }}</p>
+                                                                
+                                                                @php
+                                                                    $currencyData = is_string($order->currency) ? json_decode($order->currency, true) : $order->currency;
+                                                                    $exchangeRate = 1 / $currencyData['exchange_rate'];
+                                                                @endphp
+                                                                @if($currencyData['sign'] != 'mdl')
+                                                                    <p class="text-sm text-gray-500">{{ __('template.currency') }}: 1 {{ $currencyData['sign'] }} = {{ number_format($exchangeRate, 2) }} MDL</p>
+                                                                @endif
+                                                            </div>
+                                                            <div class="space-y-4">
+                                                                <h4 class="font-medium">{{ __('template.items_2') }}:</h4>
+                                                                @foreach($order->items as $item)
+                                                                    <div class="flex justify-between items-center border-b pb-2">
+                                                                        <div>
+                                                                            <p class="font-medium">{{ $item->product->name }}</p>
+                                                                            <p class="text-sm text-gray-500">{{ __('template.quantity') }}: {{ $item->qty }}</p>
+                                                                        </div>
+                                                                        <p class="font-medium text-lg whitespace-nowrap ml-4">{{ \App\Models\Shop\Currency::formatCustom($item->unit_price * $item->qty, $order->currency) }}</p>
+                                                                    </div>
+                                                                @endforeach
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                                                <button type="button" 
+                                                        x-on:click="show = false"
+                                                        class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
+                                                    {{ __('template.close') }}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                            <!-- Order Items Modals End -->
 
                             <!-- Download show Start-->
                                 <ul x-show='downloads' class="flex flex-col gap-4" x-cloak>

@@ -12,193 +12,7 @@
                 <div class="flex w-full gap-10">
                     <!-- Filter Block Start -->
                         <div class="2xl:w-[20%] xl:w-[25%] xl:block hidden">
-                            {{-- #TODO:: Добавить фильтры после обновления дб  --}}
-                            {{-- @include('includes.products.filter.layout') --}}
-
-                            {{-- Пример Дб --}}
-                            <div class="space-y-3 ">
-                                <div x-data='{plus:true}'>
-                                    <div class="space-y-2">
-                                        <button x-on:click='plus = !plus' class="flex w-full text-xl font-semibold justify-between">
-                                            <span>
-                                                {{ __('template.categories') }}
-                                            </span>
-                                            <span x-cloak>
-                                                <i class="bi bi-plus-lg" x-show='plus'></i>
-                                                <i class="bi bi-dash-lg" x-show='!plus'></i>
-                                            </span>
-                                        </button>
-                                        <div class="relative">
-                                            <div class="h-[2px] bg-neutral-300 w-full"></div>
-                                            <div x-cloak x-bind:class='plus ? "w-0" : "w-full"  ' class="absolute top-0 duration-300 h-[2px] bg-blue-500 w-full"></div>
-                                        </div>
-                                    </div>
-                                    <div class="mt-3 overflow-hidden duration-300 " x-bind:class="!plus ? 'h-40' : 'h-0' " x-cloak>
-                                        <form action="" class="text-neutral-500 font-semibold text-lg space-y-3 overflow-y-auto h-full">
-                                            <label for="Example" class="flex items-center gap-2">
-                                                <input type="radio" id="Example" name="Example" value="Example">
-                                                Example
-                                            </label>
-                                            <label for="Example" class="flex items-center gap-2">
-                                                <input type="radio" id="Example" name="Example" value="Example">
-                                                Example
-                                            </label>
-                                            <label for="Example" class="flex items-center gap-2">
-                                                <input type="radio" id="Example" name="Example" value="Example">
-                                                Example
-                                            </label>
-                                            <label for="Example" class="flex items-center gap-2">
-                                                <input type="radio" id="Example" name="Example" value="Example">
-                                                Example
-                                            </label>
-                                            <label for="Example" class="flex items-center gap-2">
-                                                <input type="radio" id="Example" name="Example" value="Example">
-                                                Example
-                                            </label>
-                                            <label for="Example" class="flex items-center gap-2">
-                                                <input type="radio" id="Example" name="Example" value="Example">
-                                                Example
-                                            </label>
-                                        </form>
-                                    </div>
-                                </div>
-                                <div x-data='{plus:true}'>
-                                    <div class="space-y-2">
-                                        <button x-on:click='plus = !plus' class="flex w-full text-xl font-semibold justify-between">
-                                            <span>
-                                                {{ __('template.categories') }}
-                                            </span>
-                                            <span x-cloak>
-                                                <i class="bi bi-plus-lg" x-show='plus'></i>
-                                                <i class="bi bi-dash-lg" x-show='!plus'></i>
-                                            </span>
-                                        </button>
-                                        <div class="relative">
-                                            <div class="h-[2px] bg-neutral-300 w-full"></div>
-                                            <div x-cloak x-bind:class='plus ? "w-0" : "w-full"  ' class="absolute top-0 duration-300 h-[2px] bg-blue-500 w-full"></div>
-                                        </div>
-                                    </div>
-                                    <div class="mt-3 overflow-hidden duration-300 " x-bind:class="!plus ? 'h-40' : 'h-0' " x-cloak>
-                                        <form action="" class="text-neutral-500 font-semibold text-lg space-y-3 overflow-y-auto h-full">
-                                            <label for="Example" class="flex items-center gap-2">
-                                                <input type="radio" id="Example" name="Example" value="Example">
-                                                Example
-                                            </label>
-                                            <label for="Example" class="flex items-center gap-2">
-                                                <input type="radio" id="Example" name="Example" value="Example">
-                                                Example
-                                            </label>
-                                            <label for="Example" class="flex items-center gap-2">
-                                                <input type="radio" id="Example" name="Example" value="Example">
-                                                Example
-                                            </label>
-                                            <label for="Example" class="flex items-center gap-2">
-                                                <input type="radio" id="Example" name="Example" value="Example">
-                                                Example
-                                            </label>
-                                            <label for="Example" class="flex items-center gap-2">
-                                                <input type="radio" id="Example" name="Example" value="Example">
-                                                Example
-                                            </label>
-                                            <label for="Example" class="flex items-center gap-2">
-                                                <input type="radio" id="Example" name="Example" value="Example">
-                                                Example
-                                            </label>
-                                        </form>
-                                    </div>
-                                </div>
-                                <div x-data='{plus:true}'>
-                                    <div class="space-y-2">
-                                        <button x-on:click='plus = !plus' class="flex w-full text-xl font-semibold justify-between">
-                                            <span>
-                                                {{ __('template.categories') }}
-                                            </span>
-                                            <span x-cloak>
-                                                <i class="bi bi-plus-lg" x-show='plus'></i>
-                                                <i class="bi bi-dash-lg" x-show='!plus'></i>
-                                            </span>
-                                        </button>
-                                        <div class="relative">
-                                            <div class="h-[2px] bg-neutral-300 w-full"></div>
-                                            <div x-cloak x-bind:class='plus ? "w-0" : "w-full"  ' class="absolute top-0 duration-300 h-[2px] bg-blue-500 w-full"></div>
-                                        </div>
-                                    </div>
-                                    <div class="mt-3 overflow-hidden duration-300 " x-bind:class="!plus ? 'h-40' : 'h-0' " x-cloak>
-                                        <form action="" class="text-neutral-500 font-semibold text-lg space-y-3 overflow-y-auto h-full">
-                                            <label for="Example" class="flex items-center gap-2">
-                                                <input type="radio" id="Example" name="Example" value="Example">
-                                                Example
-                                            </label>
-                                            <label for="Example" class="flex items-center gap-2">
-                                                <input type="radio" id="Example" name="Example" value="Example">
-                                                Example
-                                            </label>
-                                            <label for="Example" class="flex items-center gap-2">
-                                                <input type="radio" id="Example" name="Example" value="Example">
-                                                Example
-                                            </label>
-                                            <label for="Example" class="flex items-center gap-2">
-                                                <input type="radio" id="Example" name="Example" value="Example">
-                                                Example
-                                            </label>
-                                            <label for="Example" class="flex items-center gap-2">
-                                                <input type="radio" id="Example" name="Example" value="Example">
-                                                Example
-                                            </label>
-                                            <label for="Example" class="flex items-center gap-2">
-                                                <input type="radio" id="Example" name="Example" value="Example">
-                                                Example
-                                            </label>
-                                        </form>
-                                    </div>
-                                </div>
-                                <div x-data='{plus:true}'>
-                                    <div class="space-y-2">
-                                        <button x-cloak x-on:click='plus = !plus' class="flex w-full text-xl font-semibold justify-between">
-                                            <span>
-                                                {{ __('template.categories') }}
-                                            </span>
-                                            <span x-cloak>
-                                                <i class="bi bi-plus-lg" x-show='plus'></i>
-                                                <i class="bi bi-dash-lg" x-show='!plus'></i>
-                                            </span>
-                                        </button>
-                                        <div class="relative">
-                                            <div class="h-[2px] bg-neutral-300 w-full"></div>
-                                            <div x-cloak x-bind:class='plus ? "w-0" : "w-full"  ' class="absolute top-0 duration-300 h-[2px] bg-blue-500 w-full"></div>
-                                        </div>
-                                    </div>
-                                    <div class="mt-3 overflow-hidden duration-300 " x-bind:class="!plus ? 'h-40' : 'h-0' " x-cloak>
-                                        <form action="" class="text-neutral-500 font-semibold text-lg space-y-3 overflow-y-auto h-full">
-                                            <label for="Example" class="flex items-center gap-2">
-                                                <input type="radio" id="Example" name="Example" value="Example">
-                                                Example
-                                            </label>
-                                            <label for="Example" class="flex items-center gap-2">
-                                                <input type="radio" id="Example" name="Example" value="Example">
-                                                Example
-                                            </label>
-                                            <label for="Example" class="flex items-center gap-2">
-                                                <input type="radio" id="Example" name="Example" value="Example">
-                                                Example
-                                            </label>
-                                            <label for="Example" class="flex items-center gap-2">
-                                                <input type="radio" id="Example" name="Example" value="Example">
-                                                Example
-                                            </label>
-                                            <label for="Example" class="flex items-center gap-2">
-                                                <input type="radio" id="Example" name="Example" value="Example">
-                                                Example
-                                            </label>
-                                            <label for="Example" class="flex items-center gap-2">
-                                                <input type="radio" id="Example" name="Example" value="Example">
-                                                Example
-                                            </label>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-
+                            @include('includes.products.filter.layout', ['filterType' => 'desktop-filters'])
                         </div>
                     <!-- Filter Block End -->
 
@@ -239,13 +53,13 @@
             <!-- Products Pages Start -->
                 @if($products->hasPages() > 0)
                     <div class="inline lg:hidden">
-                        {!! $products->links('pagination.default') !!}
+                        {!! $products->appends(request()->query())->links('pagination.default') !!}
                     </div>
                     <div class="hidden lg:inline xl:hidden">
-                        {!! $products->onEachSide(4)->links('pagination.default') !!}
+                        {!! $products->onEachSide(4)->appends(request()->query())->links('pagination.default') !!}
                     </div>
                     <div class="hidden xl:inline">
-                        {!! $products->onEachSide(5)->links('pagination.default') !!}
+                        {!! $products->onEachSide(5)->appends(request()->query())->links('pagination.default') !!}
                     </div>
                 @endif
             <!-- Products Pages End -->
@@ -261,53 +75,122 @@
             </div>
             
             <div class="flex flex-col gap-9 mt-5">
-                <div x-data='{plus:true}'>
-                    <div class="space-y-2">
-                        <button x-on:click='plus = !plus' class="flex w-full text-xl font-semibold justify-between">
-                            <span>
-                                {{ __('template.categories') }}
-                            </span>
-                            <span x-cloak>
-                                <i class="bi bi-plus-lg" x-show='plus'></i>
-                                <i class="bi bi-dash-lg" x-show='!plus'></i>
-                            </span>
-                        </button>
-                        <div class="relative">
-                            <div class="h-[2px] bg-neutral-300 w-full"></div>
-                            <div x-cloak x-bind:class='plus ? "w-0" : "w-full"  ' class="absolute top-0 duration-300 h-[2px] bg-blue-500 w-full"></div>
-                        </div>
-                    </div>
-                    <div class="mt-3 overflow-hidden duration-300 " x-bind:class="!plus ? 'h-40' : 'h-0' " x-cloak>
-                        <form action="" class="text-neutral-500 font-semibold text-lg space-y-3 overflow-y-auto h-full">
-                            <label for="Example" class="flex items-center gap-2">
-                                <input type="radio" id="Example" name="Example" value="Example">
-                                Example
-                            </label>
-                            <label for="Example" class="flex items-center gap-2">
-                                <input type="radio" id="Example" name="Example" value="Example">
-                                Example
-                            </label>
-                            <label for="Example" class="flex items-center gap-2">
-                                <input type="radio" id="Example" name="Example" value="Example">
-                                Example
-                            </label>
-                            <label for="Example" class="flex items-center gap-2">
-                                <input type="radio" id="Example" name="Example" value="Example">
-                                Example
-                            </label>
-                            <label for="Example" class="flex items-center gap-2">
-                                <input type="radio" id="Example" name="Example" value="Example">
-                                Example
-                            </label>
-                            <label for="Example" class="flex items-center gap-2">
-                                <input type="radio" id="Example" name="Example" value="Example">
-                                Example
-                            </label>
-                        </form>
-                    </div>
-                </div>
-                <button class="w-full font-semibold text-base h-10 rounded-lg text-white bg-blue-500">{{ __('template.view_all') }}</button>
+                @include('includes.products.filter.layout', ['filterType' => 'mobile-filters'])
+                <!-- <button class="w-full font-semibold text-base h-10 rounded-lg text-white bg-blue-500">{{ __('template.view_all') }}</button> -->
             </div>
         </div>
     <!-- Menu End -->
+
+    <script type="module">
+    $(document).ready(function(){
+        $('.range-price-container').each(function() {
+            const container = $(this);
+            const slider = container.find('.slider-range');
+            const minInput = container.find('.price-min');
+            const maxInput = container.find('.price-max');
+            
+            slider.slider({
+                range: true,
+                min: parseFloat("{{ $minPrice }}"),
+                max: parseFloat("{{ $maxPrice }}"),
+                values: [ parseFloat("{{ $minPriceChanged }}"), parseFloat("{{ $maxPriceChanged }}") ],
+                slide: function(event, ui) {
+                    minInput.val(ui.values[0]);
+                    maxInput.val(ui.values[1]);
+                    
+                    // Используем объект URL для работы с параметрами
+                    var url = new URL(window.location.href);
+                    
+                    // Устанавливаем новые значения min и max
+                    url.searchParams.set('min', ui.values[0]);
+                    url.searchParams.set('max', ui.values[1]);
+                    
+                    // Сбрасываем пагинацию на первую страницу при изменении фильтра
+                    url.searchParams.delete('page');
+                    
+                    // Перенаправляем на новый URL
+                    window.location.href = url.toString();
+                }
+            });
+            console.log(slider);
+            
+            // Устанавливаем начальные значения в поля ввода
+            minInput.val(slider.slider("values", 0));
+            maxInput.val(slider.slider("values", 1));
+
+            slider.on('touchstart touchmove', function(e) {
+                e.stopPropagation();
+            });
+        });
+    });
+</script>
+
+<script type="module">
+    document.addEventListener('DOMContentLoaded', function() {
+        // Найдем чекбоксы в обоих контейнерах
+        const desktopCheckboxes = document.querySelectorAll('.desktop-filters .brand-checkbox');
+        const mobileCheckboxes = document.querySelectorAll('.mobile-filters .brand-checkbox');
+        
+        /* console.log('Десктопные чекбоксы:', desktopCheckboxes.length);
+        console.log('Мобильные чекбоксы:', mobileCheckboxes.length); */
+        
+        // 1. Синхронизируем чекбоксы между мобильной и десктопной версиями
+        function syncCheckboxes(changedCheckbox, isDesktop) {
+            const value = changedCheckbox.value;
+            const isChecked = changedCheckbox.checked;
+            
+            // Если изменен десктопный, обновляем мобильный и наоборот
+            if (isDesktop) {
+                mobileCheckboxes.forEach(cb => {
+                    if (cb.value === value) {
+                        cb.checked = isChecked;
+                    }
+                });
+            } else {
+                desktopCheckboxes.forEach(cb => {
+                    if (cb.value === value) {
+                        cb.checked = isChecked;
+                    }
+                });
+            }
+        }
+        
+        // 2. Единая функция для применения фильтра
+        function applyBrandFilter() {
+            const url = new URL(window.location.href);
+            url.searchParams.delete('brand');
+            url.searchParams.delete('brand[]');
+            
+            // Выбираем набор чекбоксов, у которого есть элементы
+            const checkboxes = desktopCheckboxes.length > 0 ? desktopCheckboxes : mobileCheckboxes;
+            
+            // Преобразуем NodeList в массив и затем применяем filter
+            const selectedBrands = Array.from(checkboxes)
+                .filter(cb => cb.checked)
+                .map(cb => cb.value);
+            
+            if (selectedBrands.length > 0) {
+                url.searchParams.set('brand', selectedBrands.join(','));
+            }
+            
+            url.searchParams.delete('page');
+            window.location.href = url.toString();
+        }
+        
+        // 3. Добавляем обработчики событий
+        desktopCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                syncCheckboxes(this, true);
+                applyBrandFilter();
+            });
+        });
+        
+        mobileCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                syncCheckboxes(this, false);
+                applyBrandFilter();
+            });
+        });
+    });
+</script>
 </x-app-layout>

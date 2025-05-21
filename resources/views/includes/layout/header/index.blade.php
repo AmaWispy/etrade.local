@@ -11,14 +11,42 @@
 @php
 use Illuminate\Support\Facades\Cookie;
 use App\Models\Shop\Cart;
+use App\Models\CategoryCustom;
 use Illuminate\Support\Facades\Auth;
-    $HeaderMenu = \App\Models\Navigation\Menu::where('key', 'header-nav')->first();
-    $cart = null;
 
-    if(session()->has('cart')){
-        $cartData = session()->get('cart');
-        $cart = Cart::where('code', $cartData['code'])->first();
+$HeaderMenu = \App\Models\Navigation\Menu::where('key', 'header-nav')->first();
+$cart = null;
+
+if(session()->has('cart')){
+    $cartData = session()->get('cart');
+    $cart = Cart::where('code', $cartData['code'])->first();
+}
+
+// Получаем все родительские категории (без parent_code)
+$parentCategories = CategoryCustom::whereNull('parent_code')->orderBy('some_order')->get();
+// Получаем все дочерние категории
+$childCategories = CategoryCustom::whereNotNull('parent_code')->orderBy('some_order')->get();
+
+// Оптимизированная подготовка структуры категорий
+$categoriesTree = [];
+$allCategories = $childCategories->keyBy('code');
+
+foreach($parentCategories as $category) {
+    if($category->name == null) continue;
+    
+    $categoriesTree[$category->code] = [
+        'category' => $category,
+        'children' => []
+    ];
+    
+    $children = $childCategories->where('parent_code', $category->code);
+    foreach($children as $child) {
+        $categoriesTree[$category->code]['children'][] = [
+            'category' => $child,
+            'children' => $childCategories->where('parent_code', $child->code)->values()->all()
+        ];
     }
+}
 @endphp
 
 <header class="@if(!in_array(request()->route()->getName(), ['home.default', 'home.localized'])) sticky top-0 border-2 border-blue-500 z-[9999] @endif bg-white shadow-sm" x-bind:class='body ? "!z-0" : ""'>
@@ -53,18 +81,82 @@ use Illuminate\Support\Facades\Auth;
                 <div class="xl:container xl:!mx-auto w-full h-full flex items-center gap-5">
                     @if (in_array(request()->route()->getName(), ['home.default', 'home.localized']))
                         <ul class="h-full">
-                            <li class="h-full lg:w-52 md:w-40 w-[118px]">
+                            <li class="h-full lg:w-52 md:w-40 w-[118px] relative">
                                 <button type="button" 
                                     id="cart" 
                                     data-drawer-target="drawer-navigation" 
                                     data-drawer-show="drawer-navigation" 
                                     aria-controls="drawer-navigation"
-                                    class="flex 2xl:hidden lg:gap-3 gap-1.5 py-2 text-base font-medium h-full w-full justify-center items-center text-white bg-blue-500">
+                                    class="flex  lg:gap-3 gap-1.5 py-2 text-base font-medium h-full w-full justify-center items-center text-white bg-blue-500">
                                     <i class="bi bi-list text-xl md:block hidden"></i> {{ __('template.categories') }}
                                 </button>
-                                <h1 id="cart" class="2xl:flex hidden lg:gap-3 gap-1.5 py-2 text-base font-medium h-full w-full justify-center items-center text-white bg-blue-500">
+                                <!-- <div id="cart" class="2xl:flex hidden lg:gap-3 gap-1.5 py-2 text-base font-medium h-full w-full justify-center items-center text-white bg-blue-500">
                                     <i class="bi bi-list text-xl md:block hidden"></i> {{ __('template.categories') }}
-                                </h1>
+                                </div> -->
+                                <!-- paste here cat-item-backup.php 2xl:hidden-->
+                                <nav class="2xl:flex hidden department-nav-menu">
+                                    <ul class="nav-menu-list">
+                                        @foreach($parentCategories as $category)
+                                            @if($category->name == null)
+                                                @continue
+                                            @endif
+                                            @php
+                                                $categoryChildren = $childCategories->where('parent_code', $category->code)->values();
+                                                $hasChildren = $categoryChildren->count() > 0;
+                                                if ($hasChildren) {
+                                                    $chunks = $categoryChildren->chunk(ceil($categoryChildren->count() / 3));
+                                                }
+                                            @endphp
+                                            <li>
+                                                <a href="{{ route('shop.home', ['category_parent' => $category->code]) }}" class="nav-link {{ $hasChildren ? 'has-megamenu' : '' }}">
+                                                    <!-- <span class="menu-icon">
+                                                        <i class="bi bi-box text-blue-400"></i>
+                                                    </span> -->
+                                                    <span class="menu-text">{{ $category->name }}</span>
+                                                </a>
+                                                @if($hasChildren)
+                                                    <div class="department-megamenu">
+                                                        <div class="department-megamenu-wrap">
+                                                            <div class="department-submenu-wrap max-h-[70vh] overflow-y-auto scrollbar scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+                                                                @foreach($chunks as $chunk)
+                                                                    <div class="department-submenu dep-sub-2">
+                                                                        <div class="submenu-column">
+                                                                            <ul class="space-y-2 dep-sub-ul-2">
+                                                                                @foreach($chunk as $child)
+                                                                                    <li class="text-neutral-400">
+                                                                                        <a href="{{ route('shop.home', ['category_parent' => $child->code]) }}" 
+                                                                                           class="hover:text-blue-500 transition-colors duration-200">
+                                                                                            {{ $child->name }}
+                                                                                        </a>
+                                                                                        @php
+                                                                                            $subChildren = $childCategories->where('parent_code', $child->code);
+                                                                                        @endphp
+                                                                                        @if($subChildren->count() > 0)
+                                                                                            <ul class="pl-4 mt-2 space-y-2">
+                                                                                                @foreach($subChildren as $subChild)
+                                                                                                    <li class="text-neutral-400">
+                                                                                                        <a href="{{ route('shop.home', ['category' => $subChild->code]) }}" 
+                                                                                                           class="hover:text-blue-500 transition-colors duration-200">
+                                                                                                            {{ $subChild->name }}
+                                                                                                        </a>
+                                                                                                    </li>
+                                                                                                @endforeach
+                                                                                            </ul>
+                                                                                        @endif
+                                                                                    </li>
+                                                                                @endforeach
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                @endforeach
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </nav>
                             </li>
                         </ul>
                     @endif
@@ -129,10 +221,30 @@ use Illuminate\Support\Facades\Auth;
 <!-- Menu End -->
 
 <!-- Menu Cart Start -->
-    <div id="drawer-right-example" class="fixed top-0 right-0 h-screen p-4 overflow-y-auto transition-transform translate-x-full bg-white lg:w-[500px] w-screen z-[9999]" tabindex="-1" aria-labelledby="drawer-right-label">
+    <div id="drawer-right-example" 
+        x-data="{ 
+            isOpen: false,
+            toggleDrawer() {
+                this.isOpen = !this.isOpen;
+                document.body.classList.toggle('overflow-y-hidden', this.isOpen);
+            }
+        }"
+        @toggle-cart-drawer.window="toggleDrawer()"
+        x-init="$watch('isOpen', value => {
+            if (!value) {
+                document.body.classList.remove('overflow-y-hidden');
+            }
+        })"
+        class="fixed top-0 right-0 h-screen p-4 overflow-y-auto transition-transform translate-x-full bg-white lg:w-[500px] w-screen z-[9999]" 
+        tabindex="-1" 
+        aria-labelledby="drawer-right-label">
         <div class="flex justify-between items-center border-b border-neutral-300 py-4 !my-4">
             <h1 class="text-xl font-bold">{{ __('template.cart_review') }}</h1>
-            <button x-on:click='body = !body' type="button" data-drawer-hide="drawer-right-example" aria-controls="drawer-right-example" class="bg-gray-200 rounded-full h-7 w-7 p-1.5 inline-flex items-center justify-center" >
+            <button 
+                type="button" 
+                data-drawer-hide="drawer-right-example" 
+                aria-controls="drawer-right-example" 
+                class="bg-gray-200 rounded-full h-7 w-7 p-1.5 inline-flex items-center justify-center">
                 <i class="bi bi-x"></i>
             </button>
         </div>
@@ -175,105 +287,46 @@ use Illuminate\Support\Facades\Auth;
 
 <!-- Categories Menu Start -->
     <div id="drawer-navigation" class="fixed top-0 left-0 z-40 lg:w-96 md:w-80 w-72 h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-white" tabindex="-1" aria-labelledby="drawer-navigation-label">
-        <button x-on:click='body = !body' type="button" data-drawer-hide="drawer-navigation" aria-controls="drawer-navigation" class="text-gray-400 bg-gray-100 w-8 h-8 !text-center hover:bg-blue-500 hover:text-white rounded-lg text-base absolute justify-center top-2.5 end-2.5 flex items-center" ><i class="bi bi-x"></i></button>
+        <button x-on:click="$dispatch('toggle-cart-drawer')" x-on:click='body = !body' type="button" data-drawer-hide="drawer-navigation" aria-controls="drawer-navigation" class="text-gray-400 bg-gray-100 w-8 h-8 !text-center hover:bg-blue-500 hover:text-white rounded-lg text-base absolute justify-center top-2.5 end-2.5 flex items-center" ><i class="bi bi-x"></i></button>
         <div class="py-4 mt-4">
             <ul class="space-y-2 font-medium w-full px-4">
-                <li class="flex w-full flex-col gap-3 border-t border-t-neutral-200" x-data='{open:false}'>
-                    <button x-on:click='open = !open' class="h-12 w-full text-lg  flex items-center justify-between xl:hover:text-black xl:group-hover:text-black">
-                        <span class="flex gap-3 items-center">
-                            <i class="bi bi-sunglasses text-blue-400 xl:group-hover:text-black"></i> 
-                            Fashion 
-                        </span>
-                        <span x-bind:class='open ? "rotate-180" : "rotate-0" ' class="duration-300"><i class="bi bi-chevron-up text-sm"></i></span>
-                    </button>
-                    
-                    <div class="px-1.5 columns-1" x-show='open'>
-                        <ul class="gap-1 break-inside-avoid mb-3 lg:text-base md:text-lg text-base space-y-2">
-                            <li><h1 class="lg:text-lg md:text-xl text-black font-medium">Example bla </h1></li>
-                            <li class="text-neutral-400"><a href="">example</a></li>
-                            <li class="text-neutral-400"><a href="">example</a></li>
-                            <li class="text-neutral-400"><a href="">example</a></li>
-                            <li class="text-neutral-400"><a href="">example</a></li>
-                            <li class="text-neutral-400"><a href="">example</a></li>
-                            <li class="text-neutral-400"><a href="">example</a></li>
-                            <li class="text-neutral-400"><a href="">example</a></li>
-                        </ul>
-                        <ul class="gap-1 break-inside-avoid mb-3 space-y-2">
-                            <li><h1 class="text-lg text-black font-medium">Example bla </h1></li>
-                            <li class="text-neutral-400"><a href="">example</a></li>
-                            <li class="text-neutral-400"><a href="">example</a></li>
-                            <li class="text-neutral-400"><a href="">example</a></li>
-                            <li class="text-neutral-400"><a href="">example</a></li>
-                            <li class="text-neutral-400"><a href="">example</a></li>
-                            <li class="text-neutral-400"><a href="">example</a></li>
-                            <li class="text-neutral-400"><a href="">example</a></li>
-                        </ul>
-                        <ul class="gap-1 break-inside-avoid mb-3 space-y-2">
-                            <li><h1 class="text-lg text-black font-medium">Example bla </h1></li>
-                            <li class="text-neutral-400"><a href="">example</a></li>
-                            <li class="text-neutral-400"><a href="">example</a></li>
-                            <li class="text-neutral-400"><a href="">example</a></li>
-                            <li class="text-neutral-400"><a href="">example</a></li>
-                            <li class="text-neutral-400"><a href="">example</a></li>
-                            <li class="text-neutral-400"><a href="">example</a></li>
-                            <li class="text-neutral-400"><a href="">example</a></li>
-                        </ul>
-                        <ul class="gap-1 break-inside-avoid mb-3 space-y-2">
-                            <li><h1 class="text-lg text-black font-medium">Example bla </h1></li>
-                            <li class="text-neutral-400"><a href="">example</a></li>
-                            <li class="text-neutral-400"><a href="">example</a></li>
-                            <li class="text-neutral-400"><a href="">example</a></li>
-                            <li class="text-neutral-400"><a href="">example</a></li>
-                            <li class="text-neutral-400"><a href="">example</a></li>
-                            <li class="text-neutral-400"><a href="">example</a></li>
-                            <li class="text-neutral-400"><a href="">example</a></li>
-                        </ul>
-                        <div class="grid grid-cols-2 grid-rows-3 gap-2 mt-2">
-                            <div class="col-span-2 w-full h-20 overflow-hidden">
-                                <a href="#" class="h-full w-full">
-                                    <img src="{{ asset('https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg') }}" class="border h-full w-full object-cover transition-transform duration-300 hover:scale-105" alt="Template">
-                                </a>
+                @foreach($parentCategories as $category)
+                    @if($category->name == null)
+                        @continue
+                    @endif
+                    @php
+                        $hasChildren = $childCategories->where('parent_code', $category->code)->count() > 0;
+                    @endphp
+                    <li class="flex w-full flex-col gap-3 border-t border-t-neutral-200" x-data='{open:false}'>
+                        @if($hasChildren)
+                            <button x-on:click='open = !open' class="h-12 w-full text-lg flex items-center justify-between xl:hover:text-black xl:group-hover:text-black">
+                                <span class="flex gap-3 items-center">
+                                    <i class="bi bi-box text-blue-400 xl:group-hover:text-black"></i> 
+                                    {{ $category->name }}
+                                </span>
+                                <span x-bind:class='open ? "rotate-180" : "rotate-0" ' class="duration-300">
+                                    <i class="bi bi-chevron-up text-sm"></i>
+                                </span>
+                            </button>
+                            <div class="px-1.5 columns-1" x-show='open'>
+                                @php
+                                    $categoryChildren = $childCategories->where('parent_code', $category->code);
+                                @endphp
+                                <ul class="gap-1 break-inside-avoid mb-3 lg:text-base md:text-lg text-base space-y-2">
+                                    @foreach($categoryChildren as $child)
+                                        <li class="text-neutral-400">
+                                            <a href="{{ route('shop.home', ['category' => $child->code]) }}">{{ $child->name }}</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
                             </div>
-                            <div class="col-span-2 w-full h-20 overflow-hidden">
-                                <a href="" class="h-full w-full">
-                                    <img src="{{ asset('https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg') }}" class="border h-full w-full object-cover transition-transform duration-300 hover:scale-105" alt="Template">
-                                </a>
-                            </div>
-                            <div class="w-full h-20 overflow-hidden">
-                                <a href="#" class="h-full w-full">
-                                    <img src="{{ asset('https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg') }}" class="border h-full w-full object-cover transition-transform duration-300 hover:scale-105" alt="Template">
-                                </a>
-                            </div>
-                            <div class="w-full h-20 overflow-hidden">
-                                <a href="#" class="h-full w-full">
-                                    <img src="{{ asset('https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg') }}" class="border h-full w-full object-cover transition-transform duration-300 hover:scale-105" alt="Template">
-                                </a>
-                            </div>
-                        </div>
-                        <a href="" class="flex mt-2 justify-center items-center !w-full text-center  transition-transform duration-300 hover:scale-105 bg-blue-500 text-white rounded-lg h-12 font-semibold text-base">{{ __('template.see_all_offers') }}</a>
-                    </div>
-                </li>
-                <li class="flex items-center w-full border-t border-t-neutral-200">
-                    <a href="#" class="w-full h-12 flex items-center gap-3 xl:hover:text-black text-lg"><i class="bi bi-pc-display text-blue-400"></i> Electronics</a>
-                </li>
-                <li class="flex items-center w-full border-t border-t-neutral-200">
-                    <a href="#" class="w-full h-12 flex items-center gap-3 xl:hover:text-black text-lg"><i class="bi bi-house-gear text-blue-400"></i> Home Decor</a>
-                </li>
-                <li class="flex items-center w-full border-t border-t-neutral-200">
-                    <a href="#" class="w-full h-12 flex items-center gap-3 xl:hover:text-black text-lg"><i class="bi bi-clipboard-heart-fill text-blue-400"></i> Medicine</a>
-                </li>
-                <li class="flex items-center w-full border-t border-t-neutral-200">
-                    <a href="#" class="w-full h-12 flex items-center gap-3 xl:hover:text-black text-lg"><i class="bi bi-usb-mini text-blue-400"></i> Furniture</a>
-                </li>
-                <li class="flex items-center w-full border-t border-t-neutral-200">
-                    <a href="#" class="w-full h-12 flex items-center gap-3 xl:hover:text-black text-lg"><i class="bi bi-tools text-blue-400"></i> Crafts</a>
-                </li>
-                <li class="flex items-center w-full border-t border-t-neutral-200">
-                    <a href="#" class="w-full h-12 flex items-center gap-3 xl:hover:text-black text-lg"><i class="bi bi-pencil text-blue-400"></i> Accesories</a>
-                </li>
-                <li class="flex items-center w-full border-t border-t-neutral-200">
-                    <a href="#" class="w-full h-12 flex items-center gap-3 xl:hover:text-black text-lg"><i class="bi bi-camera text-blue-400"></i> Camera</a>
-                </li>
+                        @else
+                            <a href="{{ route('shop.home', ['category_parent' => $category->code]) }}" class="w-full h-12 flex items-center gap-3 xl:hover:text-black text-lg">
+                                <i class="bi bi-box text-blue-400"></i> {{ $category->name }}
+                            </a>
+                        @endif
+                    </li>
+                @endforeach
             </ul>
         </div>
     </div>

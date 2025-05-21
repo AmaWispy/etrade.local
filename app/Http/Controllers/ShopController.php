@@ -22,6 +22,8 @@ use Illuminate\Support\Facades\Cookie;
 use App\Models\Shop\ProductComposition;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View as ViewFacade;
+use App\Models\CategoryCustom;
+use Illuminate\Support\Facades\Cache;
 
 class ShopController extends Controller
 {
@@ -406,7 +408,7 @@ class ShopController extends Controller
     }
 
     public function index(Request $request): View
-    {  
+    {
         $params = $request->route()->parameters();
 
         $segments = explode('/', $params['dynamic']);
@@ -518,7 +520,6 @@ class ShopController extends Controller
 
     public function home(Request $request): View
     {
-
         /**
          * Get shop products
          */
@@ -526,24 +527,49 @@ class ShopController extends Controller
                                 ->whereRaw('stock_quantity > reserved')
                                 ->where('price', '>', 0);
 
+        // Обработка фильтрации по категориям
+        if ($request->has('category')) {
+            $query->where('category_code', $request->get('category'))->count();
+        } elseif ($request->has('category_parent')) {
+            $parentCode = $request->get('category_parent');
+            
+            // Получаем все коды категорий для фильтрации
+            $categoryCodes = Cache::remember("category_tree_{$parentCode}", 3600, function () use ($parentCode) {
+                $category = CategoryCustom::where('code', $parentCode)->first();
+                if (!$category) {
+                    return [];
+                }
+
+                // Получаем все дочерние категории
+                $childCategories = CategoryCustom::where('parent_code', $parentCode)->pluck('code')->toArray();
+                
+                // Получаем категории третьего уровня
+                $thirdLevelCategories = CategoryCustom::whereIn('parent_code', $childCategories)->pluck('code')->toArray();
+                
+                // Объединяем все коды категорий
+                return array_merge([$parentCode], $childCategories, $thirdLevelCategories);
+            });
+
+            if (!empty($categoryCodes)) {
+                $query->whereIn('category_code', $categoryCodes);
+            }
+        }
+
         $filters = $this->getFilters($request, $query);
 
+        
 
         $products = $query->paginate(12);
         return view('shop.home',
             [
                 "products" => $products,
                 'sorting' => $filters['sorting'],
-                "attributeColor" => $filters['attributeColor'],
-                "attributeSize" => $filters['attributeSize'],
-                "sizes" => $filters['sizes'],
-                "colors" => $filters['colors'],
-                "flowersVariations" => $filters['flowersVariations'],
-                "filterFlowers" => $filters['filterFlowers'],
                 "minPrice" => $filters['minPrice'],
                 "maxPrice" => $filters['maxPrice'],
                 "minPriceChanged" => $filters['minPriceChanged'],
                 'maxPriceChanged' => $filters['maxPriceChanged'],
+                'brands' => $filters['brands'],
+                'selectedBrand' => $filters['selectedBrand'],
             ]
         );
     }
@@ -594,39 +620,18 @@ class ShopController extends Controller
 
     private function getFilters($request, $query){
         $sorting = $request->get('sorting', 'latest');
+        $selectedBrands = $request->has('brand') 
+            ? explode(',', $request->input('brand')) 
+            : [];
 
-        /**
-         * Get attribute color sort
-         */
-            $attributeColor = Attribute::where('key', 'color')->first();
-            $colors = $request->get('color') ? explode(',', $request->get('color')) : [];
-            $this->getFilterAttr($colors, $attributeColor, $query);
-        /**
-         * Get attribute Size sort
-         */
-            $attributeSize = Attribute::where('key', 'size')->first();
-            $sizes = $request->get('size') ? explode(',', $request->get('size')) : [];
-    
-            $this->getFilterAttr($sizes, $attributeSize,$query);
+        $cur = session()->get('currency');
+        if ($cur !== null && $cur['iso_alpha'] !== 'MDL'){
+            $cur = $cur['exchange_rate'];
+        }
+        else{
+            $cur = 1;
+        }
 
-        /**
-        * Get name flowers sort
-        */
-            $flowersVariations = Product::whereHas('variations')->get();
-            $flowers = $request->get('flower') ? explode(',', $request->get('flower')) : [];
-            
-            $filterFlowers = $flowersVariations->whereIn('slug', $flowers)->pluck('id')->toArray();
-            $flowerComposition = ProductComposition::whereIn('shop_product_id', $filterFlowers)->pluck('shop_product_variation_id')->toArray();
-
-            if(!empty($flowers)){
-                $query->whereHas('compositionList', function($query) use ($flowerComposition) {
-                    $query->whereIn('shop_product_variation_id', $flowerComposition);
-                });
-            }
-            
-        /**
-         * Get price sort
-         */
         if (\Auth::guard('client')->check()){
             $maxPrice =  Currency::exchange($query->max('price'));
             $minPrice =  Currency::exchange($query->min('price'));  
@@ -635,8 +640,17 @@ class ShopController extends Controller
             $minPrice =  Currency::exchange($query->min('default_price'));
         }
             
-            $minPriceChanged =  round($request->get('min', $minPrice));
-            $maxPriceChanged =   round($request->get('max', $maxPrice));
+        $minPriceChanged = round($request->get('min', $minPrice), 2);
+        $maxPriceChanged = round($request->get('max', $maxPrice), 2);
+
+        // Get unique brands
+        $brands = $query->distinct()->pluck('brand')->filter()->values()->toArray();
+
+        // Apply brand filter if selected
+        if (!empty($selectedBrands)) {
+            $query->whereIn('brand', $selectedBrands);
+        }
+
         /**
          * Apply sorting to the query
          */
@@ -652,28 +666,31 @@ class ShopController extends Controller
                 break;
         }
 
+        
+        //dd(Currency::exchange($maxPriceChanged));
         // Apply sort to price
         if($minPriceChanged !== null || $maxPriceChanged !== null){
             if(\Auth::guard('client')->check()){
-                $query->whereBetween('price', [Currency::exchange($minPriceChanged), Currency::exchange($maxPriceChanged)])->get();
+                $query->whereBetween('price', [$minPriceChanged / $cur, $maxPriceChanged / $cur])->get();
             } else {
-                $query->whereBetween('default_price', [Currency::exchange($minPriceChanged), Currency::exchange($maxPriceChanged)])->get();
+                $query->whereBetween('default_price', [$minPriceChanged / $cur, $maxPriceChanged / $cur])->get();
             }
         }
+
+        
+
+
+        //dd(number_format($maxPrice, 2, '.', ''), number_format($minPrice, 2, '.', ''));
 
         return [
             'query' => $query,
             'sorting' => $sorting,
             'maxPriceChanged' => $maxPriceChanged,
             'minPriceChanged' => $minPriceChanged,
-            'minPrice' => $minPrice,
-            'maxPrice' => $maxPrice,
-            'attributeColor' => $attributeColor,
-            'attributeSize' => $attributeSize,
-            'colors' => $colors,
-            'sizes' => $sizes,
-            'flowersVariations' => $flowersVariations,
-            'filterFlowers' =>$filterFlowers,
+            'minPrice' => round($minPrice, 2),
+            'maxPrice' => round($maxPrice, 2),
+            'brands' => $brands,
+            'selectedBrand' => $selectedBrands,
         ];
     }
 

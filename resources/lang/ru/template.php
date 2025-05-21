@@ -63,6 +63,7 @@ return [
     'sizes' => "Размеры",  
     'hide_filter' => "Скрыть фильтр",
     'filter' => "Фильтр",  
+    'brands' => 'Бренды',
 
     /**
      * Headings
@@ -270,7 +271,7 @@ return [
     'we_offer_the_best_products' => "Мы предлагаем лучшие товары",
     'not_a_member' => "Не являетесь участником?",
     'sign_up_now' => "Зарегистрируйтесь сейчас",
-    'sign_in_to_etrade' => "Войдите в eTrade.",
+    'sign_in_to_etrade' => "Войдите в Scop.",
     'enter_your_detail_below' => "Введите свои данные ниже.",
     'forget_password' => "Забыли пароль?",
     'sign_in' => "Войти",
@@ -404,4 +405,7 @@ return [
     'invalid_access_code' => 'Неверный код доступа',
     'for_our_clients' => "Для наших клиентов",
     'for_you' => "Для вас",
+    'close' => 'Закрыть',
+    'items_2' => 'Продукты',
+    'currency' => 'Курс',
 ];      

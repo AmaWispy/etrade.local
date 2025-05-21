@@ -302,4 +302,66 @@ class ApiService
 
         return $success;
     }
+
+    public static function fetchAndStoreCategories()
+    {
+        $maxRetries = 2;
+        $retryCount = 0;
+        $success = false;
+
+        while ($retryCount < $maxRetries && !$success) {
+            try {
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, config('services.api.url') . 'GetCategories');
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+                curl_setopt($ch, CURLOPT_USERPWD, config('services.api.username') . ":" . config('services.api.password'));
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+
+                $response = curl_exec($ch);
+                $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+                curl_close($ch);
+
+                if ($httpCode === 200) {
+                    $data = json_decode($response, true);
+                    
+                    if (is_array($data)) {
+                        // Очищаем таблицу перед добавлением новых данных
+                        \App\Models\CategoryCustom::truncate();
+                        
+                        foreach ($data as $categoryData) {
+                            \App\Models\CategoryCustom::create([
+                                'id' => ($categoryData['Nr'] ?? null) === '' ? null : $categoryData['Nr'] ?? null,
+                                'code' => ($categoryData['Code'] ?? null) === '' ? null : $categoryData['Code'] ?? null,
+                                'name' => ($categoryData['Name'] ?? null) === '' ? null : $categoryData['Name'] ?? null,
+                                'name_ru' => ($categoryData['NameRu'] ?? null) === '' ? null : $categoryData['NameRu'] ?? null,
+                                'name_en' => ($categoryData['NameEn'] ?? null) === '' ? null : $categoryData['NameEn'] ?? null,
+                                'some_order' => ($categoryData['Order'] ?? null) === '' ? null : $categoryData['Order'] ?? null,
+                                'parent_code' => ($categoryData['ParentCode'] ?? null) === '' ? null : $categoryData['ParentCode'] ?? null,
+                                'parent' => ($categoryData['Parent'] ?? null) === '' ? null : $categoryData['Parent'] ?? null
+                            ]);
+                        }
+                        
+                        $success = true;
+                        Log::info('Categories data fetched and stored successfully at ' . now()->format('Y-m-d H:i:s'));
+                    } else {
+                        throw new \Exception('Invalid response format from API');
+                    }
+                } else {
+                    throw new \Exception('API request failed with status: ' . $httpCode);
+                }
+            } catch (\Exception $e) {
+                $retryCount++;
+                if ($retryCount >= $maxRetries) {
+                    Log::error('Unable to get categories: ' . $e->getMessage() . ' at ' . now()->format('Y-m-d H:i:s'));
+                } else {
+                    Log::warning('Attempt ' . $retryCount . ' failed. Retrying...');
+                    sleep(1); // Wait 1 second before retrying
+                }
+            }
+        }
+
+        return $success;
+    }
 }

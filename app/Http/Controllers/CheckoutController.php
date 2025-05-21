@@ -650,6 +650,11 @@ class CheckoutController extends Controller
         if (!$cart) {
             return redirect('/');
         }
+        if ($cart->total_items <= 0) {
+            session()->forget('cart');
+            $cart->delete();
+            return redirect('/');
+        }
 
         if (session()->has('currency')){
             $currency = json_encode([

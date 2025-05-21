@@ -14,10 +14,10 @@
         </li>
     @endif
     @if(Auth::guard('client')->check())
-        <li>
+        <li class="relative">
             <button type="button" 
                 id="cart" 
-                x-on:click='body = !body'
+                x-on:click="$dispatch('toggle-cart-drawer')"
                 data-drawer-target="drawer-right-example" 
                 data-drawer-show="drawer-right-example" 
                 data-drawer-placement="right" 
@@ -25,6 +25,11 @@
                 class="duration-500 text-center xl:hover:bg-florarColor xl:hover:text-white rounded-full flex items-center justify-center p-2 w-9 h-9">
                 <i class="bi bi-cart3"></i>
             </button>
+            @if(isset($cart))
+                <div class="cart-count cart-count-indicator" id="cart-count-header">
+                    {{ session('cart') ? session('cart')['totalItems'] : 0 }}
+                </div>
+            @endif
         </li>
     @endif
     <li>

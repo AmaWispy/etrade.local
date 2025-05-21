@@ -1,0 +1,3840 @@
+[
+	{
+		"Nr": "1",
+		"Code": "",
+		"Name": "",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": ""
+	},
+	{
+		"Nr": "2",
+		"Code": "4151",
+		"Name": "TOYS",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "4"
+	},
+	{
+		"Nr": "3",
+		"Code": "4730",
+		"Name": "SPORT",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "3"
+	},
+	{
+		"Nr": "4",
+		"Code": "4731",
+		"Name": "TABLE TENNIS TABLES (Столы для настольного тенниса)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4730",
+		"Parent": "SPORT"
+	},
+	{
+		"Nr": "5",
+		"Code": "4747",
+		"Name": "TRAMBULINE (Батуты)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4730",
+		"Parent": "SPORT"
+	},
+	{
+		"Nr": "6",
+		"Code": "4770",
+		"Name": "SALTELE SPORT",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4730",
+		"Parent": "SPORT"
+	},
+	{
+		"Nr": "7",
+		"Code": "4797",
+		"Name": "BIKE LIGHTS (Фонари для велосипеда)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4730",
+		"Parent": "SPORT"
+	},
+	{
+		"Nr": "8",
+		"Code": "4351",
+		"Name": "BALLS (Мячи)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4730",
+		"Parent": "SPORT"
+	},
+	{
+		"Nr": "9",
+		"Code": "4225",
+		"Name": "HOME APPLIANCES",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "2"
+	},
+	{
+		"Nr": "10",
+		"Code": "4753",
+		"Name": "SDA (Мелкобытовая техника)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4225",
+		"Parent": "HOME APPLIANCES"
+	},
+	{
+		"Nr": "11",
+		"Code": "4227",
+		"Name": "KITCHEN (Техника для кухни)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4753",
+		"Parent": "SDA (Мелкобытовая техника)"
+	},
+	{
+		"Nr": "12",
+		"Code": "4712",
+		"Name": "DEHYDRATOR (Сушки для овощей и фруктов)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "8",
+		"ParentCode": "4227",
+		"Parent": "KITCHEN (Техника для кухни)"
+	},
+	{
+		"Nr": "13",
+		"Code": "4713",
+		"Name": "DEEP FRYERS (Фритюрницы)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "8",
+		"ParentCode": "4227",
+		"Parent": "KITCHEN (Техника для кухни)"
+	},
+	{
+		"Nr": "14",
+		"Code": "4714",
+		"Name": "ICE CREAM MAKERS (Мороженицы)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "8",
+		"ParentCode": "4227",
+		"Parent": "KITCHEN (Техника для кухни)"
+	},
+	{
+		"Nr": "15",
+		"Code": "4791",
+		"Name": "EGG BOILERS (Яйцеварки)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "3",
+		"ParentCode": "4227",
+		"Parent": "KITCHEN (Техника для кухни)"
+	},
+	{
+		"Nr": "16",
+		"Code": "4795",
+		"Name": "MILK FROTHERS (Вспениватели молока)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "3",
+		"ParentCode": "4227",
+		"Parent": "KITCHEN (Техника для кухни)"
+	},
+	{
+		"Nr": "17",
+		"Code": "4835",
+		"Name": "VACUUM SEALER (Вакуумный упаковщик)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4227",
+		"Parent": "KITCHEN (Техника для кухни)"
+	},
+	{
+		"Nr": "18",
+		"Code": "4235",
+		"Name": "MICROVAWE OVEN (Микроволновые печи)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4227",
+		"Parent": "KITCHEN (Техника для кухни)"
+	},
+	{
+		"Nr": "19",
+		"Code": "4254",
+		"Name": "KETTLES (Чайники)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "1",
+		"ParentCode": "4227",
+		"Parent": "KITCHEN (Техника для кухни)"
+	},
+	{
+		"Nr": "20",
+		"Code": "4256",
+		"Name": "KITCHEN SCALES (Весы кухонные)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "10",
+		"ParentCode": "4227",
+		"Parent": "KITCHEN (Техника для кухни)"
+	},
+	{
+		"Nr": "21",
+		"Code": "4257",
+		"Name": "COFFEE MILLS (Кофемолки)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "7",
+		"ParentCode": "4227",
+		"Parent": "KITCHEN (Техника для кухни)"
+	},
+	{
+		"Nr": "22",
+		"Code": "4258",
+		"Name": "MULTOCOOKERS (Мультиварки)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "2",
+		"ParentCode": "4227",
+		"Parent": "KITCHEN (Техника для кухни)"
+	},
+	{
+		"Nr": "23",
+		"Code": "4259",
+		"Name": "FOOD PROCESSORS (Кухонные комбайны)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "5",
+		"ParentCode": "4227",
+		"Parent": "KITCHEN (Техника для кухни)"
+	},
+	{
+		"Nr": "24",
+		"Code": "4261",
+		"Name": "JUICE MAKERS (Соковыжималки)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "9",
+		"ParentCode": "4227",
+		"Parent": "KITCHEN (Техника для кухни)"
+	},
+	{
+		"Nr": "25",
+		"Code": "4262",
+		"Name": "AERO GRILL (Аэрогриль - конвекционная печь)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "8",
+		"ParentCode": "4227",
+		"Parent": "KITCHEN (Техника для кухни)"
+	},
+	{
+		"Nr": "26",
+		"Code": "4264",
+		"Name": "MEAT GRINDERS (Мясорубки)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "11",
+		"ParentCode": "4227",
+		"Parent": "KITCHEN (Техника для кухни)"
+	},
+	{
+		"Nr": "27",
+		"Code": "4265",
+		"Name": "FOOD SLICERS (Ломтерезки)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "11",
+		"ParentCode": "4227",
+		"Parent": "KITCHEN (Техника для кухни)"
+	},
+	{
+		"Nr": "28",
+		"Code": "4267",
+		"Name": "GRILLS (Гриль)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "8",
+		"ParentCode": "4227",
+		"Parent": "KITCHEN (Техника для кухни)"
+	},
+	{
+		"Nr": "29",
+		"Code": "4268",
+		"Name": "TOSTERS (Тостеры)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "14",
+		"ParentCode": "4227",
+		"Parent": "KITCHEN (Техника для кухни)"
+	},
+	{
+		"Nr": "30",
+		"Code": "4355",
+		"Name": "STEAM COOKERS (Пароварки)",
+		"NameRu": "STEAM COOKERS",
+		"NameEn": "",
+		"Order": "12",
+		"ParentCode": "4227",
+		"Parent": "KITCHEN (Техника для кухни)"
+	},
+	{
+		"Nr": "31",
+		"Code": "4596",
+		"Name": "BLENDERS (Блендеры)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "4",
+		"ParentCode": "4227",
+		"Parent": "KITCHEN (Техника для кухни)"
+	},
+	{
+		"Nr": "32",
+		"Code": "4597",
+		"Name": "SANDWICH & WAFFLE MAKERS (Сэндвичницы, вафельницы)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "12",
+		"ParentCode": "4227",
+		"Parent": "KITCHEN (Техника для кухни)"
+	},
+	{
+		"Nr": "33",
+		"Code": "4609",
+		"Name": "GRINDERS (Электромельницы)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "1",
+		"ParentCode": "4227",
+		"Parent": "KITCHEN (Техника для кухни)"
+	},
+	{
+		"Nr": "34",
+		"Code": "4353",
+		"Name": "ELECTRIC OVEN (Электрические печи)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4227",
+		"Parent": "KITCHEN (Техника для кухни)"
+	},
+	{
+		"Nr": "35",
+		"Code": "4381",
+		"Name": "HOBS (Настольные плиты)",
+		"NameRu": "HOBS",
+		"NameEn": "",
+		"Order": "6",
+		"ParentCode": "4227",
+		"Parent": "KITCHEN (Техника для кухни)"
+	},
+	{
+		"Nr": "36",
+		"Code": "4260",
+		"Name": "MIXERS (Миксеры)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "3",
+		"ParentCode": "4227",
+		"Parent": "KITCHEN (Техника для кухни)"
+	},
+	{
+		"Nr": "37",
+		"Code": "4607",
+		"Name": "HAND MIXERS",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4260",
+		"Parent": "MIXERS (Миксеры)"
+	},
+	{
+		"Nr": "38",
+		"Code": "4608",
+		"Name": "STAND MIXERS",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4260",
+		"Parent": "MIXERS (Миксеры)"
+	},
+	{
+		"Nr": "39",
+		"Code": "4263",
+		"Name": "COFFEE MACHINE & MAKER (Кофемашины и Кофеварки)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "7",
+		"ParentCode": "4227",
+		"Parent": "KITCHEN (Техника для кухни)"
+	},
+	{
+		"Nr": "40",
+		"Code": "4767",
+		"Name": "COFFEEMAKER (Кофеварки)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4263",
+		"Parent": "COFFEE MACHINE & MAKER (Кофемашины и Кофеварки)"
+	},
+	{
+		"Nr": "41",
+		"Code": "4813",
+		"Name": "Accessories",
+		"NameRu": "Accessories",
+		"NameEn": "",
+		"Order": "2",
+		"ParentCode": "4263",
+		"Parent": "COFFEE MACHINE & MAKER (Кофемашины и Кофеварки)"
+	},
+	{
+		"Nr": "42",
+		"Code": "4229",
+		"Name": "HEALTH & BEAUTY (Красота и здоровье)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4753",
+		"Parent": "SDA (Мелкобытовая техника)"
+	},
+	{
+		"Nr": "43",
+		"Code": "4701",
+		"Name": "PULSE OXIMETERS (Пульсоксиметр - Прибор для измерения уровня сатурации кислородом крови)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "6",
+		"ParentCode": "4229",
+		"Parent": "HEALTH & BEAUTY (Красота и здоровье)"
+	},
+	{
+		"Nr": "44",
+		"Code": "4725",
+		"Name": "ELECTRIC BLANKETS & CUSHIONS (Электро-одеяла, простыни)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "2",
+		"ParentCode": "4229",
+		"Parent": "HEALTH & BEAUTY (Красота и здоровье)"
+	},
+	{
+		"Nr": "45",
+		"Code": "4790",
+		"Name": "BREAST PUMPS (Молокоотсосы)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "1",
+		"ParentCode": "4229",
+		"Parent": "HEALTH & BEAUTY (Красота и здоровье)"
+	},
+	{
+		"Nr": "46",
+		"Code": "4794",
+		"Name": "INHALATORS / NEBULIZERS (Ингаляторы и небулайзеры)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "1",
+		"ParentCode": "4229",
+		"Parent": "HEALTH & BEAUTY (Красота и здоровье)"
+	},
+	{
+		"Nr": "47",
+		"Code": "4805",
+		"Name": "MILK BOTTLE WARMERS (Подогреватели бутылочек)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "1",
+		"ParentCode": "4229",
+		"Parent": "HEALTH & BEAUTY (Красота и здоровье)"
+	},
+	{
+		"Nr": "48",
+		"Code": "4270",
+		"Name": "BATHROOM SCALES (Весы Напольные)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "1",
+		"ParentCode": "4229",
+		"Parent": "HEALTH & BEAUTY (Красота и здоровье)"
+	},
+	{
+		"Nr": "49",
+		"Code": "4599",
+		"Name": "SHAVERS, CLIPPERS, TRIMMERS (Бритвы, машинки для стрижки, триммеры)",
+		"NameRu": "SHAVERS, CLIPPERS, TRIMMERS",
+		"NameEn": "",
+		"Order": "4",
+		"ParentCode": "4229",
+		"Parent": "HEALTH & BEAUTY (Красота и здоровье)"
+	},
+	{
+		"Nr": "50",
+		"Code": "4604",
+		"Name": "HUMIDIFIERS (Увлажнители воздуха)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "5",
+		"ParentCode": "4229",
+		"Parent": "HEALTH & BEAUTY (Красота и здоровье)"
+	},
+	{
+		"Nr": "51",
+		"Code": "4614",
+		"Name": "BLOOD PRESSURE (Тонометры - Приборы для измерения давления)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "6",
+		"ParentCode": "4229",
+		"Parent": "HEALTH & BEAUTY (Красота и здоровье)"
+	},
+	{
+		"Nr": "52",
+		"Code": "4298",
+		"Name": "THERMOMETER (Термометры)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "20",
+		"ParentCode": "4229",
+		"Parent": "HEALTH & BEAUTY (Красота и здоровье)"
+	},
+	{
+		"Nr": "53",
+		"Code": "4598",
+		"Name": "BEAUTY PRODUCTS (Эпиляторы)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "2",
+		"ParentCode": "4229",
+		"Parent": "HEALTH & BEAUTY (Красота и здоровье)"
+	},
+	{
+		"Nr": "54",
+		"Code": "4275",
+		"Name": "EPILATORS (Эпиляторы)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4598",
+		"Parent": "BEAUTY PRODUCTS (Эпиляторы)"
+	},
+	{
+		"Nr": "55",
+		"Code": "4603",
+		"Name": "CALLUS REMOVERS",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4598",
+		"Parent": "BEAUTY PRODUCTS (Эпиляторы)"
+	},
+	{
+		"Nr": "56",
+		"Code": "4600",
+		"Name": "HAIR STYLING (Плойки, фены, утюжки)",
+		"NameRu": "HAIR STYLING",
+		"NameEn": "",
+		"Order": "3",
+		"ParentCode": "4229",
+		"Parent": "HEALTH & BEAUTY (Красота и здоровье)"
+	},
+	{
+		"Nr": "57",
+		"Code": "4276",
+		"Name": "HAIR DRYERS (Фены)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4600",
+		"Parent": "HAIR STYLING (Плойки, фены, утюжки)"
+	},
+	{
+		"Nr": "58",
+		"Code": "4601",
+		"Name": "HAIR CURLERS (Плойки)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4600",
+		"Parent": "HAIR STYLING (Плойки, фены, утюжки)"
+	},
+	{
+		"Nr": "59",
+		"Code": "4602",
+		"Name": "HAIR STRAIGHTENERS (Утюжки для волос)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4600",
+		"Parent": "HAIR STYLING (Плойки, фены, утюжки)"
+	},
+	{
+		"Nr": "60",
+		"Code": "4605",
+		"Name": "HOME PRODUCTS (Техника для дома)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4753",
+		"Parent": "SDA (Мелкобытовая техника)"
+	},
+	{
+		"Nr": "61",
+		"Code": "4724",
+		"Name": "FAN HEATERS (Обогреватели)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4605",
+		"Parent": "HOME PRODUCTS (Техника для дома)"
+	},
+	{
+		"Nr": "62",
+		"Code": "4771",
+		"Name": "MOSQUITO KILLERS (Защита от насекомых)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4605",
+		"Parent": "HOME PRODUCTS (Техника для дома)"
+	},
+	{
+		"Nr": "63",
+		"Code": "4788",
+		"Name": "BABY MONITORS (Видео няни)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4605",
+		"Parent": "HOME PRODUCTS (Техника для дома)"
+	},
+	{
+		"Nr": "64",
+		"Code": "4796",
+		"Name": "COOLING FANS (Вентиляторы)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4605",
+		"Parent": "HOME PRODUCTS (Техника для дома)"
+	},
+	{
+		"Nr": "65",
+		"Code": "4255",
+		"Name": "IRONS (Утюги)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4605",
+		"Parent": "HOME PRODUCTS (Техника для дома)"
+	},
+	{
+		"Nr": "66",
+		"Code": "4269",
+		"Name": "DESK LAMPS (Настольные лампы)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4605",
+		"Parent": "HOME PRODUCTS (Техника для дома)"
+	},
+	{
+		"Nr": "67",
+		"Code": "4273",
+		"Name": "LINT REMOVERS (Машинка для удаления катышков)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4605",
+		"Parent": "HOME PRODUCTS (Техника для дома)"
+	},
+	{
+		"Nr": "68",
+		"Code": "4659",
+		"Name": "TOOLS (Инструменты)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4605",
+		"Parent": "HOME PRODUCTS (Техника для дома)"
+	},
+	{
+		"Nr": "69",
+		"Code": "4606",
+		"Name": "AIR PURIFIERS (Очистители и Ионизаторы воздуха)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4605",
+		"Parent": "HOME PRODUCTS (Техника для дома)"
+	},
+	{
+		"Nr": "70",
+		"Code": "4226",
+		"Name": "MDA (Крупнобытовая техника)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4225",
+		"Parent": "HOME APPLIANCES"
+	},
+	{
+		"Nr": "71",
+		"Code": "4232",
+		"Name": "WASHING MACHINES (Стиральные машины)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "2",
+		"ParentCode": "4226",
+		"Parent": "MDA (Крупнобытовая техника)"
+	},
+	{
+		"Nr": "72",
+		"Code": "4236",
+		"Name": "VACUUM CLEANER (Пылесосы)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4226",
+		"Parent": "MDA (Крупнобытовая техника)"
+	},
+	{
+		"Nr": "73",
+		"Code": "4237",
+		"Name": "GAS COOKERS (Газовые плиты)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4226",
+		"Parent": "MDA (Крупнобытовая техника)"
+	},
+	{
+		"Nr": "74",
+		"Code": "4281",
+		"Name": "AIR CONDITIONERS",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4226",
+		"Parent": "MDA (Крупнобытовая техника)"
+	},
+	{
+		"Nr": "75",
+		"Code": "368",
+		"Name": "TEHNICA IT",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "1"
+	},
+	{
+		"Nr": "76",
+		"Code": "4672",
+		"Name": "SECURITY",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "19",
+		"ParentCode": "368",
+		"Parent": "TEHNICA IT"
+	},
+	{
+		"Nr": "77",
+		"Code": "4663",
+		"Name": "IP Cameras",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "1",
+		"ParentCode": "4672",
+		"Parent": "SECURITY"
+	},
+	{
+		"Nr": "78",
+		"Code": "4664",
+		"Name": "Network Video Recorders",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "2",
+		"ParentCode": "4672",
+		"Parent": "SECURITY"
+	},
+	{
+		"Nr": "79",
+		"Code": "4673",
+		"Name": "Analog HD-TVI/HD-CVI/AHD Cameras",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "3",
+		"ParentCode": "4672",
+		"Parent": "SECURITY"
+	},
+	{
+		"Nr": "80",
+		"Code": "4674",
+		"Name": "Digital Video Recorders",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "4",
+		"ParentCode": "4672",
+		"Parent": "SECURITY"
+	},
+	{
+		"Nr": "81",
+		"Code": "4675",
+		"Name": "Video Intercom",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "5",
+		"ParentCode": "4672",
+		"Parent": "SECURITY"
+	},
+	{
+		"Nr": "82",
+		"Code": "4676",
+		"Name": "Access Control",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "6",
+		"ParentCode": "4672",
+		"Parent": "SECURITY"
+	},
+	{
+		"Nr": "83",
+		"Code": "4681",
+		"Name": "EZVIZ",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4672",
+		"Parent": "SECURITY"
+	},
+	{
+		"Nr": "84",
+		"Code": "4685",
+		"Name": "Security Accessories",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "10",
+		"ParentCode": "4672",
+		"Parent": "SECURITY"
+	},
+	{
+		"Nr": "85",
+		"Code": "4189",
+		"Name": "PERIPHERALS",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "7",
+		"ParentCode": "368",
+		"Parent": "TEHNICA IT"
+	},
+	{
+		"Nr": "86",
+		"Code": "4210",
+		"Name": "MOUSE PAD",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "2",
+		"ParentCode": "4189",
+		"Parent": "PERIPHERALS"
+	},
+	{
+		"Nr": "87",
+		"Code": "1645",
+		"Name": "KEYBOARD",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "3",
+		"ParentCode": "4189",
+		"Parent": "PERIPHERALS"
+	},
+	{
+		"Nr": "88",
+		"Code": "380",
+		"Name": "MOUSE",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "1",
+		"ParentCode": "4189",
+		"Parent": "PERIPHERALS"
+	},
+	{
+		"Nr": "89",
+		"Code": "4310",
+		"Name": "Spacer",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "380",
+		"Parent": "MOUSE"
+	},
+	{
+		"Nr": "90",
+		"Code": "4190",
+		"Name": "POWER PROTECTION",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "16",
+		"ParentCode": "368",
+		"Parent": "TEHNICA IT"
+	},
+	{
+		"Nr": "91",
+		"Code": "4293",
+		"Name": "Surge Protectors",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "3",
+		"ParentCode": "4190",
+		"Parent": "POWER PROTECTION"
+	},
+	{
+		"Nr": "92",
+		"Code": "398",
+		"Name": "UPS",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "1",
+		"ParentCode": "4190",
+		"Parent": "POWER PROTECTION"
+	},
+	{
+		"Nr": "93",
+		"Code": "4191",
+		"Name": "CONSUMABLES",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "20",
+		"ParentCode": "368",
+		"Parent": "TEHNICA IT"
+	},
+	{
+		"Nr": "94",
+		"Code": "4205",
+		"Name": "LASER DRUM",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "6",
+		"ParentCode": "4191",
+		"Parent": "CONSUMABLES"
+	},
+	{
+		"Nr": "95",
+		"Code": "1708",
+		"Name": "INK",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "4",
+		"ParentCode": "4191",
+		"Parent": "CONSUMABLES"
+	},
+	{
+		"Nr": "96",
+		"Code": "4204",
+		"Name": "LASER TONER",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "3",
+		"ParentCode": "4191",
+		"Parent": "CONSUMABLES"
+	},
+	{
+		"Nr": "97",
+		"Code": "4300",
+		"Name": "ORIGINAL",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4204",
+		"Parent": "LASER TONER"
+	},
+	{
+		"Nr": "98",
+		"Code": "4301",
+		"Name": "COMPATIBLE",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4204",
+		"Parent": "LASER TONER"
+	},
+	{
+		"Nr": "99",
+		"Code": "815",
+		"Name": "BATTERY",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "2",
+		"ParentCode": "4191",
+		"Parent": "CONSUMABLES"
+	},
+	{
+		"Nr": "100",
+		"Code": "1788",
+		"Name": "BATTERY",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "815",
+		"Parent": "BATTERY"
+	},
+	{
+		"Nr": "101",
+		"Code": "4573",
+		"Name": "CHARGERS / POWERBANKS",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "15",
+		"ParentCode": "368",
+		"Parent": "TEHNICA IT"
+	},
+	{
+		"Nr": "102",
+		"Code": "4183",
+		"Name": "Powerbank",
+		"NameRu": "Powerbank",
+		"NameEn": "",
+		"Order": "5",
+		"ParentCode": "4573",
+		"Parent": "CHARGERS / POWERBANKS"
+	},
+	{
+		"Nr": "103",
+		"Code": "1791",
+		"Name": "Chargers",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "1",
+		"ParentCode": "4573",
+		"Parent": "CHARGERS / POWERBANKS"
+	},
+	{
+		"Nr": "104",
+		"Code": "4574",
+		"Name": "Home USB Chargers",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "1791",
+		"Parent": "Chargers"
+	},
+	{
+		"Nr": "105",
+		"Code": "4575",
+		"Name": "Car USB Chargers",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "1791",
+		"Parent": "Chargers"
+	},
+	{
+		"Nr": "106",
+		"Code": "4577",
+		"Name": "CAR PRODUCTS / HOLDERS",
+		"NameRu": "CAR PRODUCTS / HOLDERS",
+		"NameEn": "",
+		"Order": "15",
+		"ParentCode": "368",
+		"Parent": "TEHNICA IT"
+	},
+	{
+		"Nr": "107",
+		"Code": "4803",
+		"Name": "Car Accessories",
+		"NameRu": "Car Accessories",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4577",
+		"Parent": "CAR PRODUCTS / HOLDERS"
+	},
+	{
+		"Nr": "108",
+		"Code": "4217",
+		"Name": "Car Camera",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "3",
+		"ParentCode": "4577",
+		"Parent": "CAR PRODUCTS / HOLDERS"
+	},
+	{
+		"Nr": "109",
+		"Code": "4578",
+		"Name": "Car Parfum",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "4",
+		"ParentCode": "4577",
+		"Parent": "CAR PRODUCTS / HOLDERS"
+	},
+	{
+		"Nr": "110",
+		"Code": "3044",
+		"Name": "FM / Bluetooth Transmitter",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "2",
+		"ParentCode": "4577",
+		"Parent": "CAR PRODUCTS / HOLDERS"
+	},
+	{
+		"Nr": "111",
+		"Code": "4186",
+		"Name": "Holders",
+		"NameRu": "Holders",
+		"NameEn": "",
+		"Order": "1",
+		"ParentCode": "4577",
+		"Parent": "CAR PRODUCTS / HOLDERS"
+	},
+	{
+		"Nr": "112",
+		"Code": "4616",
+		"Name": "Wireless",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4186",
+		"Parent": "Holders"
+	},
+	{
+		"Nr": "113",
+		"Code": "4595",
+		"Name": "PROJECTION EQUIPMENT",
+		"NameRu": "PROJECTION EQUIPMENT",
+		"NameEn": "",
+		"Order": "13",
+		"ParentCode": "368",
+		"Parent": "TEHNICA IT"
+	},
+	{
+		"Nr": "114",
+		"Code": "4302",
+		"Name": "PROJECTORS ACCESORIES",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "6",
+		"ParentCode": "4595",
+		"Parent": "PROJECTION EQUIPMENT"
+	},
+	{
+		"Nr": "115",
+		"Code": "1637",
+		"Name": "PROJECTION SCREEN",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "5",
+		"ParentCode": "4595",
+		"Parent": "PROJECTION EQUIPMENT"
+	},
+	{
+		"Nr": "116",
+		"Code": "2086",
+		"Name": "PROJECTORS",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "2",
+		"ParentCode": "4595",
+		"Parent": "PROJECTION EQUIPMENT"
+	},
+	{
+		"Nr": "117",
+		"Code": "4633",
+		"Name": "OFFICE EQUIPMENT",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "21",
+		"ParentCode": "368",
+		"Parent": "TEHNICA IT"
+	},
+	{
+		"Nr": "118",
+		"Code": "4734",
+		"Name": "Laminators",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4633",
+		"Parent": "OFFICE EQUIPMENT"
+	},
+	{
+		"Nr": "119",
+		"Code": "4634",
+		"Name": "Shreders",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4633",
+		"Parent": "OFFICE EQUIPMENT"
+	},
+	{
+		"Nr": "120",
+		"Code": "4250",
+		"Name": "TV",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "9",
+		"ParentCode": "368",
+		"Parent": "TEHNICA IT"
+	},
+	{
+		"Nr": "121",
+		"Code": "1768",
+		"Name": "TV MOUNTING",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "10",
+		"ParentCode": "368",
+		"Parent": "TEHNICA IT"
+	},
+	{
+		"Nr": "122",
+		"Code": "369",
+		"Name": "MONITORS",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "4",
+		"ParentCode": "368",
+		"Parent": "TEHNICA IT"
+	},
+	{
+		"Nr": "123",
+		"Code": "4815",
+		"Name": "Monitor Mounting",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "369",
+		"Parent": "MONITORS"
+	},
+	{
+		"Nr": "124",
+		"Code": "1636",
+		"Name": "MONITORS",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "1",
+		"ParentCode": "369",
+		"Parent": "MONITORS"
+	},
+	{
+		"Nr": "125",
+		"Code": "4581",
+		"Name": "21.5\"",
+		"NameRu": "21.5\"",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "1636",
+		"Parent": "MONITORS"
+	},
+	{
+		"Nr": "126",
+		"Code": "4582",
+		"Name": "23 - 24\"",
+		"NameRu": "23 - 24\"",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "1636",
+		"Parent": "MONITORS"
+	},
+	{
+		"Nr": "127",
+		"Code": "4583",
+		"Name": "25 - 29\"",
+		"NameRu": "25 - 29\"",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "1636",
+		"Parent": "MONITORS"
+	},
+	{
+		"Nr": "128",
+		"Code": "4369",
+		"Name": "30” or more",
+		"NameRu": "30” or more",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "1636",
+		"Parent": "MONITORS"
+	},
+	{
+		"Nr": "129",
+		"Code": "376",
+		"Name": "MULTIMEDIA",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "5",
+		"ParentCode": "368",
+		"Parent": "TEHNICA IT"
+	},
+	{
+		"Nr": "130",
+		"Code": "1615",
+		"Name": "WEBCAM",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "3",
+		"ParentCode": "376",
+		"Parent": "MULTIMEDIA"
+	},
+	{
+		"Nr": "131",
+		"Code": "1692",
+		"Name": "MICROPHONE",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "4",
+		"ParentCode": "376",
+		"Parent": "MULTIMEDIA"
+	},
+	{
+		"Nr": "132",
+		"Code": "4403",
+		"Name": "CLOCK AUDIO ALARM",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "5",
+		"ParentCode": "376",
+		"Parent": "MULTIMEDIA"
+	},
+	{
+		"Nr": "133",
+		"Code": "1627",
+		"Name": "AUDIO HEADPHONES",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "1",
+		"ParentCode": "376",
+		"Parent": "MULTIMEDIA"
+	},
+	{
+		"Nr": "134",
+		"Code": "4339",
+		"Name": "Serioux",
+		"NameRu": "Serioux",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "1627",
+		"Parent": "AUDIO HEADPHONES"
+	},
+	{
+		"Nr": "135",
+		"Code": "2266",
+		"Name": "SPEAKERS",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "2",
+		"ParentCode": "376",
+		"Parent": "MULTIMEDIA"
+	},
+	{
+		"Nr": "136",
+		"Code": "1790",
+		"Name": "Portable Speakers",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "2",
+		"ParentCode": "2266",
+		"Parent": "SPEAKERS"
+	},
+	{
+		"Nr": "137",
+		"Code": "4361",
+		"Name": "Spacer",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "4",
+		"ParentCode": "1790",
+		"Parent": "Portable Speakers"
+	},
+	{
+		"Nr": "138",
+		"Code": "4748",
+		"Name": "Speakers 2.1",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "4",
+		"ParentCode": "2266",
+		"Parent": "SPEAKERS"
+	},
+	{
+		"Nr": "139",
+		"Code": "4749",
+		"Name": "Soundbar",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "6",
+		"ParentCode": "2266",
+		"Parent": "SPEAKERS"
+	},
+	{
+		"Nr": "140",
+		"Code": "4751",
+		"Name": "Audio Systems",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "1",
+		"ParentCode": "2266",
+		"Parent": "SPEAKERS"
+	},
+	{
+		"Nr": "141",
+		"Code": "4346",
+		"Name": "Speakers 2.0",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "3",
+		"ParentCode": "2266",
+		"Parent": "SPEAKERS"
+	},
+	{
+		"Nr": "142",
+		"Code": "390",
+		"Name": "NETWORK EQUIPMENT",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "12",
+		"ParentCode": "368",
+		"Parent": "TEHNICA IT"
+	},
+	{
+		"Nr": "143",
+		"Code": "4452",
+		"Name": "Accesories",
+		"NameRu": "ACCESORII TP-LINK",
+		"NameEn": "",
+		"Order": "10",
+		"ParentCode": "390",
+		"Parent": "NETWORK EQUIPMENT"
+	},
+	{
+		"Nr": "144",
+		"Code": "4350",
+		"Name": "Wireless Access Point / Extender",
+		"NameRu": "Wireless Access Point / Extender",
+		"NameEn": "",
+		"Order": "1",
+		"ParentCode": "390",
+		"Parent": "NETWORK EQUIPMENT"
+	},
+	{
+		"Nr": "145",
+		"Code": "4407",
+		"Name": "Mesh Wi-Fi System",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "4",
+		"ParentCode": "390",
+		"Parent": "NETWORK EQUIPMENT"
+	},
+	{
+		"Nr": "146",
+		"Code": "4415",
+		"Name": "Business WiFi",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "8",
+		"ParentCode": "390",
+		"Parent": "NETWORK EQUIPMENT"
+	},
+	{
+		"Nr": "147",
+		"Code": "4416",
+		"Name": "Outdoor WiFi",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "7",
+		"ParentCode": "390",
+		"Parent": "NETWORK EQUIPMENT"
+	},
+	{
+		"Nr": "148",
+		"Code": "4430",
+		"Name": "POE",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "6",
+		"ParentCode": "390",
+		"Parent": "NETWORK EQUIPMENT"
+	},
+	{
+		"Nr": "149",
+		"Code": "4431",
+		"Name": "Print Server",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "11",
+		"ParentCode": "390",
+		"Parent": "NETWORK EQUIPMENT"
+	},
+	{
+		"Nr": "150",
+		"Code": "1630",
+		"Name": "Router",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "3",
+		"ParentCode": "390",
+		"Parent": "NETWORK EQUIPMENT"
+	},
+	{
+		"Nr": "151",
+		"Code": "1631",
+		"Name": "Wireless Router",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "1630",
+		"Parent": "Router"
+	},
+	{
+		"Nr": "152",
+		"Code": "4421",
+		"Name": "VPN Router",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "3",
+		"ParentCode": "1630",
+		"Parent": "Router"
+	},
+	{
+		"Nr": "153",
+		"Code": "4422",
+		"Name": "Load Balance Broadband Router",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "1",
+		"ParentCode": "1630",
+		"Parent": "Router"
+	},
+	{
+		"Nr": "154",
+		"Code": "1929",
+		"Name": "Switch",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "4",
+		"ParentCode": "390",
+		"Parent": "NETWORK EQUIPMENT"
+	},
+	{
+		"Nr": "155",
+		"Code": "4571",
+		"Name": "Switch HPE",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "7",
+		"ParentCode": "1929",
+		"Parent": "Switch"
+	},
+	{
+		"Nr": "156",
+		"Code": "4423",
+		"Name": "L3/L2+ Managed Switch",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "5",
+		"ParentCode": "1929",
+		"Parent": "Switch"
+	},
+	{
+		"Nr": "157",
+		"Code": "4424",
+		"Name": "L2 Managed Switch",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "6",
+		"ParentCode": "1929",
+		"Parent": "Switch"
+	},
+	{
+		"Nr": "158",
+		"Code": "4425",
+		"Name": "Smart Switch",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "3",
+		"ParentCode": "1929",
+		"Parent": "Switch"
+	},
+	{
+		"Nr": "159",
+		"Code": "4426",
+		"Name": "Easy Smart Gigabit Switch",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "4",
+		"ParentCode": "1929",
+		"Parent": "Switch"
+	},
+	{
+		"Nr": "160",
+		"Code": "4427",
+		"Name": "Unmanaged Gigabit Switch",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "2",
+		"ParentCode": "1929",
+		"Parent": "Switch"
+	},
+	{
+		"Nr": "161",
+		"Code": "4429",
+		"Name": "Unmanaged 10/100M Switch",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "1",
+		"ParentCode": "1929",
+		"Parent": "Switch"
+	},
+	{
+		"Nr": "162",
+		"Code": "1965",
+		"Name": "Patch Cords / Accesories",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "14",
+		"ParentCode": "390",
+		"Parent": "NETWORK EQUIPMENT"
+	},
+	{
+		"Nr": "163",
+		"Code": "3225",
+		"Name": "Patch Cords",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "1",
+		"ParentCode": "1965",
+		"Parent": "Patch Cords / Accesories"
+	},
+	{
+		"Nr": "164",
+		"Code": "4400",
+		"Name": "Wireless Adapter",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "2",
+		"ParentCode": "390",
+		"Parent": "NETWORK EQUIPMENT"
+	},
+	{
+		"Nr": "165",
+		"Code": "4402",
+		"Name": "Wireless Adapter",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "1",
+		"ParentCode": "4400",
+		"Parent": "Wireless Adapter"
+	},
+	{
+		"Nr": "166",
+		"Code": "4406",
+		"Name": "PCI/PCI Express",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "2",
+		"ParentCode": "4400",
+		"Parent": "Wireless Adapter"
+	},
+	{
+		"Nr": "167",
+		"Code": "4411",
+		"Name": "Powerline",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "5",
+		"ParentCode": "390",
+		"Parent": "NETWORK EQUIPMENT"
+	},
+	{
+		"Nr": "168",
+		"Code": "4412",
+		"Name": "Powerline WiFi Extender",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "3",
+		"ParentCode": "4411",
+		"Parent": "Powerline"
+	},
+	{
+		"Nr": "169",
+		"Code": "4413",
+		"Name": "Powerline Ethernet Adapter with AC Passthrough",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "2",
+		"ParentCode": "4411",
+		"Parent": "Powerline"
+	},
+	{
+		"Nr": "170",
+		"Code": "4417",
+		"Name": "Wireless Antenna & Accesories",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "9",
+		"ParentCode": "390",
+		"Parent": "NETWORK EQUIPMENT"
+	},
+	{
+		"Nr": "171",
+		"Code": "4419",
+		"Name": "Wireless Outdoor Antenna",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4417",
+		"Parent": "Wireless Antenna & Accesories"
+	},
+	{
+		"Nr": "172",
+		"Code": "393",
+		"Name": "CAMERA / LENSES / BINOCULARS / TRIPODS / TELESCOPES",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "14",
+		"ParentCode": "368",
+		"Parent": "TEHNICA IT"
+	},
+	{
+		"Nr": "173",
+		"Code": "4201",
+		"Name": "Photo / Video",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "2",
+		"ParentCode": "393",
+		"Parent": "CAMERA / LENSES / BINOCULARS / TRIPODS / TELESCOPES"
+	},
+	{
+		"Nr": "174",
+		"Code": "4585",
+		"Name": "DSC Camera",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "1",
+		"ParentCode": "4201",
+		"Parent": "Photo / Video"
+	},
+	{
+		"Nr": "175",
+		"Code": "4586",
+		"Name": "CSC Camera",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "2",
+		"ParentCode": "4201",
+		"Parent": "Photo / Video"
+	},
+	{
+		"Nr": "176",
+		"Code": "4587",
+		"Name": "DSLR Camera",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "3",
+		"ParentCode": "4201",
+		"Parent": "Photo / Video"
+	},
+	{
+		"Nr": "177",
+		"Code": "4588",
+		"Name": "Lenses",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "4",
+		"ParentCode": "4201",
+		"Parent": "Photo / Video"
+	},
+	{
+		"Nr": "178",
+		"Code": "4590",
+		"Name": "Speedlight Flash",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "6",
+		"ParentCode": "4201",
+		"Parent": "Photo / Video"
+	},
+	{
+		"Nr": "179",
+		"Code": "4726",
+		"Name": "Telescopes",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "5",
+		"ParentCode": "393",
+		"Parent": "CAMERA / LENSES / BINOCULARS / TRIPODS / TELESCOPES"
+	},
+	{
+		"Nr": "180",
+		"Code": "4203",
+		"Name": "TRIPODS",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "20",
+		"ParentCode": "393",
+		"Parent": "CAMERA / LENSES / BINOCULARS / TRIPODS / TELESCOPES"
+	},
+	{
+		"Nr": "181",
+		"Code": "4589",
+		"Name": "Binoculars",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "5",
+		"ParentCode": "393",
+		"Parent": "CAMERA / LENSES / BINOCULARS / TRIPODS / TELESCOPES"
+	},
+	{
+		"Nr": "182",
+		"Code": "400",
+		"Name": "ACCESSORIES",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "17",
+		"ParentCode": "368",
+		"Parent": "TEHNICA IT"
+	},
+	{
+		"Nr": "183",
+		"Code": "4192",
+		"Name": "Cables",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "1",
+		"ParentCode": "400",
+		"Parent": "ACCESSORIES"
+	},
+	{
+		"Nr": "184",
+		"Code": "4804",
+		"Name": "Organizer Accessories",
+		"NameRu": "Organizer Accessories",
+		"NameEn": "",
+		"Order": "13",
+		"ParentCode": "4192",
+		"Parent": "Cables"
+	},
+	{
+		"Nr": "185",
+		"Code": "4193",
+		"Name": "Video Cables",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "7",
+		"ParentCode": "4192",
+		"Parent": "Cables"
+	},
+	{
+		"Nr": "186",
+		"Code": "4195",
+		"Name": "Data Cables",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "8",
+		"ParentCode": "4192",
+		"Parent": "Cables"
+	},
+	{
+		"Nr": "187",
+		"Code": "4196",
+		"Name": "Power Cables",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "10",
+		"ParentCode": "4192",
+		"Parent": "Cables"
+	},
+	{
+		"Nr": "188",
+		"Code": "4568",
+		"Name": "Computer Cables",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "6",
+		"ParentCode": "4192",
+		"Parent": "Cables"
+	},
+	{
+		"Nr": "189",
+		"Code": "4649",
+		"Name": "Type-C",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "3",
+		"ParentCode": "4192",
+		"Parent": "Cables"
+	},
+	{
+		"Nr": "190",
+		"Code": "4650",
+		"Name": "Lightning (8 pin)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "1",
+		"ParentCode": "4192",
+		"Parent": "Cables"
+	},
+	{
+		"Nr": "191",
+		"Code": "4651",
+		"Name": "MicroUSB",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "2",
+		"ParentCode": "4192",
+		"Parent": "Cables"
+	},
+	{
+		"Nr": "192",
+		"Code": "4544",
+		"Name": "Adapters",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "5",
+		"ParentCode": "4192",
+		"Parent": "Cables"
+	},
+	{
+		"Nr": "193",
+		"Code": "4194",
+		"Name": "Audio Cables",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "9",
+		"ParentCode": "4192",
+		"Parent": "Cables"
+	},
+	{
+		"Nr": "194",
+		"Code": "4548",
+		"Name": "Optical Audio Cables",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4194",
+		"Parent": "Audio Cables"
+	},
+	{
+		"Nr": "195",
+		"Code": "4197",
+		"Name": "Cleaning",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "3",
+		"ParentCode": "400",
+		"Parent": "ACCESSORIES"
+	},
+	{
+		"Nr": "196",
+		"Code": "4540",
+		"Name": "Compressed Air",
+		"NameRu": "Compressed Air",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4197",
+		"Parent": "Cleaning"
+	},
+	{
+		"Nr": "197",
+		"Code": "4199",
+		"Name": "OTHERS",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "5",
+		"ParentCode": "400",
+		"Parent": "ACCESSORIES"
+	},
+	{
+		"Nr": "198",
+		"Code": "4211",
+		"Name": "Usb Hubs",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "2",
+		"ParentCode": "400",
+		"Parent": "ACCESSORIES"
+	},
+	{
+		"Nr": "199",
+		"Code": "446",
+		"Name": "MFP / PRINTERS",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "11",
+		"ParentCode": "368",
+		"Parent": "TEHNICA IT"
+	},
+	{
+		"Nr": "200",
+		"Code": "1640",
+		"Name": "Printers",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "1",
+		"ParentCode": "446",
+		"Parent": "MFP / PRINTERS"
+	},
+	{
+		"Nr": "201",
+		"Code": "1642",
+		"Name": "MultiFunctional Devices",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "2",
+		"ParentCode": "446",
+		"Parent": "MFP / PRINTERS"
+	},
+	{
+		"Nr": "202",
+		"Code": "494",
+		"Name": "PC COMPONENTS",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "3",
+		"ParentCode": "368",
+		"Parent": "TEHNICA IT"
+	},
+	{
+		"Nr": "203",
+		"Code": "4200",
+		"Name": "MEMORY CARD",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "8",
+		"ParentCode": "494",
+		"Parent": "PC COMPONENTS"
+	},
+	{
+		"Nr": "204",
+		"Code": "4641",
+		"Name": "Card Readers",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4200",
+		"Parent": "MEMORY CARD"
+	},
+	{
+		"Nr": "205",
+		"Code": "1739",
+		"Name": "COOLER",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "3",
+		"ParentCode": "494",
+		"Parent": "PC COMPONENTS"
+	},
+	{
+		"Nr": "206",
+		"Code": "1742",
+		"Name": "CASE",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "494",
+		"Parent": "PC COMPONENTS"
+	},
+	{
+		"Nr": "207",
+		"Code": "1745",
+		"Name": "PSU",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "1",
+		"ParentCode": "494",
+		"Parent": "PC COMPONENTS"
+	},
+	{
+		"Nr": "208",
+		"Code": "1766",
+		"Name": "VIDEOCARDS",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "5",
+		"ParentCode": "494",
+		"Parent": "PC COMPONENTS"
+	},
+	{
+		"Nr": "209",
+		"Code": "2247",
+		"Name": "ODD",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "9",
+		"ParentCode": "494",
+		"Parent": "PC COMPONENTS"
+	},
+	{
+		"Nr": "210",
+		"Code": "1647",
+		"Name": "STORAGE",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "6",
+		"ParentCode": "494",
+		"Parent": "PC COMPONENTS"
+	},
+	{
+		"Nr": "211",
+		"Code": "4206",
+		"Name": "SSD",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "2",
+		"ParentCode": "1647",
+		"Parent": "STORAGE"
+	},
+	{
+		"Nr": "212",
+		"Code": "4615",
+		"Name": "M.2 NVMe",
+		"NameRu": "M.2 NVMe",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4206",
+		"Parent": "SSD"
+	},
+	{
+		"Nr": "213",
+		"Code": "4541",
+		"Name": "2.5\"",
+		"NameRu": "2.5\"",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4206",
+		"Parent": "SSD"
+	},
+	{
+		"Nr": "214",
+		"Code": "4570",
+		"Name": "HDD / SSD External",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "3",
+		"ParentCode": "1647",
+		"Parent": "STORAGE"
+	},
+	{
+		"Nr": "215",
+		"Code": "1648",
+		"Name": "HDD 3.5\"",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "1647",
+		"Parent": "STORAGE"
+	},
+	{
+		"Nr": "216",
+		"Code": "1649",
+		"Name": "HDD 2.5\" Notebook Storage",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "1",
+		"ParentCode": "1647",
+		"Parent": "STORAGE"
+	},
+	{
+		"Nr": "217",
+		"Code": "4449",
+		"Name": "Accessories (External Cases, Bags)",
+		"NameRu": "Accessories (External Cases, Bags)",
+		"NameEn": "",
+		"Order": "4",
+		"ParentCode": "1647",
+		"Parent": "STORAGE"
+	},
+	{
+		"Nr": "218",
+		"Code": "1669",
+		"Name": "RAM",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "4",
+		"ParentCode": "494",
+		"Parent": "PC COMPONENTS"
+	},
+	{
+		"Nr": "219",
+		"Code": "4809",
+		"Name": "DDR5",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "1669",
+		"Parent": "RAM"
+	},
+	{
+		"Nr": "220",
+		"Code": "4816",
+		"Name": "SO-DIMM DDR5",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "1669",
+		"Parent": "RAM"
+	},
+	{
+		"Nr": "221",
+		"Code": "4208",
+		"Name": "DDR4",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "1669",
+		"Parent": "RAM"
+	},
+	{
+		"Nr": "222",
+		"Code": "4566",
+		"Name": "SO-DIMM DDR4",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "1669",
+		"Parent": "RAM"
+	},
+	{
+		"Nr": "223",
+		"Code": "1670",
+		"Name": "CPU",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "2",
+		"ParentCode": "494",
+		"Parent": "PC COMPONENTS"
+	},
+	{
+		"Nr": "224",
+		"Code": "4826",
+		"Name": "S1700 (14th/13th/12th Gen CPU)",
+		"NameRu": "S1700 (14th/13th/12th Gen CPU)",
+		"NameEn": "",
+		"Order": "1",
+		"ParentCode": "1670",
+		"Parent": "CPU"
+	},
+	{
+		"Nr": "225",
+		"Code": "4553",
+		"Name": "AM4",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "1",
+		"ParentCode": "1670",
+		"Parent": "CPU"
+	},
+	{
+		"Nr": "226",
+		"Code": "4555",
+		"Name": "S1200 (11th/10th Gen CPU)",
+		"NameRu": "S1200 (11th/10th Gen CPU)",
+		"NameEn": "",
+		"Order": "1",
+		"ParentCode": "1670",
+		"Parent": "CPU"
+	},
+	{
+		"Nr": "227",
+		"Code": "4632",
+		"Name": "Thermal Paste",
+		"NameRu": "Thermal Paste",
+		"NameEn": "",
+		"Order": "6",
+		"ParentCode": "1670",
+		"Parent": "CPU"
+	},
+	{
+		"Nr": "228",
+		"Code": "1699",
+		"Name": "USB FLASH DRIVE",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "7",
+		"ParentCode": "494",
+		"Parent": "PC COMPONENTS"
+	},
+	{
+		"Nr": "229",
+		"Code": "4559",
+		"Name": "16 Gb",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "2",
+		"ParentCode": "1699",
+		"Parent": "USB FLASH DRIVE"
+	},
+	{
+		"Nr": "230",
+		"Code": "4560",
+		"Name": "32 Gb",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "3",
+		"ParentCode": "1699",
+		"Parent": "USB FLASH DRIVE"
+	},
+	{
+		"Nr": "231",
+		"Code": "4561",
+		"Name": "64 Gb",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "4",
+		"ParentCode": "1699",
+		"Parent": "USB FLASH DRIVE"
+	},
+	{
+		"Nr": "232",
+		"Code": "4562",
+		"Name": "128 Gb - 512 Gb",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "5",
+		"ParentCode": "1699",
+		"Parent": "USB FLASH DRIVE"
+	},
+	{
+		"Nr": "233",
+		"Code": "1792",
+		"Name": "MOTHERBOARDS",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "3",
+		"ParentCode": "494",
+		"Parent": "PC COMPONENTS"
+	},
+	{
+		"Nr": "234",
+		"Code": "4716",
+		"Name": "Socket 1200 (10th/11th Gen CPU)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "2",
+		"ParentCode": "1792",
+		"Parent": "MOTHERBOARDS"
+	},
+	{
+		"Nr": "235",
+		"Code": "4799",
+		"Name": "Socket 1700 (14th/13th/12th Gen CPU)",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "2",
+		"ParentCode": "1792",
+		"Parent": "MOTHERBOARDS"
+	},
+	{
+		"Nr": "236",
+		"Code": "4552",
+		"Name": "Socket AM4",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "2",
+		"ParentCode": "1792",
+		"Parent": "MOTHERBOARDS"
+	},
+	{
+		"Nr": "237",
+		"Code": "995",
+		"Name": "SOFTWARE",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "18",
+		"ParentCode": "368",
+		"Parent": "TEHNICA IT"
+	},
+	{
+		"Nr": "238",
+		"Code": "4224",
+		"Name": "Antiviruses",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "995",
+		"Parent": "SOFTWARE"
+	},
+	{
+		"Nr": "239",
+		"Code": "4579",
+		"Name": "Base",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4224",
+		"Parent": "Antiviruses"
+	},
+	{
+		"Nr": "240",
+		"Code": "1597",
+		"Name": "MOBILE PHONES / TABLETS / BLUETOOTH HEADSET / ACCESSORIES",
+		"NameRu": "MOBILE PHONES / TABLETS / BLUETOOTH HEADSET / ACCESSORIES",
+		"NameEn": "",
+		"Order": "8",
+		"ParentCode": "368",
+		"Parent": "TEHNICA IT"
+	},
+	{
+		"Nr": "241",
+		"Code": "4736",
+		"Name": "PopSockets",
+		"NameRu": "PopSockets",
+		"NameEn": "",
+		"Order": "4",
+		"ParentCode": "1597",
+		"Parent": "MOBILE PHONES / TABLETS / BLUETOOTH HEADSET / ACCESSORIES"
+	},
+	{
+		"Nr": "242",
+		"Code": "4295",
+		"Name": "ACCESORIES - Bluetooth accesories",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "20",
+		"ParentCode": "1597",
+		"Parent": "MOBILE PHONES / TABLETS / BLUETOOTH HEADSET / ACCESSORIES"
+	},
+	{
+		"Nr": "243",
+		"Code": "4179",
+		"Name": "Tablets",
+		"NameRu": "Tablets",
+		"NameEn": "",
+		"Order": "2",
+		"ParentCode": "1597",
+		"Parent": "MOBILE PHONES / TABLETS / BLUETOOTH HEADSET / ACCESSORIES"
+	},
+	{
+		"Nr": "244",
+		"Code": "4180",
+		"Name": "Mobile Phones",
+		"NameRu": "Mobile Phones",
+		"NameEn": "",
+		"Order": "1",
+		"ParentCode": "1597",
+		"Parent": "MOBILE PHONES / TABLETS / BLUETOOTH HEADSET / ACCESSORIES"
+	},
+	{
+		"Nr": "245",
+		"Code": "4182",
+		"Name": "Cases",
+		"NameRu": "Cases",
+		"NameEn": "",
+		"Order": "8",
+		"ParentCode": "1597",
+		"Parent": "MOBILE PHONES / TABLETS / BLUETOOTH HEADSET / ACCESSORIES"
+	},
+	{
+		"Nr": "246",
+		"Code": "4184",
+		"Name": "Glasses",
+		"NameRu": "Glasses",
+		"NameEn": "",
+		"Order": "7",
+		"ParentCode": "1597",
+		"Parent": "MOBILE PHONES / TABLETS / BLUETOOTH HEADSET / ACCESSORIES"
+	},
+	{
+		"Nr": "247",
+		"Code": "4185",
+		"Name": "Selfie Stick",
+		"NameRu": "Selfie Stick",
+		"NameEn": "",
+		"Order": "4",
+		"ParentCode": "1597",
+		"Parent": "MOBILE PHONES / TABLETS / BLUETOOTH HEADSET / ACCESSORIES"
+	},
+	{
+		"Nr": "248",
+		"Code": "4181",
+		"Name": "Bluetooth Headphones",
+		"NameRu": "Bluetooth Headphones",
+		"NameEn": "",
+		"Order": "6",
+		"ParentCode": "1597",
+		"Parent": "MOBILE PHONES / TABLETS / BLUETOOTH HEADSET / ACCESSORIES"
+	},
+	{
+		"Nr": "249",
+		"Code": "4316",
+		"Name": "Energy Sistem",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4181",
+		"Parent": "Bluetooth Headphones"
+	},
+	{
+		"Nr": "250",
+		"Code": "1619",
+		"Name": "GAMING",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "11",
+		"ParentCode": "368",
+		"Parent": "TEHNICA IT"
+	},
+	{
+		"Nr": "251",
+		"Code": "4637",
+		"Name": "Gamepads / Joysticks / Wheels",
+		"NameRu": "Gamepads / Joysticks / Wheels",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "1619",
+		"Parent": "GAMING"
+	},
+	{
+		"Nr": "252",
+		"Code": "4638",
+		"Name": "Game Console",
+		"NameRu": "Game Console",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "1619",
+		"Parent": "GAMING"
+	},
+	{
+		"Nr": "253",
+		"Code": "4639",
+		"Name": "Games",
+		"NameRu": "Games",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "1619",
+		"Parent": "GAMING"
+	},
+	{
+		"Nr": "254",
+		"Code": "4503",
+		"Name": "Gaming Chairs",
+		"NameRu": "Gaming Chairs",
+		"NameEn": "",
+		"Order": "11",
+		"ParentCode": "1619",
+		"Parent": "GAMING"
+	},
+	{
+		"Nr": "255",
+		"Code": "1676",
+		"Name": "PHOTO VIDEO",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "20",
+		"ParentCode": "368",
+		"Parent": "TEHNICA IT"
+	},
+	{
+		"Nr": "256",
+		"Code": "4220",
+		"Name": "VIDEO CAMERA",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "1676",
+		"Parent": "PHOTO VIDEO"
+	},
+	{
+		"Nr": "257",
+		"Code": "4221",
+		"Name": "ACCESSORIES PHOTO VIDEO",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "1676",
+		"Parent": "PHOTO VIDEO"
+	},
+	{
+		"Nr": "258",
+		"Code": "2988",
+		"Name": "CALL CENTER",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "19",
+		"ParentCode": "368",
+		"Parent": "TEHNICA IT"
+	},
+	{
+		"Nr": "259",
+		"Code": "4213",
+		"Name": "PROFESSIONAL HEADPHONES",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "1",
+		"ParentCode": "2988",
+		"Parent": "CALL CENTER"
+	},
+	{
+		"Nr": "260",
+		"Code": "4364",
+		"Name": "Plantronics",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4213",
+		"Parent": "PROFESSIONAL HEADPHONES"
+	},
+	{
+		"Nr": "261",
+		"Code": "4214",
+		"Name": "OFFICE SYSTEMS",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "2",
+		"ParentCode": "2988",
+		"Parent": "CALL CENTER"
+	},
+	{
+		"Nr": "262",
+		"Code": "4215",
+		"Name": "IP PHONE",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "3",
+		"ParentCode": "2988",
+		"Parent": "CALL CENTER"
+	},
+	{
+		"Nr": "263",
+		"Code": "4216",
+		"Name": "ACCESSORIES CALL CENTER",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "4",
+		"ParentCode": "2988",
+		"Parent": "CALL CENTER"
+	},
+	{
+		"Nr": "264",
+		"Code": "4536",
+		"Name": "SMART DEVICES",
+		"NameRu": "SMART DEVICES",
+		"NameEn": "",
+		"Order": "6",
+		"ParentCode": "368",
+		"Parent": "TEHNICA IT"
+	},
+	{
+		"Nr": "265",
+		"Code": "4705",
+		"Name": "Smart Watch",
+		"NameRu": "Smart Watch",
+		"NameEn": "",
+		"Order": "8",
+		"ParentCode": "4536",
+		"Parent": "SMART DEVICES"
+	},
+	{
+		"Nr": "266",
+		"Code": "4706",
+		"Name": "Education Kit",
+		"NameRu": "Smart Watch",
+		"NameEn": "",
+		"Order": "8",
+		"ParentCode": "4536",
+		"Parent": "SMART DEVICES"
+	},
+	{
+		"Nr": "267",
+		"Code": "4538",
+		"Name": "Smart Led",
+		"NameRu": "Smart Led",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4536",
+		"Parent": "SMART DEVICES"
+	},
+	{
+		"Nr": "268",
+		"Code": "4537",
+		"Name": "Smart Home",
+		"NameRu": "Smart Home",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4536",
+		"Parent": "SMART DEVICES"
+	},
+	{
+		"Nr": "269",
+		"Code": "4773",
+		"Name": "Security",
+		"NameRu": "Security",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4537",
+		"Parent": "Smart Home"
+	},
+	{
+		"Nr": "270",
+		"Code": "4774",
+		"Name": "Comfort",
+		"NameRu": "Comfort",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4537",
+		"Parent": "Smart Home"
+	},
+	{
+		"Nr": "271",
+		"Code": "4153",
+		"Name": "NOTEBOOKS / BRANDED PC",
+		"NameRu": "NOTEBOOKS / BRANDED PC",
+		"NameEn": "",
+		"Order": "1",
+		"ParentCode": "368",
+		"Parent": "TEHNICA IT"
+	},
+	{
+		"Nr": "272",
+		"Code": "4754",
+		"Name": "Mini PC",
+		"NameRu": "Mini PC",
+		"NameEn": "",
+		"Order": "2",
+		"ParentCode": "4153",
+		"Parent": "NOTEBOOKS / BRANDED PC"
+	},
+	{
+		"Nr": "273",
+		"Code": "4360",
+		"Name": "DESKTOPS TerminatoR",
+		"NameRu": "DESKTOPS TerminatoR",
+		"NameEn": "",
+		"Order": "2",
+		"ParentCode": "4153",
+		"Parent": "NOTEBOOKS / BRANDED PC"
+	},
+	{
+		"Nr": "274",
+		"Code": "384",
+		"Name": "NOTEBOOKS",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "1",
+		"ParentCode": "4153",
+		"Parent": "NOTEBOOKS / BRANDED PC"
+	},
+	{
+		"Nr": "275",
+		"Code": "4155",
+		"Name": "ALL-IN-ONE",
+		"NameRu": "ALL-IN-ONE",
+		"NameEn": "",
+		"Order": "3",
+		"ParentCode": "4153",
+		"Parent": "NOTEBOOKS / BRANDED PC"
+	},
+	{
+		"Nr": "276",
+		"Code": "4157",
+		"Name": "NOTEBOOKS ACCESSORIES",
+		"NameRu": "NOTEBOOKS ACCESSORIES",
+		"NameEn": "",
+		"Order": "2",
+		"ParentCode": "368",
+		"Parent": "TEHNICA IT"
+	},
+	{
+		"Nr": "277",
+		"Code": "4834",
+		"Name": "Stickers",
+		"NameRu": "Stickers",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4157",
+		"Parent": "NOTEBOOKS ACCESSORIES"
+	},
+	{
+		"Nr": "278",
+		"Code": "4172",
+		"Name": "NB DOCKING STATION",
+		"NameRu": "NB DOCKING STATION",
+		"NameEn": "",
+		"Order": "6",
+		"ParentCode": "4157",
+		"Parent": "NOTEBOOKS ACCESSORIES"
+	},
+	{
+		"Nr": "279",
+		"Code": "4174",
+		"Name": "Power Adapter",
+		"NameRu": "Power Adapter",
+		"NameEn": "",
+		"Order": "3",
+		"ParentCode": "4157",
+		"Parent": "NOTEBOOKS ACCESSORIES"
+	},
+	{
+		"Nr": "280",
+		"Code": "4175",
+		"Name": "Bags / Backpacks",
+		"NameRu": "Bags / Backpacks",
+		"NameEn": "",
+		"Order": "1",
+		"ParentCode": "4157",
+		"Parent": "NOTEBOOKS ACCESSORIES"
+	},
+	{
+		"Nr": "281",
+		"Code": "4176",
+		"Name": "Cooling Pad",
+		"NameRu": "Cooling Pad",
+		"NameEn": "",
+		"Order": "2",
+		"ParentCode": "4157",
+		"Parent": "NOTEBOOKS ACCESSORIES"
+	},
+	{
+		"Nr": "282",
+		"Code": "4152",
+		"Name": "MENAJ",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "5"
+	},
+	{
+		"Nr": "283",
+		"Code": "4679",
+		"Name": "HOME DECOR / TEXTILE",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4152",
+		"Parent": "MENAJ"
+	},
+	{
+		"Nr": "284",
+		"Code": "4667",
+		"Name": "MANUSI DE BUCATARIE",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "6",
+		"ParentCode": "4679",
+		"Parent": "HOME DECOR / TEXTILE"
+	},
+	{
+		"Nr": "285",
+		"Code": "4670",
+		"Name": "PERNE SI PILOTE",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "2",
+		"ParentCode": "4679",
+		"Parent": "HOME DECOR / TEXTILE"
+	},
+	{
+		"Nr": "286",
+		"Code": "4684",
+		"Name": "CUVERTURA",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "3",
+		"ParentCode": "4679",
+		"Parent": "HOME DECOR / TEXTILE"
+	},
+	{
+		"Nr": "287",
+		"Code": "4711",
+		"Name": "CEASURI",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4679",
+		"Parent": "HOME DECOR / TEXTILE"
+	},
+	{
+		"Nr": "288",
+		"Code": "4769",
+		"Name": "PROSOAPE BUCATARIE",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4679",
+		"Parent": "HOME DECOR / TEXTILE"
+	},
+	{
+		"Nr": "289",
+		"Code": "4830",
+		"Name": "COVORASE COPII",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "7",
+		"ParentCode": "4679",
+		"Parent": "HOME DECOR / TEXTILE"
+	},
+	{
+		"Nr": "290",
+		"Code": "4719",
+		"Name": "CIORAPI",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4679",
+		"Parent": "HOME DECOR / TEXTILE"
+	},
+	{
+		"Nr": "291",
+		"Code": "4793",
+		"Name": "Premium",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4719",
+		"Parent": "CIORAPI"
+	},
+	{
+		"Nr": "292",
+		"Code": "4648",
+		"Name": "PROSOAPE BAIE",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4679",
+		"Parent": "HOME DECOR / TEXTILE"
+	},
+	{
+		"Nr": "293",
+		"Code": "4811",
+		"Name": "Prosoape loialitate",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4648",
+		"Parent": "PROSOAPE BAIE"
+	},
+	{
+		"Nr": "294",
+		"Code": "4284",
+		"Name": "CURATENIE SI INTRETINERE",
+		"NameRu": "CURATENIE SI INTRETINERE",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4152",
+		"Parent": "MENAJ"
+	},
+	{
+		"Nr": "295",
+		"Code": "4778",
+		"Name": "ORGANIZARE SI DEPOZITARE",
+		"NameRu": "ORGANIZARE SI DEPOZITARE",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4284",
+		"Parent": "CURATENIE SI INTRETINERE"
+	},
+	{
+		"Nr": "296",
+		"Code": "4624",
+		"Name": "COVORASE INTRARE",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4284",
+		"Parent": "CURATENIE SI INTRETINERE"
+	},
+	{
+		"Nr": "297",
+		"Code": "4636",
+		"Name": "PRODUSE INGRIJIRE INCALTAMINTE",
+		"NameRu": "PRODUSE INGRIJIRE INCALTAMINTE",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4284",
+		"Parent": "CURATENIE SI INTRETINERE"
+	},
+	{
+		"Nr": "298",
+		"Code": "2098",
+		"Name": "COSURI DE GUNOI",
+		"NameRu": "COSURI DE GUNOI",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4284",
+		"Parent": "CURATENIE SI INTRETINERE"
+	},
+	{
+		"Nr": "299",
+		"Code": "2102",
+		"Name": "HUSE PENTRU MASA DE CALCAT",
+		"NameRu": "HUSE PENTRU MASA DE CALCAT",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4284",
+		"Parent": "CURATENIE SI INTRETINERE"
+	},
+	{
+		"Nr": "300",
+		"Code": "2416",
+		"Name": "TOMBEROANE DE GUNOI",
+		"NameRu": "TOMBEROANE DE GUNOI",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4284",
+		"Parent": "CURATENIE SI INTRETINERE"
+	},
+	{
+		"Nr": "301",
+		"Code": "4439",
+		"Name": "SCARI DE METAL",
+		"NameRu": "SCARI DE METAL",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4284",
+		"Parent": "CURATENIE SI INTRETINERE"
+	},
+	{
+		"Nr": "302",
+		"Code": "4473",
+		"Name": "MESE DE CALCAT",
+		"NameRu": "MESE DE CALCAT",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4284",
+		"Parent": "CURATENIE SI INTRETINERE"
+	},
+	{
+		"Nr": "303",
+		"Code": "4489",
+		"Name": "USCATOARE DE RUFE",
+		"NameRu": "USCATOARE DE RUFE",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4284",
+		"Parent": "CURATENIE SI INTRETINERE"
+	},
+	{
+		"Nr": "304",
+		"Code": "2873",
+		"Name": "ARTICOLE DE CURATENIE",
+		"NameRu": "ARTICOLE DE CURATENIE",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4284",
+		"Parent": "CURATENIE SI INTRETINERE"
+	},
+	{
+		"Nr": "305",
+		"Code": "4451",
+		"Name": "Perii",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "2873",
+		"Parent": "ARTICOLE DE CURATENIE"
+	},
+	{
+		"Nr": "306",
+		"Code": "2091",
+		"Name": "Farase",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "2873",
+		"Parent": "ARTICOLE DE CURATENIE"
+	},
+	{
+		"Nr": "307",
+		"Code": "2093",
+		"Name": "Mopuri",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "2873",
+		"Parent": "ARTICOLE DE CURATENIE"
+	},
+	{
+		"Nr": "308",
+		"Code": "2108",
+		"Name": "Minere",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "2873",
+		"Parent": "ARTICOLE DE CURATENIE"
+	},
+	{
+		"Nr": "309",
+		"Code": "2111",
+		"Name": "Lamele pentru geam",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "2873",
+		"Parent": "ARTICOLE DE CURATENIE"
+	},
+	{
+		"Nr": "310",
+		"Code": "2114",
+		"Name": "Matura",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "2873",
+		"Parent": "ARTICOLE DE CURATENIE"
+	},
+	{
+		"Nr": "311",
+		"Code": "2116",
+		"Name": "Galeti plastic",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "2873",
+		"Parent": "ARTICOLE DE CURATENIE"
+	},
+	{
+		"Nr": "312",
+		"Code": "2875",
+		"Name": "Lighean plastic",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "2873",
+		"Parent": "ARTICOLE DE CURATENIE"
+	},
+	{
+		"Nr": "313",
+		"Code": "4285",
+		"Name": "VASE SI USTENSILE PENTRU GATIT",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4152",
+		"Parent": "MENAJ"
+	},
+	{
+		"Nr": "314",
+		"Code": "4741",
+		"Name": "CAPACE STICLA",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4285",
+		"Parent": "VASE SI USTENSILE PENTRU GATIT"
+	},
+	{
+		"Nr": "315",
+		"Code": "2663",
+		"Name": "VESELA INOX",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4285",
+		"Parent": "VASE SI USTENSILE PENTRU GATIT"
+	},
+	{
+		"Nr": "316",
+		"Code": "3439",
+		"Name": "BORCANE STICLA",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4285",
+		"Parent": "VASE SI USTENSILE PENTRU GATIT"
+	},
+	{
+		"Nr": "317",
+		"Code": "4457",
+		"Name": "BUCATARIE SI SERVIRE",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4152",
+		"Parent": "MENAJ"
+	},
+	{
+		"Nr": "318",
+		"Code": "4777",
+		"Name": "DEPOZITARE ALIMENTE",
+		"NameRu": "DEPOZITARE ALIMENTE",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4457",
+		"Parent": "BUCATARIE SI SERVIRE"
+	},
+	{
+		"Nr": "319",
+		"Code": "4464",
+		"Name": "USTENSII PENTRU GATIT",
+		"NameRu": "USTENSII PENTRU GATIT",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4457",
+		"Parent": "BUCATARIE SI SERVIRE"
+	},
+	{
+		"Nr": "320",
+		"Code": "4695",
+		"Name": "Ata pentru copt",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4464",
+		"Parent": "USTENSII PENTRU GATIT"
+	},
+	{
+		"Nr": "321",
+		"Code": "4463",
+		"Name": "Bloc pentru cutite",
+		"NameRu": "Bloc pentru cutite",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4464",
+		"Parent": "USTENSII PENTRU GATIT"
+	},
+	{
+		"Nr": "322",
+		"Code": "4468",
+		"Name": "Ustensii pentru cofetarie",
+		"NameRu": "Ustensii pentru cofetarie",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4464",
+		"Parent": "USTENSII PENTRU GATIT"
+	},
+	{
+		"Nr": "323",
+		"Code": "4469",
+		"Name": "Cutite metal si dispozitive feliere",
+		"NameRu": "Cutite metal si dispozitive feliere",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4464",
+		"Parent": "USTENSII PENTRU GATIT"
+	},
+	{
+		"Nr": "324",
+		"Code": "4474",
+		"Name": "Foarfece bucatarie",
+		"NameRu": "Foarfece bucatarie",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4464",
+		"Parent": "USTENSII PENTRU GATIT"
+	},
+	{
+		"Nr": "325",
+		"Code": "4481",
+		"Name": "Perii cofetarie",
+		"NameRu": "Perii cofetarie",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4464",
+		"Parent": "USTENSII PENTRU GATIT"
+	},
+	{
+		"Nr": "326",
+		"Code": "4484",
+		"Name": "Razatoare",
+		"NameRu": "Razatoare",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4464",
+		"Parent": "USTENSII PENTRU GATIT"
+	},
+	{
+		"Nr": "327",
+		"Code": "4494",
+		"Name": "Teluri bucatarie plastic",
+		"NameRu": "Teluri bucatarie plastic",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4464",
+		"Parent": "USTENSII PENTRU GATIT"
+	},
+	{
+		"Nr": "328",
+		"Code": "4495",
+		"Name": "Teluri de bucatarie metal",
+		"NameRu": "Teluri de bucatarie metal",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4464",
+		"Parent": "USTENSII PENTRU GATIT"
+	},
+	{
+		"Nr": "329",
+		"Code": "4499",
+		"Name": "Topoare de bucatarie",
+		"NameRu": "Topoare de bucatarie",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4464",
+		"Parent": "USTENSII PENTRU GATIT"
+	},
+	{
+		"Nr": "330",
+		"Code": "4500",
+		"Name": "Forme prajituri",
+		"NameRu": "Forme prajituri",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4464",
+		"Parent": "USTENSII PENTRU GATIT"
+	},
+	{
+		"Nr": "331",
+		"Code": "4530",
+		"Name": "Curatatoare legume si fructe",
+		"NameRu": "Curatatoare legume si fructe",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4464",
+		"Parent": "USTENSII PENTRU GATIT"
+	},
+	{
+		"Nr": "332",
+		"Code": "4531",
+		"Name": "Linguri si lopatele de bucatarie din lemn",
+		"NameRu": "Linguri si lopatele de bucatarie din lemn",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4464",
+		"Parent": "USTENSII PENTRU GATIT"
+	},
+	{
+		"Nr": "333",
+		"Code": "4532",
+		"Name": "Polonice, linguri si clesti de bucatarie",
+		"NameRu": "Polonice, linguri si clesti de bucatarie",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4464",
+		"Parent": "USTENSII PENTRU GATIT"
+	},
+	{
+		"Nr": "334",
+		"Code": "4526",
+		"Name": "ARTICOLE PENTRU SERVIT",
+		"NameRu": "ARTICOLE PENTRU SERVIT",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4457",
+		"Parent": "BUCATARIE SI SERVIRE"
+	},
+	{
+		"Nr": "335",
+		"Code": "4722",
+		"Name": "Infuzoare ceai",
+		"NameRu": "Infuzoare ceai",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4526",
+		"Parent": "ARTICOLE PENTRU SERVIT"
+	},
+	{
+		"Nr": "336",
+		"Code": "4644",
+		"Name": "Farfurii si boluri",
+		"NameRu": "Farfurii si boluri",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4526",
+		"Parent": "ARTICOLE PENTRU SERVIT"
+	},
+	{
+		"Nr": "337",
+		"Code": "4523",
+		"Name": "Scobitori",
+		"NameRu": "Scobitori",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4526",
+		"Parent": "ARTICOLE PENTRU SERVIT"
+	},
+	{
+		"Nr": "338",
+		"Code": "4549",
+		"Name": "Articole pentru servit",
+		"NameRu": "Articole pentru servit",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4526",
+		"Parent": "ARTICOLE PENTRU SERVIT"
+	},
+	{
+		"Nr": "339",
+		"Code": "4529",
+		"Name": "PAHARE SI ACCESORII BAR",
+		"NameRu": "PAHARE SI ACCESORII BAR",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4457",
+		"Parent": "BUCATARIE SI SERVIRE"
+	},
+	{
+		"Nr": "340",
+		"Code": "4472",
+		"Name": "Dop",
+		"NameRu": "Dop",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4529",
+		"Parent": "PAHARE SI ACCESORII BAR"
+	},
+	{
+		"Nr": "341",
+		"Code": "4497",
+		"Name": "Tirbuson",
+		"NameRu": "Tirbuson",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4529",
+		"Parent": "PAHARE SI ACCESORII BAR"
+	},
+	{
+		"Nr": "342",
+		"Code": "4524",
+		"Name": "Pahare",
+		"NameRu": "Pahare",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4529",
+		"Parent": "PAHARE SI ACCESORII BAR"
+	},
+	{
+		"Nr": "343",
+		"Code": "4533",
+		"Name": "VASE PENTRU GATIT",
+		"NameRu": "VASE PENTRU GATIT",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4457",
+		"Parent": "BUCATARIE SI SERVIRE"
+	},
+	{
+		"Nr": "344",
+		"Code": "4779",
+		"Name": "Boluri din plastic",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4533",
+		"Parent": "VASE PENTRU GATIT"
+	},
+	{
+		"Nr": "345",
+		"Code": "4785",
+		"Name": "Cratite",
+		"NameRu": "Cratite",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4533",
+		"Parent": "VASE PENTRU GATIT"
+	},
+	{
+		"Nr": "346",
+		"Code": "4629",
+		"Name": "Forme de copt silicon",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4533",
+		"Parent": "VASE PENTRU GATIT"
+	},
+	{
+		"Nr": "347",
+		"Code": "4521",
+		"Name": "Tavi de copt",
+		"NameRu": "Tavi de copt",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4533",
+		"Parent": "VASE PENTRU GATIT"
+	},
+	{
+		"Nr": "348",
+		"Code": "4522",
+		"Name": "Tigai",
+		"NameRu": "Tigai",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4533",
+		"Parent": "VASE PENTRU GATIT"
+	},
+	{
+		"Nr": "349",
+		"Code": "4545",
+		"Name": "Hartie muffin",
+		"NameRu": "Hartie muffin",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4533",
+		"Parent": "VASE PENTRU GATIT"
+	},
+	{
+		"Nr": "350",
+		"Code": "4535",
+		"Name": "USTENSII BUCATARIE",
+		"NameRu": "USTENSII BUCATARIE",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4457",
+		"Parent": "BUCATARIE SI SERVIRE"
+	},
+	{
+		"Nr": "351",
+		"Code": "4534",
+		"Name": "Site bucatarie",
+		"NameRu": "Site bucatarie",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4535",
+		"Parent": "USTENSII BUCATARIE"
+	},
+	{
+		"Nr": "352",
+		"Code": "4490",
+		"Name": "Sita Grand Chef",
+		"NameRu": "Sita Grand Chef",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4534",
+		"Parent": "Site bucatarie"
+	},
+	{
+		"Nr": "353",
+		"Code": "4688",
+		"Name": "Cirlige adezive plastic",
+		"NameRu": "Cirlige adezive plastic",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4535",
+		"Parent": "USTENSII BUCATARIE"
+	},
+	{
+		"Nr": "354",
+		"Code": "4689",
+		"Name": "Cirlige adezive inox",
+		"NameRu": "Cirlige adezive inox",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4535",
+		"Parent": "USTENSII BUCATARIE"
+	},
+	{
+		"Nr": "355",
+		"Code": "4693",
+		"Name": "Pilnii",
+		"NameRu": "Pilnii",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4535",
+		"Parent": "USTENSII BUCATARIE"
+	},
+	{
+		"Nr": "356",
+		"Code": "4694",
+		"Name": "Cani si recipiente pentru masurare",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4535",
+		"Parent": "USTENSII BUCATARIE"
+	},
+	{
+		"Nr": "357",
+		"Code": "4696",
+		"Name": "Forme pentru prepararea ghetii",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4535",
+		"Parent": "USTENSII BUCATARIE"
+	},
+	{
+		"Nr": "358",
+		"Code": "4698",
+		"Name": "Masina pregatire paste",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4535",
+		"Parent": "USTENSII BUCATARIE"
+	},
+	{
+		"Nr": "359",
+		"Code": "4721",
+		"Name": "Covorase patiserie",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4535",
+		"Parent": "USTENSII BUCATARIE"
+	},
+	{
+		"Nr": "360",
+		"Code": "4723",
+		"Name": "Suport detergent vase",
+		"NameRu": "Suport detergent vase",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4535",
+		"Parent": "USTENSII BUCATARIE"
+	},
+	{
+		"Nr": "361",
+		"Code": "4780",
+		"Name": "Strecuratoare",
+		"NameRu": "Strecuratoare",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4535",
+		"Parent": "USTENSII BUCATARIE"
+	},
+	{
+		"Nr": "362",
+		"Code": "4781",
+		"Name": "Capac microunda",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4535",
+		"Parent": "USTENSII BUCATARIE"
+	},
+	{
+		"Nr": "363",
+		"Code": "4782",
+		"Name": "Cos de piine",
+		"NameRu": "Cos de piine",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4535",
+		"Parent": "USTENSII BUCATARIE"
+	},
+	{
+		"Nr": "364",
+		"Code": "4783",
+		"Name": "Scurgator vase",
+		"NameRu": "Scurgator vase",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4535",
+		"Parent": "USTENSII BUCATARIE"
+	},
+	{
+		"Nr": "365",
+		"Code": "4623",
+		"Name": "Pompa apa",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4535",
+		"Parent": "USTENSII BUCATARIE"
+	},
+	{
+		"Nr": "366",
+		"Code": "4655",
+		"Name": "Accesorii pentru bucatarie",
+		"NameRu": "Accesorii pentru bucatarie",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4535",
+		"Parent": "USTENSII BUCATARIE"
+	},
+	{
+		"Nr": "367",
+		"Code": "4628",
+		"Name": "Adaptor inductie",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4535",
+		"Parent": "USTENSII BUCATARIE"
+	},
+	{
+		"Nr": "368",
+		"Code": "4630",
+		"Name": "Covorase chiuveta",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4535",
+		"Parent": "USTENSII BUCATARIE"
+	},
+	{
+		"Nr": "369",
+		"Code": "4461",
+		"Name": "Aprinzator",
+		"NameRu": "Aprinzator",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4535",
+		"Parent": "USTENSII BUCATARIE"
+	},
+	{
+		"Nr": "370",
+		"Code": "4462",
+		"Name": "Ascutitoare cutite",
+		"NameRu": "Ascutitoare cutite",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4535",
+		"Parent": "USTENSII BUCATARIE"
+	},
+	{
+		"Nr": "371",
+		"Code": "4466",
+		"Name": "Clipsa",
+		"NameRu": "Clipsa",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4535",
+		"Parent": "USTENSII BUCATARIE"
+	},
+	{
+		"Nr": "372",
+		"Code": "4471",
+		"Name": "Deschizator conserve",
+		"NameRu": "Deschizator conserve",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4535",
+		"Parent": "USTENSII BUCATARIE"
+	},
+	{
+		"Nr": "373",
+		"Code": "4483",
+		"Name": "Reductii pentru aragaz",
+		"NameRu": "Reductii pentru aragaz",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4535",
+		"Parent": "USTENSII BUCATARIE"
+	},
+	{
+		"Nr": "374",
+		"Code": "4491",
+		"Name": "Site ceai",
+		"NameRu": "Site ceai",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4535",
+		"Parent": "USTENSII BUCATARIE"
+	},
+	{
+		"Nr": "375",
+		"Code": "4492",
+		"Name": "Site pentru chiuveta",
+		"NameRu": "Site pentru chiuveta",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4535",
+		"Parent": "USTENSII BUCATARIE"
+	},
+	{
+		"Nr": "376",
+		"Code": "4498",
+		"Name": "Tocatoare de bucatarie",
+		"NameRu": "Tocatoare de bucatarie",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4535",
+		"Parent": "USTENSII BUCATARIE"
+	},
+	{
+		"Nr": "377",
+		"Code": "4389",
+		"Name": "PRODUSE ZOOTEHNICE",
+		"NameRu": "PRODUSE ZOOTEHNICE",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4152",
+		"Parent": "MENAJ"
+	},
+	{
+		"Nr": "378",
+		"Code": "4784",
+		"Name": "Adaptoare animale",
+		"NameRu": "Adaptoare animale",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4389",
+		"Parent": "PRODUSE ZOOTEHNICE"
+	},
+	{
+		"Nr": "379",
+		"Code": "4829",
+		"Name": "Absorbent Pisici",
+		"NameRu": "Absorbent Pisici",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4389",
+		"Parent": "PRODUSE ZOOTEHNICE"
+	},
+	{
+		"Nr": "380",
+		"Code": "4502",
+		"Name": "SCAUNE AUTO",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "6",
+		"ParentCode": "4152",
+		"Parent": "MENAJ"
+	},
+	{
+		"Nr": "381",
+		"Code": "4708",
+		"Name": "Scaune Auto",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4502",
+		"Parent": "SCAUNE AUTO"
+	},
+	{
+		"Nr": "382",
+		"Code": "4743",
+		"Name": "INVENTAR DE GRADINA",
+		"NameRu": "INVENTAR DE GRADINA",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4152",
+		"Parent": "MENAJ"
+	},
+	{
+		"Nr": "383",
+		"Code": "4762",
+		"Name": "SCAUNE SI FOTOLII BIROU",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "6",
+		"ParentCode": "4152",
+		"Parent": "MENAJ"
+	},
+	{
+		"Nr": "384",
+		"Code": "4812",
+		"Name": "GHIVECI",
+		"NameRu": "INVENTAR DE GRADINA",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4152",
+		"Parent": "MENAJ"
+	},
+	{
+		"Nr": "385",
+		"Code": "4459",
+		"Name": "ACCESORII DIFERITE",
+		"NameRu": "",
+		"NameEn": "",
+		"Order": "0",
+		"ParentCode": "4152",
+		"Parent": "MENAJ"
+	}
+]

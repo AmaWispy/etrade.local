@@ -1218,6 +1218,7 @@
         $(".qtybutton").on("click", function () {
             var $button = $(this);
             var oldValue = $button.parent().find("input").val();
+            console.log(oldValue);
             if ($button.text() == "+") {
                 var newVal = parseFloat(oldValue) + 1;
             } else {
