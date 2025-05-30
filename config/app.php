@@ -172,9 +172,10 @@ return [
      * Telegram chat ids
      */
     'tg_chat_ids' => [
-        '543165215', // Developer (V)
-        '213357383', // Developer (A)
-        //'595597595' // Developer (E)
+        //'543165215', // Developer (V)
+        //'213357383', // Developer (A)
+        //'595597595', // Developer (E)
+        '478721140' // Developer (Alexey)
     ],
 
     'providers' => [

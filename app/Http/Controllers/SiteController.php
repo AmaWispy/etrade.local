@@ -61,6 +61,7 @@ class SiteController extends Controller
          */
         $products = Product::query()
             ->where('stock_quantity', '>', 0)
+                                ->where('is_active', true)
             ->whereRaw('stock_quantity > reserved')
             // ->inRandomOrder()
             ->take(16)

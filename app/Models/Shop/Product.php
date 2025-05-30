@@ -57,7 +57,8 @@ class Product extends UnicodeModel implements HasMedia
         'price',
         'currency',
         'default_price',
-        'default_currency'
+        'default_currency',
+        'is_active'
     ];
 
     /**
@@ -69,7 +70,8 @@ class Product extends UnicodeModel implements HasMedia
         'reserved' => 'integer',
         'price' => 'decimal:2',
         'default_price' => 'decimal:2',
-        'slug' => 'array'
+        'slug' => 'array',
+        'is_active' => 'boolean'
     ];
 
     public $translatable = [

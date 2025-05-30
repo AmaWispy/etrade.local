@@ -72,10 +72,27 @@
                             </li>
                         </ul>
 
-                        <div>
+                        <div class="@if(\Auth::guard('client')->check()) border-b pb-2 mb-2 @endif">
                             <p class="text-neutral-500 lg:text-base text-sm">SKU: {{ $product->sku }}</p>
                             <p class="text-neutral-500 lg:text-base text-sm">{{ $product->getTranslation('description', app()->getLocale()) }}</p>
                         </div>
+
+                        <!-- Stock Information for Authorized Users Start -->
+                        @if(\Auth::guard('client')->check())
+                            <div class="">
+                                <div class="flex flex-col gap-2">
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-gray-600 lg:text-base text-sm font-medium">{{ __('template.stock') }}:</span>
+                                        <span class="text-blue-600 lg:text-base text-sm font-semibold">{{ $product->stock_quantity ?? 0 }}</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-gray-600 lg:text-base text-sm font-medium">{{ __('template.reserved') }}:</span>
+                                        <span class="text-orange-600 lg:text-base text-sm font-semibold">{{ $product->reserved ?? 0 }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                        <!-- Stock Information for Authorized Users End -->
 
                         <div class="flex flex-col gap-3 mt-3">
                             <!-- Filters Start -->

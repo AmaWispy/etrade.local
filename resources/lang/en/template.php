@@ -395,4 +395,11 @@ return [
     'close' => 'Close',
     'items_2' => 'Products',
     'currency' => 'Rate',
+    'stock' => 'Stock',
+    'reserved' => 'Reserved',
+    'view_alternatives' => 'View Alternatives',
+    'alternative_products' => 'Alternative Products',
+    'you_might_also_like' => 'You might also like these products',
+    'need_help' => 'Need Help?',
+    'contact_us_for_assistance' => 'Contact us for assistance or consultation',
 ];  

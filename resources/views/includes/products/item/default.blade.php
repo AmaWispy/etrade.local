@@ -10,6 +10,25 @@
                     <img src="{{ $product->getImages()[0]['medium'] }}" class="w-full h-full duration-300 group-hover:transform group-hover:scale-110 object-cover rounded-lg @if(isset($circle)) !rounded-full @endif" alt="Image {{ $product->name }}">
                 </a>
                 
+                <!-- Stock Info Start-->
+                    @if(!isset($circle) && Auth::guard('client')->user())
+                        <!-- Stock - Left side -->
+                        <div class="absolute top-2 left-2 w-fit !h-fit opacity-0 group-hover:opacity-100 transition-all duration-300">
+                            <div class="bg-black bg-opacity-75 text-white text-xs rounded-md px-2 py-1 flex items-center gap-1">
+                                <span>{{ __('template.stock') }}:</span>
+                                <span class="font-medium">{{ $product->stock_quantity ?? 0 }}</span>
+                            </div>
+                        </div>
+                        <!-- Reserved - Right side -->
+                        <div class="absolute top-2 right-2 w-fit !h-fit opacity-0 group-hover:opacity-100 transition-all duration-300">
+                            <div class="bg-black bg-opacity-75 text-white text-xs rounded-md px-2 py-1 flex items-center gap-1">
+                                <span>{{ __('template.reserved') }}:</span>
+                                <span class="font-medium">{{ $product->reserved ?? 0 }}</span>
+                            </div>
+                        </div>
+                    @endif
+                <!-- Stock Info End-->
+                
                 <!-- Follow Add to Cart and show Start-->
                     @if(!isset($circle) && Auth::guard('client')->user())
                         <div class="absolute bottom-9 left-1/2 w-fit -translate-x-1/2 !h-fit opacity-0 group-hover:opacity-100 transition-all duration-300 xl:inline hidden">

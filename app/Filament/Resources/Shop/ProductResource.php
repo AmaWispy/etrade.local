@@ -120,6 +120,14 @@ class ProductResource extends Resource
                         ->maxFiles(5)
                         ->disableLabel(),
                     ])->columns(2),
+
+                Forms\Components\Section::make('Status')
+                    ->schema([
+                        Forms\Components\Toggle::make('is_active')
+                            ->label('Active')
+                            ->default(true)
+                            ->helperText('Enable or disable this product'),
+                    ]),
             ]);
     }
 
@@ -139,6 +147,18 @@ class ProductResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('stock_quantity')
                     ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('reserved')
+                    ->numeric()
+                    ->sortable()
+                    ->color('warning'),
+                Tables\Columns\IconColumn::make('is_active')
+                    ->label('Active')
+                    ->boolean()
+                    ->trueIcon('heroicon-o-check-circle')
+                    ->falseIcon('heroicon-o-x-circle')
+                    ->trueColor('success')
+                    ->falseColor('danger')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

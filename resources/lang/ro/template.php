@@ -415,4 +415,11 @@ return [
     'close' => 'Închide',
     'items_2' => 'Produse',
     'currency' => 'Curs',
+    'stock' => 'Stoc',
+    'reserved' => 'Rezervat',
+    'view_alternatives' => 'Vezi alternative',
+    'alternative_products' => 'Produse alternative',
+    'you_might_also_like' => 'S-ar putea să vă placă și aceste produse',
+    'need_help' => 'Aveți nevoie de ajutor?',
+    'contact_us_for_assistance' => 'Contactați-ne pentru ajutor sau consultanță',
 ];            

@@ -246,6 +246,7 @@ class ShopController extends Controller
                   ->orWhereRaw("LOWER(sku) LIKE ?", ["%{$data}%"]);
         })
         ->where('stock_quantity', '>', 0)
+                                ->where('is_active', true)
         ->whereRaw('stock_quantity > reserved')
         ->get() ?? null;
 
@@ -282,27 +283,31 @@ class ShopController extends Controller
 
     public function showProductCard($slug, $id){
         $product = Product::where('id', $id)->first();
-        // $user = 
-
-        // $recentlyViewedProducts = viewdItems::where('user_id', $user->id)
-        //     ->orderBy('created_at', 'desc')
-        //     ->limit(6)
-        //     ->get();
-    
-        // // Если продуктов меньше 6, просто добавляем новый
-        // if ($recentlyViewedProducts->count() < 6) {
-        //     viewdItems::create([
-        //         'user_id' => $user->id,
-        //         'product_id' => $product->id
-        //     ]);
-        // } else {
-        //     // Если продуктов уже 6, заменяем самый старый
-        //     $oldestProduct = $recentlyViewedProducts->last();
-        //     $oldestProduct->update([
-        //         'product_id' => $product->id,
-        //         'created_at' => now() // Обновляем время, чтобы оно стало актуальным
-        //     ]);
-        // }
+        
+        if(!$product) {
+            abort(404);
+        }
+        
+        if(!$product->is_active) {
+            // Get similar products from the same category as alternatives
+            $alternatives = Product::where('category_code', $product->category_code)
+                ->where('is_active', true)
+                ->where('stock_quantity', '>', 0)
+                ->whereRaw('stock_quantity > reserved')
+                ->where('id', '!=', $product->id)
+                ->take(6)
+                ->get();
+                
+            return view('shop.product-suspended', [
+                'product' => $product,
+                'alternatives' => $alternatives,
+                'message' => [
+                    'ru' => 'Продажа этого товара временно приостановлена',
+                    'ro' => 'Vânzarea acestui produs este temporar suspendată', 
+                    'en' => 'Sales of this product are temporarily suspended'
+                ]
+            ]);
+        }
 
         $rating = Comment::where('product_id', $id)
             ->whereNotNull('rating')
@@ -340,6 +345,9 @@ class ShopController extends Controller
     public function showProduct($id, $itemId = null){
         try {
             $product = Product::findOrFail($id);
+
+            // Check if product is active
+            
 
             if($itemId !== null){
                 $cartItem = CartItem::where('id', (int)$itemId)->first();
@@ -425,6 +433,7 @@ class ShopController extends Controller
         if(null !== $category){
             $query = Product::query()
                 ->where('stock_quantity', '>', 0)
+                                ->where('is_active', true)
                 ->whereRaw('stock_quantity > reserved')
                 ->where('price', '>', 0)
                 ->whereHas('categories', function ($query) use ($category) {
@@ -524,6 +533,7 @@ class ShopController extends Controller
          * Get shop products
          */
         $query = Product::query()->where('stock_quantity', '>', 0)
+                                ->where('is_active', true)
                                 ->whereRaw('stock_quantity > reserved')
                                 ->where('price', '>', 0);
 

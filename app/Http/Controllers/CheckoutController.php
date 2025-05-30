@@ -22,6 +22,8 @@ use App\Services\Order as OrderUtils;
 use Illuminate\Support\Str;
 use App\Services\ApiService;
 use App\Models\OrderCustom;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OrderNotification;
 
 class CheckoutController extends Controller
 {
@@ -695,6 +697,24 @@ class CheckoutController extends Controller
         }
 
         $emptyCart = Cookie::forget('cart');
+
+        // Отправляем email уведомление на админский адрес
+        try {
+            $adminEmail = config('mail.from.address', 'test-garm-mailer@yandex.ru');
+            Mail::to($adminEmail)->send(new OrderNotification($order));
+            Log::info('Order notification email sent successfully to: ' . $adminEmail . ' for order #' . $order->id);
+        } catch (\Exception $e) {
+            Log::error('Failed to send order notification email: ' . $e->getMessage() . ' for order #' . $order->id);
+        }
+
+        // Отправляем Telegram уведомление
+        try {
+            $notification = $this->utils->buildTgCustomNotification($order);
+            $this->utils->sendTgNotification($notification);
+            Log::info('Telegram notification sent successfully for order #' . $order->id);
+        } catch (\Exception $e) {
+            Log::error('Failed to send Telegram notification: ' . $e->getMessage() . ' for order #' . $order->id);
+        }
 
         return response()->view('shop.checkout-result-congrat',
             compact(
