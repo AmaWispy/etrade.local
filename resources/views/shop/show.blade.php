@@ -38,18 +38,51 @@
                                             </li>
                                         </ul>
                                     @else
-                                        @if(\Auth::guard('client')->check())
+                                        @if(Auth::guard('client')->user())
                                             <ul class="font-bold flex gap-2 text-xl">
                                                 <li>
-                                                    <span>{{$product->getExchangedPriceCustom2(true)}}</span>
+                                                    <span>{{$product->getExchangedPriceCustom2(true, true, true)}}</span>
                                                 </li>
+                                                @if($product->discount > 0 && $product->discount_date_end > now() && $product->discount_date_start < now())
+                                                    <li>
+                                                        <span class="text-[12px] text-neutral-400"><del>{{$product->getExchangedPriceCustom2(true, true, false)}}</del></span>
+                                                    </li>
+                                                    <li class="text-red-500">
+                                                        <span class="text-sm font-semibold">{{ __('template.discount_label') }}: {{ round($product->discount) }}%</span>
+                                                    </li>
+                                                @endif
                                                 <li>
                                                     <span class="text-[12px] text-neutral-400">{{__('template.for_you')}}</span>
                                                 </li>
                                             </ul>
-                                            <span class="font-bold text-xl">{{$product->getExchangedPriceCustom2(false)}}</span>
+                                            <ul class="font-bold flex gap-2 text-xl">
+                                                <li>
+                                                    <span>{{$product->getExchangedPriceCustom2(false, true, true)}}</span>
+                                                </li>
+                                                @if($product->discount > 0 && $product->discount_date_end > now() && $product->discount_date_start < now())
+                                                    <li>
+                                                        <span class="text-[12px] text-neutral-400"><del>{{$product->getExchangedPriceCustom2(false, true, false)}}</del></span>
+                                                    </li>
+                                                    <li class="text-red-500">
+                                                        <span class="text-sm font-semibold">{{ __('template.discount_label') }}: {{ round($product->discount) }}%</span>
+                                                    </li>
+                                                @endif
+                                            </ul>
+                                            
                                         @else
-                                            <span class="font-bold text-xl">{{$product->getExchangedPriceCustom2(false)}}</span>
+                                            <ul class="font-bold flex gap-2 text-xl">
+                                                <li>
+                                                    <span>{{$product->getExchangedPriceCustom2(false, true, true)}}</span>
+                                                </li>
+                                                @if($product->discount > 0 && $product->discount_date_end > now() && $product->discount_date_start < now())
+                                                    <li>
+                                                        <span class="text-[12px] text-neutral-400"><del>{{$product->getExchangedPriceCustom2(false, true, false)}}</del></span>
+                                                    </li>
+                                                    <li class="text-red-500">
+                                                        <span class="text-sm font-semibold">{{ __('template.discount_label') }}: {{ round($product->discount) }}%</span>
+                                                    </li>
+                                                @endif
+                                            </ul>
                                         @endif
                                     @endif
                                 </h1>
@@ -202,9 +235,11 @@
                             <li>
                                 <h1 class="lg:text-xl md:text-lg text-base font-medium">{{ __('template.specifications') }}</h1>
                             </li>
-                            <li>
-                                <p class="text-neutral-500 md:text-sm text-xs">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel neque, vitae qui aliquid necessitatibus dolores accusamus tenetur totam reprehenderit quas saepe id culpa, sunt eos! Dicta voluptates excepturi repellendus qui.</p>
-                            </li>
+                            @foreach($product->attributeValues as $attributeValue)
+                                <li>
+                                    <p class="text-neutral-500 md:text-sm text-xs">{{ $attributeValue->attribute->getTranslation('name', app()->getLocale()) }}: {{ $attributeValue->getTranslation('value', app()->getLocale()) }}</p>
+                                </li>
+                            @endforeach
                         </ul>
                         
                         <ul class="lg:w-1/2 w-full flex flex-col gap-2">

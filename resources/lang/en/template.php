@@ -402,4 +402,5 @@ return [
     'you_might_also_like' => 'You might also like these products',
     'need_help' => 'Need Help?',
     'contact_us_for_assistance' => 'Contact us for assistance or consultation',
+    'discount_label' => 'DISCOUNT',
 ];  

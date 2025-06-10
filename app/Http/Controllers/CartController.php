@@ -167,7 +167,11 @@ class CartController extends Controller
             //     $price =  $product->getPrice();
             // }
 
-            $price =  $product->price;
+            if($product->discount > 0 && $product->discount_date_end > now() && $product->discount_date_start < now()){
+                $price = $product->price - ($product->price * $product->discount / 100);
+            } else {
+                $price = $product->price;
+            }
 
             //dd($price);
 

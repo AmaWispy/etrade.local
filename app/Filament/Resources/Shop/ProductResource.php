@@ -101,6 +101,80 @@ class ProductResource extends Resource
                             ->default('buc.'),
                     ])->columns(2),
 
+                Forms\Components\Section::make('Discount Information')
+                    ->schema([
+                        Forms\Components\TextInput::make('discount')
+                            ->numeric()
+                            ->step(0.01)
+                            ->rule('regex:/^\\d*\\.?\\d{0,2}$/')
+                            ->label('Discount Amount %')
+                            ->reactive(),
+                        Forms\Components\Placeholder::make('calculated_discounted_price')
+                            ->label('Price After Discount (MDL)')
+                            ->content(function (callable $get) {
+                                $price = $get('price');
+                                $discountPercentage = $get('discount');
+
+                                if (!is_numeric($price) || !is_numeric($discountPercentage)) {
+                                    return 'Enter price and discount % to calculate.';
+                                }
+                                $price = (float) $price;
+                                $discountPercentage = (float) $discountPercentage;
+
+                                if ($discountPercentage < 0) {
+                                    return 'Discount cannot be negative.';
+                                }
+
+                                $discountedPrice = $price - ($price * ($discountPercentage / 100));
+                                return number_format($discountedPrice, 2, '.', '') . ' MDL';
+                            }),
+                        Forms\Components\DateTimePicker::make('discount_date_start')
+                            ->label('Discount Start Date')
+                            ->seconds(false)
+                            ->reactive()
+                            ->rules([
+                                function (callable $get) {
+                                    return function (string $attribute, $value, callable $fail) use ($get) {
+                                        $endDate = $get('discount_date_end');
+                                        if ($value && $endDate) {
+                                            try {
+                                                $startCarbon = \Carbon\Carbon::parse($value);
+                                                $endCarbon = \Carbon\Carbon::parse($endDate);
+                                                if ($startCarbon->isAfter($endCarbon)) {
+                                                    $fail('Start date cannot be after end date.');
+                                                }
+                                            } catch (\Exception $e) {
+                                                // Ignore parsing errors during form editing
+                                            }
+                                        }
+                                    };
+                                }
+                            ]),
+                        Forms\Components\DateTimePicker::make('discount_date_end')
+                            ->label('Discount End Date')
+                            ->seconds(false)
+                            ->reactive()
+                            ->rules([
+                                function (callable $get) {
+                                    return function (string $attribute, $value, callable $fail) use ($get) {
+                                        $startDate = $get('discount_date_start');
+                                        if ($value && $startDate) {
+                                            try {
+                                                $startCarbon = \Carbon\Carbon::parse($startDate);
+                                                $endCarbon = \Carbon\Carbon::parse($value);
+                                                if ($endCarbon->isBefore($startCarbon)) {
+                                                    $fail('End date cannot be before start date.');
+                                                }
+                                            } catch (\Exception $e) {
+                                                // Ignore parsing errors during form editing
+                                            }
+                                        }
+                                    };
+                                }
+                            ]),
+                        
+                    ])->columns(2),
+
                 Forms\Components\MarkdownEditor::make('description')
                     ->columnSpan('full'),
 
@@ -119,7 +193,7 @@ class ProductResource extends Resource
                         ->multiple()
                         ->maxFiles(5)
                         ->disableLabel(),
-                    ])->columns(2),
+                    ])->columns(1),
 
                 Forms\Components\Section::make('Status')
                     ->schema([
@@ -143,7 +217,7 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('price')
-                    ->money('USD')
+                    ->money('MDL')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('stock_quantity')
                     ->numeric()
@@ -186,8 +260,9 @@ class ProductResource extends Resource
     public static function getRelations(): array
     {
         return [
-            RelationManagers\CommentsRelationManager::class,
-            RelationManagers\VariationsRelationManager::class,
+            RelationManagers\AttributeValuesRelationManager::class,
+            RelationManagers\CommentsRelationManager::class
+            // RelationManagers\VariationsRelationManager::class, // Hidden
         ];
     }
 

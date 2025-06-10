@@ -422,4 +422,5 @@ return [
     'you_might_also_like' => 'S-ar putea să vă placă și aceste produse',
     'need_help' => 'Aveți nevoie de ajutor?',
     'contact_us_for_assistance' => 'Contactați-ne pentru ajutor sau consultanță',
+    'discount_label' => 'REDUCERE',
 ];            

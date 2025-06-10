@@ -24,6 +24,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View as ViewFacade;
 use App\Models\CategoryCustom;
 use Illuminate\Support\Facades\Cache;
+use App\Models\Shop\AttributeGroup;
+use App\Models\Shop\AttributeValue;
 
 class ShopController extends Controller
 {
@@ -527,6 +529,8 @@ class ShopController extends Controller
         abort(404);
     }
 
+    
+
     public function home(Request $request): View
     {
         /**
@@ -580,6 +584,8 @@ class ShopController extends Controller
                 'maxPriceChanged' => $filters['maxPriceChanged'],
                 'brands' => $filters['brands'],
                 'selectedBrand' => $filters['selectedBrand'],
+                'availableAttributes' => $filters['availableAttributes'],
+                'selectedAttributes' => $filters['selectedAttributes'],
             ]
         );
     }
@@ -634,6 +640,12 @@ class ShopController extends Controller
             ? explode(',', $request->input('brand')) 
             : [];
 
+        // Get selected attribute filters
+        $selectedAttributes = [];
+        if ($request->has('attributes')) {
+            $selectedAttributes = $request->get('attributes', []);
+        }
+
         $cur = session()->get('currency');
         if ($cur !== null && $cur['iso_alpha'] !== 'MDL'){
             $cur = $cur['exchange_rate'];
@@ -661,6 +673,21 @@ class ShopController extends Controller
             $query->whereIn('brand', $selectedBrands);
         }
 
+        // Get available attributes based on current product selection
+        $availableAttributes = $this->getAvailableAttributes($query);
+
+        // Apply attribute filters if selected
+        if (!empty($selectedAttributes)) {
+            foreach ($selectedAttributes as $attributeId => $valueIds) {
+                if (!empty($valueIds)) {
+                    $query->whereHas('attributeValues', function ($q) use ($attributeId, $valueIds) {
+                        $q->where('attribute_id', $attributeId)
+                          ->whereIn('id', $valueIds);
+                    });
+                }
+            }
+        }
+
         /**
          * Apply sorting to the query
          */
@@ -681,9 +708,9 @@ class ShopController extends Controller
         // Apply sort to price
         if($minPriceChanged !== null || $maxPriceChanged !== null){
             if(\Auth::guard('client')->check()){
-                $query->whereBetween('price', [$minPriceChanged / $cur, $maxPriceChanged / $cur])->get();
+                $query->whereBetween('price', [$minPriceChanged / $cur - 1, $maxPriceChanged / $cur + 1])->get();
             } else {
-                $query->whereBetween('default_price', [$minPriceChanged / $cur, $maxPriceChanged / $cur])->get();
+                $query->whereBetween('default_price', [$minPriceChanged / $cur - 1, $maxPriceChanged / $cur + 1])->get();
             }
         }
 
@@ -701,6 +728,8 @@ class ShopController extends Controller
             'maxPrice' => round($maxPrice, 2),
             'brands' => $brands,
             'selectedBrand' => $selectedBrands,
+            'availableAttributes' => $availableAttributes,
+            'selectedAttributes' => $selectedAttributes,
         ];
     }
 
@@ -726,6 +755,80 @@ class ShopController extends Controller
             });
         }
 
+    }
+
+    private function getAvailableAttributes($query)
+    {
+        // Get product IDs from current query
+        $productIds = (clone $query)->pluck('id');
+        
+        // Get attribute groups with attributes that have values in current products
+        $attributeGroups = AttributeGroup::with(['attributes' => function ($q) use ($productIds) {
+            $q->whereHas('attributeValues', function ($subQuery) use ($productIds) {
+                $subQuery->whereIn('product_id', $productIds);
+            });
+        }])
+        ->whereHas('attributes.attributeValues', function ($q) use ($productIds) {
+            $q->whereIn('product_id', $productIds);
+        })
+        ->get();
+
+        $result = [];
+        foreach ($attributeGroups as $group) {
+            if ($group->attributes->isNotEmpty()) {
+                $groupData = [
+                    'id' => $group->id,
+                    'name' => $group->getTranslation('name', app()->getLocale()) ?? 
+                              $group->getTranslation('name', 'ru') ?? 
+                              $group->name,
+                    'attributes' => []
+                ];
+
+                foreach ($group->attributes as $attribute) {
+                    // Get unique values for this attribute from current products
+                    $values = AttributeValue::where('attribute_id', $attribute->id)
+                        ->whereIn('product_id', $productIds)
+                        ->whereNotNull('value')
+                        ->get()
+                        ->unique(function ($item) {
+                            // Make unique by Russian translation value
+                            return $item->getTranslation('value', 'ru', false) ?: 
+                                   $item->getTranslation('value', 'en', false) ?: 
+                                   $item->getTranslation('value', 'ro', false);
+                        })
+                        ->map(function ($value) {
+                            return [
+                                'id' => $value->id,
+                                'value' => $value->getTranslation('value', app()->getLocale()) ?? 
+                                          $value->getTranslation('value', 'ru') ?? 
+                                          $value->getTranslation('value', 'en') ?? 
+                                          $value->value,
+                                'raw_value' => $value->value
+                            ];
+                        })
+                        ->filter(function ($value) {
+                            return !empty($value['value']);
+                        })
+                        ->values();
+
+                    if ($values->isNotEmpty()) {
+                        $groupData['attributes'][] = [
+                            'id' => $attribute->id,
+                            'name' => $attribute->getTranslation('name', app()->getLocale()) ?? 
+                                     $attribute->getTranslation('name', 'ru') ?? 
+                                     $attribute->name,
+                            'values' => $values->toArray()
+                        ];
+                    }
+                }
+
+                if (!empty($groupData['attributes'])) {
+                    $result[] = $groupData;
+                }
+            }
+        }
+
+        return $result;
     }
 
     private function formatedDataProducts($productsGet): array {

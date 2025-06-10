@@ -2,11 +2,9 @@
 
 namespace App\Models\Shop;
 
-use App\Models\UnicodeModel;
-//use Illuminate\Database\Eloquent\Model;
-use Spatie\Translatable\HasTranslations;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\UnicodeModel;
+use Spatie\Translatable\HasTranslations;
 
 class AttributeValue extends UnicodeModel
 {
@@ -16,25 +14,46 @@ class AttributeValue extends UnicodeModel
     /**
      * @var string
      */
-    protected $table = 'shop_attribute_values';
+    protected $table = 'attribute_value';
+    public $timestamps = false;
 
     public $translatable = [
-        'attr_value',
+        'value',
     ];
 
-    protected $fillable  = [
-        'shop_attribute_id',
-        'attr_value',
-        'attr_key',
-        'is_active',
+    protected $fillable = [
+        'attribute_id',
+        'product_id',
+        'value',
+        'date',
     ];
-    
-    public function attribute(): BelongsTo
+
+    /**
+     * Атрибуты, которые должны быть преобразованы в даты.
+     *
+     * @var array
+     */
+    protected $dates = [
+        'date',
+    ];
+
+    /**
+     * Связь с атрибутом
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function attribute()
     {
-        return $this->belongsTo(Attribute::class, 'shop_attribute_id');
+        return $this->belongsTo(Attribute::class, 'attribute_id');
     }
 
-    public function productsVariations(){
-        return $this->hasMany(VariationAttribute::class,  'shop_attr_value_id', 'id');
+    /**
+     * Связь с продуктом
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
     }
-}
+} 

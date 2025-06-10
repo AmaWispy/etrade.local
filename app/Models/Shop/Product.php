@@ -58,6 +58,9 @@ class Product extends UnicodeModel implements HasMedia
         'currency',
         'default_price',
         'default_currency',
+        'discount',
+        'discount_date_start',
+        'discount_date_end',
         'is_active'
     ];
 
@@ -70,6 +73,7 @@ class Product extends UnicodeModel implements HasMedia
         'reserved' => 'integer',
         'price' => 'decimal:2',
         'default_price' => 'decimal:2',
+        'discount' => 'float',
         'slug' => 'array',
         'is_active' => 'boolean'
     ];
@@ -324,9 +328,9 @@ class Product extends UnicodeModel implements HasMedia
         return $this->belongsToMany(\App\Models\Shop\Attribute::class, 'shop_product_variations', 'shop_product_id', 'id');
     }
 
-    public function attributeValues(): BelongsToMany
+    public function attributeValues(): HasMany
     {
-        return $this->belongsToMany(AttributeValue::class, 'shop_product_variations', 'shop_product_id', 'id');
+        return $this->hasMany(AttributeValue::class, 'product_id');
     }
 
     public function isVariable()
@@ -602,9 +606,12 @@ class Product extends UnicodeModel implements HasMedia
         return str_replace(['.00', ','], ['', ' '], $exchanged);
     }
 
-    public function getExchangedPriceCustom2($basePrice = false, $format = true)
+    public function getExchangedPriceCustom2($basePrice = false, $format = true, $discount = false)
     {
         $price = $basePrice ? $this->price : $this->default_price;
+        if ($discount && $this->discount && $this->discount_date_end && $this->discount_date_end > now() && $this->discount_date_start < now()) {
+            $price = $price - ($price * ($this->discount / 100));   
+        }
         
         $exchanged = Currency::exchange($price);
 

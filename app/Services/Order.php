@@ -136,52 +136,52 @@ class Order
         $currency = json_decode($order->currency);
         $currencySign = $currency->iso_alpha ?? 'MDL';
         
-        // Красивые разделители с эмодзи
-        $header = "🎉═══════════════════════════════🎉\n";
-        $separator = "═══════════════════════════════\n";
-        $smallSeparator = "─────────────────────────────\n";
+        // Красивые разделители
+        $header = "=======================================\n";
+        $separator = "=======================================\n";
+        $smallSeparator = "-------------------------------------\n";
         
         // Начало сообщения
         $message = $header;
-        $message .= "🛒 <b>НОВЫЙ ЗАКАЗ #{$order->id}</b> 🛒\n";
+        $message .= "НОВЫЙ ЗАКАЗ #{$order->id}\n";
         $message .= $header;
         
         // Информация о заказе
-        $message .= "📋 <b>Информация о заказе:</b>\n";
-        $message .= "🆔 ID: <code>{$order->id}</code>\n";
-        $message .= "🔑 GUID: <code>{$order->guid}</code>\n";
-        $message .= "📅 Дата: <code>{$order->created_at->format('d.m.Y H:i')}</code>\n";
-        $message .= "🚦 Статус: <b>" . $this->getStatusEmoji($order->status) . " " . strtoupper($order->status) . "</b>\n";
+        $message .= "Информация о заказе:\n";
+        $message .= "ID: <code>{$order->id}</code>\n";
+        $message .= "GUID: <code>{$order->guid}</code>\n";
+        $message .= "Дата: <code>{$order->created_at->format('d.m.Y H:i')}</code>\n";
+        $message .= "Статус: <b>" . $this->getStatusEmoji($order->status) . strtoupper($order->status) . "</b>\n";
         $message .= $separator;
         
         // Информация о клиенте
-        $message .= "👤 <b>Клиент:</b>\n";
+        $message .= "Клиент:\n";
         if ($order->client) {
-            $message .= "📛 Имя: <b>{$order->client->name}</b>\n";
-            $message .= "📧 Email: <code>{$order->client->email}</code>\n";
+            $message .= "Имя: <b>{$order->client->name}</b>\n";
+            $message .= "Email: <code>{$order->client->email}</code>\n";
             if ($order->client->phone) {
-                $message .= "📞 Телефон: <code>{$order->client->phone}</code>\n";
+                $message .= "Телефон: <code>{$order->client->phone}</code>\n";
             }
-            $message .= "🆔 ID клиента: <code>#{$order->client->id}</code>\n";
+            $message .= "ID клиента: <code>{$order->client->id}</code>\n";
         } else {
-            $message .= "👻 <b>Гостевой заказ</b>\n";
-            $message .= "ℹ️ <i>Заказ оформлен без регистрации</i>\n";
+            $message .= "Гостевой заказ\n";
+            $message .= "Заказ оформлен без регистрации\n";
         }
         $message .= $separator;
         
         // Товары в заказе
-        $message .= "🛍️ <b>Товары в заказе:</b>\n";
+        $message .= "Товары в заказе:\n";
         $totalItems = 0;
         foreach($order->cart->items as $key => $item) {
-            $message .= "📦 <b>{$item->product->name}</b>\n";
+            $message .= "<b>{$item->product->name}</b>\n";
             if ($item->product->sku) {
-                $message .= "🏷️ SKU: <code>{$item->product->sku}</code>\n";
+                $message .= "SKU: <code>{$item->product->sku}</code>\n";
             }
-            $message .= "📊 Количество: <b>{$item->qty} шт.</b>\n";
-            $message .= "💰 Цена за единицу: <b>" . number_format($item->unit_price, 2) . " {$currencySign}</b>\n";
+            $message .= "Количество: <b>{$item->qty} шт.</b>\n";
+            $message .= "Цена за единицу: <b>" . number_format($item->unit_price, 2) . " MDL</b>\n";
             
             $subtotal = round($item->qty * $item->unit_price, 2);
-            $message .= "💵 Подитог: <b>" . number_format($subtotal, 2) . " {$currencySign}</b>\n";
+            $message .= "Подитог: <b>" . number_format($subtotal, 2) . " MDL</b>\n";
             
             $totalItems += $item->qty;
             
@@ -193,33 +193,34 @@ class Order
         $message .= $separator;
         
         // Сводка заказа
-        $message .= "📊 <b>Сводка заказа:</b>\n";
-        $message .= "📦 Всего товаров: <b>{$totalItems} шт.</b>\n";
-        $message .= "💎 Общая сумма: <b>" . number_format($order->total, 2) . " {$currencySign}</b>\n";
+        $message .= "Сводка заказа:\n";
+        $message .= "Всего товаров: <b>{$totalItems} шт.</b>\n";
+        $message .= "Общая сумма: <b>" . number_format($order->total, 2) . " MDL</b>\n";
         
         // Курс валюты (если не MDL)
         if ($currencySign !== 'MDL' && isset($currency->exchange_rate)) {
             $mdlTotal = $order->total * $currency->exchange_rate;
-            $message .= "💱 Курс: <code>1 {$currencySign} = {$currency->exchange_rate} MDL</code>\n";
-            $message .= "💰 В MDL: <b>" . number_format($mdlTotal, 2) . " MDL</b>\n";
+            $cur = number_format(1 / $currency->exchange_rate, 2);
+            $message .= "Курс: <code>1 {$currencySign} = {$cur} MDL</code>\n";
+            $message .= "В {$currencySign}: <b>" . number_format($mdlTotal, 2) . "</b>\n";
         }
         $message .= $separator;
         
         // Комментарии к заказу
         if ($order->comments) {
-            $message .= "💬 <b>Комментарии:</b>\n";
-            $message .= "📝 <i>{$order->comments}</i>\n";
+            $message .= "Комментарии:\n";
+            $message .= "<i>{$order->comments}</i>\n";
             $message .= $separator;
         }
         
         // Административная информация
-        $message .= "⚙️ <b>Управление:</b>\n";
-        $message .= "🔗 <a href='" . config('app.url') . "/admin/order-customs/{$order->id}/edit'>Открыть в админ-панели</a>\n";
-        $message .= "🌐 <a href='" . config('app.url') . "'>Перейти на сайт</a>\n";
+        $message .= "Управление:\n";
+        $message .= "<a href='" . config('app.url') . "/admin/order-customs/{$order->id}/edit'>Открыть в админ-панели</a>\n";
+        $message .= "<a href='" . config('app.url') . "'>Перейти на сайт</a>\n";
         
         $message .= $header;
-        $message .= "🤖 <i>Автоматическое уведомление от " . config('app.name') . "</i>\n";
-        $message .= "⏰ <i>" . now()->format('d.m.Y H:i:s') . "</i>";
+        $message .= "<i>Автоматическое уведомление от " . config('app.name') . "</i>\n";
+        $message .= "<i>" . now()->format('d.m.Y H:i:s') . "</i>";
         
         return $message;
     }
@@ -230,13 +231,13 @@ class Order
     private function getStatusEmoji($status) 
     {
         return match($status) {
-            'new' => '🆕',
-            'processing' => '⚙️',
-            'completed' => '✅',
-            'error' => '❌',
-            'pending' => '⏳',
-            'verification' => '🔍',
-            default => '📋'
+            'new' => '',
+            'processing' => '',
+            'completed' => '',
+            'error' => '',
+            'pending' => '',
+            'verification' => '',
+            default => ''
         };
     }
 }

@@ -67,7 +67,7 @@ class ProfileController extends Controller
 
         $orders = OrderCustom::where('client_id', \Auth::guard('client')->user()->id)
                 ->orderBy('id', 'desc')
-                ->paginate(10);
+                ->paginate(30);
         return view('pages.account', [
                 'user' => \Auth::guard('client')->user(),
                 'orders' => $orders,

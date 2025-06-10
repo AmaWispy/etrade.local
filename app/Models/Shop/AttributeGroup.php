@@ -3,12 +3,10 @@
 namespace App\Models\Shop;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-//use Illuminate\Database\Eloquent\Model;
 use App\Models\UnicodeModel;
 use Spatie\Translatable\HasTranslations;
-//use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
-class Attribute extends UnicodeModel
+class AttributeGroup extends UnicodeModel
 {
     use HasFactory;
     use HasTranslations;
@@ -16,7 +14,7 @@ class Attribute extends UnicodeModel
     /**
      * @var string
      */
-    protected $table = 'attributes';
+    protected $table = 'attribute_groups';
     public $timestamps = false;
 
     public $translatable = [
@@ -24,7 +22,6 @@ class Attribute extends UnicodeModel
     ];
 
     protected $fillable = [
-        'group_id',
         'name',
         'date',
     ];
@@ -39,22 +36,12 @@ class Attribute extends UnicodeModel
     ];
 
     /**
-     * Связь с группой атрибутов
-     * 
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function attributeGroup()
-    {
-        return $this->belongsTo(AttributeGroup::class, 'group_id');
-    }
-
-    /**
-     * Связь со значениями атрибутов
+     * Связь с атрибутами этой группы
      * 
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function attributeValues()
+    public function attributes()
     {
-        return $this->hasMany(AttributeValue::class, 'attribute_id');
+        return $this->hasMany(Attribute::class, 'group_id');
     }
-}
+} 

@@ -1,6 +1,6 @@
 <div x-data='{plus: {{ empty($selectedBrands) ? "true" : "false" }}}' class="space-y-3 mt-5">
     <div class="space-y-2">
-        <button x-on:click='plus = !plus' class="flex w-full text-xl font-semibold justify-between">
+        <button type="button" x-on:click='plus = !plus' class="flex w-full text-xl font-semibold justify-between">
             <span>{{ __('template.brands') }}</span>
             <span x-cloak>
                 <i class="bi bi-plus-lg" x-show='plus'></i>

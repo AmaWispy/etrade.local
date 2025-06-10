@@ -139,7 +139,7 @@
         <div class="content">
             <div class="order-info">
                 <h3>📋 Информация о заказе</h3>
-                <p><strong>Номер заказа:</strong> #{{ $order->id }}</p>
+                <p><strong>Номер заказа:</strong> {{ $order->id }}</p>
                 <p><strong>Дата:</strong> {{ $order->created_at->format('d.m.Y H:i') }}</p>
                 <p><strong>Статус:</strong> 
                     <span class="status-badge status-{{ $order->status }}">
@@ -155,7 +155,7 @@
                 <p><strong>Имя:</strong> {{ $client->name ?? 'Не указано' }}</p>
                 <p><strong>Email:</strong> {{ $client->email ?? 'Не указано' }}</p>
                 <p><strong>Телефон:</strong> {{ $client->phone ?? 'Не указано' }}</p>
-                <p><strong>ID клиента:</strong> #{{ $client->id }}</p>
+                <p><strong>ID клиента:</strong> {{ $client->id }}</p>
             </div>
             @else
             <div class="client-info">
@@ -177,14 +177,14 @@
                         </div>
                         <div class="item-price">
                             {{ number_format($item->unit_price * $item->qty, 2) }} 
-                            {{ json_decode($order->currency)->iso_alpha ?? 'MDL' }}
+                            MDL
                         </div>
                     </div>
                 @endforeach
             </div>
 
             <div class="total">
-                💰 Общая сумма: {{ number_format($order->total, 2) }} {{ json_decode($order->currency)->iso_alpha ?? 'MDL' }}
+                💰 Общая сумма: {{ number_format($order->total, 2) }} MDL
             </div>
 
             @if($order->comments)
