@@ -1,9 +1,9 @@
 <x-app-layout>
 
-    @section('title', __('template.shop'))
+    @section('title', $category->localized_name ?? __('template.shop'))
 
     <!-- BREADCRUMB AREA START -->
-        @include('includes.layout.bread-crump', ['title' => __('template.shop')])
+        @include('includes.layout.bread-crump', ['title' => __('template.shop'), 'category' => $category])
     <!-- BREADCRUMB AREA END -->
 
     <!-- PRODUCT DETAILS AREA START -->

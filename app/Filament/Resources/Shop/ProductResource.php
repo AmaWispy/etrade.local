@@ -226,13 +226,8 @@ class ProductResource extends Resource
                     ->numeric()
                     ->sortable()
                     ->color('warning'),
-                Tables\Columns\IconColumn::make('is_active')
+                Tables\Columns\ToggleColumn::make('is_active')
                     ->label('Active')
-                    ->boolean()
-                    ->trueIcon('heroicon-o-check-circle')
-                    ->falseIcon('heroicon-o-x-circle')
-                    ->trueColor('success')
-                    ->falseColor('danger')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

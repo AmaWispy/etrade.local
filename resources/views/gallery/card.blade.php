@@ -25,8 +25,8 @@
         @if ($images && count($images) > 0)
             @foreach ($images as $image )
                 <div class="single-large-img !h-full !w-full rounded-xl overflow-hidden">
-                    <a href="{{ $image->getUrl('medium') }}" data-rel="lightcase:myCollection" class="!w-full !h-full rounded-xl">
-                        <img src="{{ $image->getUrl('medium') }}" class="!h-full !w-full object-cover" alt="Product">
+                    <a href="{{ $image->getUrl('main') }}" data-rel="lightcase:myCollection" class="!w-full !h-full rounded-xl">
+                        <img src="{{ $image->getUrl('main') }}" class="!h-full !w-full object-cover" alt="Product">
                     </a>
                 </div>
             @endforeach

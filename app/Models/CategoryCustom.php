@@ -37,4 +37,34 @@ class CategoryCustom extends Model
     {
         return $this->hasMany(CategoryCustom::class, 'parent_code', 'code');
     }
+
+    // Получить название на текущем языке
+    public function getLocalizedNameAttribute()
+    {
+        $locale = app()->getLocale();
+        
+        switch ($locale) {
+            case 'ru':
+                return $this->name_ru ?: $this->name;
+            case 'en':
+                return $this->name_en ?: $this->name;
+            case 'ro':
+            default:
+                return $this->name;
+        }
+    }
+
+    // Получить цепочку родителей для хлебных крошек
+    public function getBreadcrumbsAttribute()
+    {
+        $breadcrumbs = collect([$this]);
+        $current = $this;
+        
+        while ($current->parentCategory) {
+            $current = $current->parentCategory;
+            $breadcrumbs->prepend($current);
+        }
+        
+        return $breadcrumbs;
+    }
 } 

@@ -429,9 +429,9 @@ class Product extends UnicodeModel implements HasMedia
 
     public function getThumb()
     {
-        $media = $this->getFirstMedia("product-images"); // Get from product-image collection
+        $media = $this->getFirstMedia("product-images");
         if(null !== $media){
-            return $media->getUrl('thumb-md');
+            return $media->getUrl('thumb');
         }
         return url('storage/no-image_420x420.png');
     }

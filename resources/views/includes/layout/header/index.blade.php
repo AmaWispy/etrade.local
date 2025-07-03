@@ -112,7 +112,7 @@ foreach($parentCategories as $category) {
                                                     <!-- <span class="menu-icon">
                                                         <i class="bi bi-box text-blue-400"></i>
                                                     </span> -->
-                                                    <span class="menu-text">{{ $category->name }}</span>
+                                                    <span class="menu-text">{{ $category->localized_name }}</span>
                                                 </a>
                                                 @if($hasChildren)
                                                     <div class="department-megamenu">
@@ -126,7 +126,7 @@ foreach($parentCategories as $category) {
                                                                                     <li class="text-neutral-400">
                                                                                         <a href="{{ route('shop.home', ['category_parent' => $child->code]) }}" 
                                                                                            class="hover:text-blue-500 transition-colors duration-200">
-                                                                                            {{ $child->name }}
+                                                                                            {{ $child->localized_name }}
                                                                                         </a>
                                                                                         @php
                                                                                             $subChildren = $childCategories->where('parent_code', $child->code);
@@ -137,7 +137,7 @@ foreach($parentCategories as $category) {
                                                                                                     <li class="text-neutral-400">
                                                                                                         <a href="{{ route('shop.home', ['category' => $subChild->code]) }}" 
                                                                                                            class="hover:text-blue-500 transition-colors duration-200">
-                                                                                                            {{ $subChild->name }}
+                                                                                                            {{ $subChild->localized_name }}
                                                                                                         </a>
                                                                                                     </li>
                                                                                                 @endforeach
@@ -159,9 +159,114 @@ foreach($parentCategories as $category) {
                                 </nav>
                             </li>
                         </ul>
+                    @else
+                        <ul class="h-full">
+                            <li class="h-full lg:w-52 md:w-40 w-[118px] relative" x-data="{ dropdownOpen: false }">
+                                <button type="button" 
+                                    @click="dropdownOpen = !dropdownOpen"
+                                    @click.away="dropdownOpen = false"
+                                    class="flex lg:gap-3 gap-1.5 py-2 text-base font-medium h-full w-full justify-center items-center text-white bg-blue-500">
+                                    <i class="bi bi-list text-xl md:block hidden"></i> {{ __('template.categories') }}
+                                    <i class="bi bi-chevron-down text-sm transition-transform duration-200" :class="dropdownOpen ? 'rotate-180' : ''"></i>
+                                </button>
+                                
+                                <!-- Выпадающее меню для других страниц -->
+                                <div x-show="dropdownOpen" 
+                                     x-transition:enter="transition ease-out duration-200"
+                                     x-transition:enter-start="opacity-0 transform scale-95"
+                                     x-transition:enter-end="opacity-100 transform scale-100"
+                                     x-transition:leave="transition ease-in duration-150"
+                                     x-transition:leave-start="opacity-100 transform scale-100"
+                                     x-transition:leave-end="opacity-0 transform scale-95"
+                                                                           class="absolute top-full left-0 mt-1 w-80 bg-white border border-gray-200 rounded-lg shadow-lg z-[9999] overflow-visible"
+                                      style="max-height: 400px; overflow-y: auto;"
+                                     x-cloak>
+                                    <ul class="py-2">
+                                        @foreach($parentCategories as $category)
+                                            @if($category->name == null)
+                                                @continue
+                                            @endif
+                                            @php
+                                                $categoryChildren = $childCategories->where('parent_code', $category->code);
+                                                $hasChildren = $categoryChildren->count() > 0;
+                                            @endphp
+                                                                                         <li class="group relative" x-data="{ submenuOpen: false }">
+                                                 <div class="flex items-center justify-between px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                                      @mouseenter="submenuOpen = true" 
+                                                      @mouseleave="submenuOpen = false">
+                                                     <a href="{{ route('shop.home', ['category_parent' => $category->code]) }}" 
+                                                        class="flex-1 flex items-center gap-2">
+                                                         <i class="bi bi-box text-blue-400"></i>
+                                                         {{ $category->localized_name }}
+                                                     </a>
+                                                     @if($hasChildren)
+                                                         <i class="bi bi-chevron-right text-xs text-gray-400"></i>
+                                                     @endif
+                                                 </div>
+                                                 @if($hasChildren)
+                                                     <!-- Отдельное окошко для подменю -->
+                                                     <div x-show="submenuOpen" 
+                                                          x-transition:enter="transition ease-out duration-150"
+                                                          x-transition:enter-start="opacity-0 transform scale-95"
+                                                          x-transition:enter-end="opacity-100 transform scale-100"
+                                                          x-transition:leave="transition ease-in duration-100"
+                                                          x-transition:leave-start="opacity-100 transform scale-100"
+                                                          x-transition:leave-end="opacity-0 transform scale-95"
+                                                                                                                     class="absolute left-full top-0 w-[1000px] bg-white border border-gray-200 rounded-lg shadow-xl z-[10001]"
+                                                          @mouseenter="submenuOpen = true" 
+                                                          @mouseleave="submenuOpen = false"
+                                                          x-cloak
+                                                          style="max-height: calc(100vh - 120px); overflow-y: auto;">
+                                                         <div class="p-6">
+                                                             <h4 class="text-lg font-bold text-gray-800 mb-6 pb-3 border-b-2 border-gray-200">
+                                                                 {{ $category->localized_name }}
+                                                             </h4>
+                                                             @php
+                                                                 // Разбиваем подкатегории на три колонки
+                                                                 $chunks = $categoryChildren->chunk(ceil($categoryChildren->count() / 3));
+                                                             @endphp
+                                                             <div class="grid grid-cols-3 gap-8">
+                                                                 @foreach($chunks as $chunk)
+                                                                     <div class="space-y-5">
+                                                                         @foreach($chunk as $child)
+                                                                             @php
+                                                                                 $subChildren = $childCategories->where('parent_code', $child->code);
+                                                                             @endphp
+                                                                             <div class="space-y-3">
+                                                                                 <a href="{{ route('shop.home', ['category_parent' => $child->code]) }}" 
+                                                                                    class="block text-base font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-150 py-1">
+                                                                                     {{ $child->localized_name }}
+                                                                                 </a>
+                                                                                 @if($subChildren->count() > 0)
+                                                                                     <ul class="pl-4 space-y-2">
+                                                                                         @foreach($subChildren->take(20) as $subChild)
+                                                                                             <li>
+                                                                                                 <a href="{{ route('shop.home', ['category' => $subChild->code]) }}" 
+                                                                                                    class="block text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 px-3 py-2 rounded transition-colors duration-150">
+                                                                                                     {{ $subChild->localized_name }}
+                                                                                                 </a>
+                                                                                             </li>
+                                                                                         @endforeach
+                                                                                     </ul>
+                                                                                 @endif
+                                                                             </div>
+                                                                         @endforeach
+                                                                     </div>
+                                                                 @endforeach
+                                                             </div>
+                                                         </div>
+                                                     </div>
+                                                 @endif
+                                             </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
                     @endif
                     <div class="flex items-center lg:justify-between w-full">
                         <ul class="flex gap-3 font-semibold">
+                            
                             <li class="flex flex-col gap-[.5px] group">
                                 <a href="{{ route('home.default') }}" class="!text-black">{{ __('template.home') }}</a>
                                 <div class="h-[2px] group-hover:w-full group-hover:opacity-100 duration-500  bg-black w-1 opacity-0"></div>
@@ -302,7 +407,7 @@ foreach($parentCategories as $category) {
                             <button x-on:click='open = !open' class="h-12 w-full text-lg flex items-center justify-between xl:hover:text-black xl:group-hover:text-black">
                                 <span class="flex gap-3 items-center">
                                     <i class="bi bi-box text-blue-400 xl:group-hover:text-black"></i> 
-                                    {{ $category->name }}
+                                    {{ $category->localized_name }}
                                 </span>
                                 <span x-bind:class='open ? "rotate-180" : "rotate-0" ' class="duration-300">
                                     <i class="bi bi-chevron-up text-sm"></i>
@@ -315,14 +420,14 @@ foreach($parentCategories as $category) {
                                 <ul class="gap-1 break-inside-avoid mb-3 lg:text-base md:text-lg text-base space-y-2">
                                     @foreach($categoryChildren as $child)
                                         <li class="text-neutral-400">
-                                            <a href="{{ route('shop.home', ['category' => $child->code]) }}">{{ $child->name }}</a>
+                                            <a href="{{ route('shop.home', ['category' => $child->code]) }}">{{ $child->localized_name }}</a>
                                         </li>
                                     @endforeach
                                 </ul>
                             </div>
                         @else
                             <a href="{{ route('shop.home', ['category_parent' => $category->code]) }}" class="w-full h-12 flex items-center gap-3 xl:hover:text-black text-lg">
-                                <i class="bi bi-box text-blue-400"></i> {{ $category->name }}
+                                <i class="bi bi-box text-blue-400"></i> {{ $category->localized_name }}
                             </a>
                         @endif
                     </li>

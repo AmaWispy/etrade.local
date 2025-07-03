@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 //use App\Models\Shop\Category;
 use App\Models\Shop\Product;
 use App\Models\Shop\Brand;
+use App\Models\Shop\Attribute;
+use App\Models\Shop\AttributeValue;
 //use App\Models\Blog\Post;
 //use App\Models\Widgets\WidgetGroup;
 //use App\Models\Widgets\TextWidget;
@@ -112,6 +114,46 @@ class SiteController extends Controller
         return $convertedPrice; */
         $currency = session()->get('currency')['iso_alpha'];
         return $currency;
+    }
+
+    public function copyEnglishTranslationsToOtherLanguages()
+    {
+        $updatedAttributes = 0;
+        $updatedAttributeValues = 0;
+        $targetLanguages = ['ru', 'ro'];
+        
+        // Копируем переводы для атрибутов (Attribute model)
+        $attributes = Attribute::all();
+        
+        foreach ($attributes as $attribute) {
+            $englishName = $attribute->getTranslation('name', 'en', false);
+            
+            if (!empty($englishName)) {
+                $updated = false;
+                $translations = $attribute->getTranslations('name');
+                
+                foreach ($targetLanguages as $lang) {
+                    // Если перевод пустой или null, копируем английский
+                    if (empty($translations[$lang])) {
+                        $translations[$lang] = $englishName;
+                        $updated = true;
+                    }
+                }
+                
+                if ($updated) {
+                    $attribute->name = $translations;
+                    $attribute->save();
+                    $updatedAttributes++;
+                }
+            }
+        }
+        
+        
+        return response()->json([
+            'message' => 'Переводы успешно скопированы',
+            'updated_attributes' => $updatedAttributes,
+            'total_updated' => $updatedAttributes
+        ]);
     }
 
     // public function testSmtp(){

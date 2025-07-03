@@ -541,32 +541,14 @@ class ShopController extends Controller
                                 ->whereRaw('stock_quantity > reserved')
                                 ->where('price', '>', 0);
 
-        // Обработка фильтрации по категориям
+        // Определяем текущую категорию
+        $category = null;
         if ($request->has('category')) {
-            $query->where('category_code', $request->get('category'))->count();
-        } elseif ($request->has('category_parent')) {
-            $parentCode = $request->get('category_parent');
-            
-            // Получаем все коды категорий для фильтрации
-            $categoryCodes = Cache::remember("category_tree_{$parentCode}", 3600, function () use ($parentCode) {
-                $category = CategoryCustom::where('code', $parentCode)->first();
-                if (!$category) {
-                    return [];
-                }
-
-                // Получаем все дочерние категории
-                $childCategories = CategoryCustom::where('parent_code', $parentCode)->pluck('code')->toArray();
-                
-                // Получаем категории третьего уровня
-                $thirdLevelCategories = CategoryCustom::whereIn('parent_code', $childCategories)->pluck('code')->toArray();
-                
-                // Объединяем все коды категорий
-                return array_merge([$parentCode], $childCategories, $thirdLevelCategories);
-            });
-
-            if (!empty($categoryCodes)) {
-                $query->whereIn('category_code', $categoryCodes);
-            }
+            $categoryCode = $request->get('category');
+            $category = CategoryCustom::where('code', $categoryCode)->first();
+        } elseif ($request->has('parent_category')) {
+            $parentCode = $request->get('parent_category');
+            $category = CategoryCustom::where('code', $parentCode)->first();
         }
 
         $filters = $this->getFilters($request, $query);
@@ -576,6 +558,7 @@ class ShopController extends Controller
         $products = $query->paginate(12);
         return view('shop.home',
             [
+                'category' => $category ?? null,
                 "products" => $products,
                 'sorting' => $filters['sorting'],
                 "minPrice" => $filters['minPrice'],

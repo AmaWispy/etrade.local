@@ -9,7 +9,7 @@
                 $attributeIndex++;
             @endphp
             
-            <div x-data='{plus: {{ $hasSelectedValues ? "false" : "true" }}}' class="space-y-3">
+            <div x-data='{plus: false}' class="space-y-3">
                 <div class="space-y-2">
                     <button type="button" x-on:click='plus = !plus' class="flex w-full text-xl font-semibold justify-between">
                         <span>{{ $attribute['name'] }}</span>

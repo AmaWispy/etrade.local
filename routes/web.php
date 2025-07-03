@@ -25,6 +25,9 @@ Route::get('/test-smtp', [SiteController::class, 'testSmtp'])
 Route::get('/test', [SiteController::class, 'test'])
         ->name('home.test');
 
+Route::get('/copy-translations', [SiteController::class, 'copyEnglishTranslationsToOtherLanguages'])
+        ->name('copy.translations');
+
 // Default route for home page
 Route::get('/', [SiteController::class, 'home'])
         ->name('home.default');
