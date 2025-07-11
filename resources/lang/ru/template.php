@@ -416,4 +416,13 @@ return [
     'need_help' => 'Нужна помощь?',
     'contact_us_for_assistance' => 'Свяжитесь с нами для получения помощи или консультации',
     'discount_label' => 'СКИДКА',
+    
+    // Stock availability filter
+    'availability' => 'Наличие',
+    'only_available_stock' => 'Только в наличии',
+    'show_only_products_with_available_stock' => 'Показывать только товары в наличии',
+    
+    // Exchange rates
+    'exchange_rates' => 'Курсы валют',
+    'mdl' => 'лей',
 ];      

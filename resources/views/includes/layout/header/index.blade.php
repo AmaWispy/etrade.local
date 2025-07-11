@@ -68,7 +68,8 @@ foreach($parentCategories as $category) {
                         @include('includes.layout.header.links')
                     </div>
             
-                    <div class="lg:flex gap-3 h-full z-0 hidden">
+                    <div class="lg:flex gap-3 h-full z-0 hidden items-center">
+                        @include('includes.header.exchange-rates')
                         @include('includes.swichers.currency')
                         @include('includes.swichers.language')
                     </div>
@@ -317,6 +318,12 @@ foreach($parentCategories as $category) {
                     @endif
                 @endforeach 
             </ul>
+            
+            <!-- Exchange Rates Mobile -->
+            <div class="flex justify-center">
+                @include('includes.header.exchange-rates-mobile')
+            </div>
+            
             <div class="flex justify-center gap-4 w-full">
                 @include('includes.swichers.currency')
                 @include('includes.swichers.language')

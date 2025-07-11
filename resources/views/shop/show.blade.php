@@ -22,7 +22,37 @@
 
                 <!-- Product Infos Start-->
                     <div class="xl:w-1/2 mt-8 xl:mt-0">
+                        <!-- Product Breadcrumbs Start -->
+                        <nav class='flex items-center text-sm mb-4 bg-gray-50 px-4 py-2 rounded-lg'>
+                            <div class="flex items-center flex-wrap gap-1">
+                                <a href="{{ route('shop.home') }}" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium">
+                                    <i class="bi bi-house-door mr-1"></i>{{ __('template.store') }}
+                                </a>
+                                @if($product->category_code)
+                                    @php
+                                        $category = App\Models\CategoryCustom::where('code', $product->category_code)->first();
+                                    @endphp
+                                    @if($category)
+                                        @foreach($category->breadcrumbs as $index => $breadcrumb)
+                                            <i class="bi bi-chevron-right text-gray-400 text-xs mx-1"></i>
+                                            <a href="{{ route('shop.home', [$loop->last ? 'category' : 'parent_category' => $breadcrumb->code]) }}" 
+                                               class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium truncate max-w-[150px] sm:max-w-none"
+                                               title="{{ $breadcrumb->localized_name }}">
+                                                {{ $breadcrumb->localized_name }}
+                                            </a>
+                                        @endforeach
+                                    @endif
+                                @endif
+                                <i class="bi bi-chevron-right text-gray-400 text-xs mx-1"></i>
+                                <span class="text-blue-600 font-semibold truncate max-w-[200px] sm:max-w-none" title="{{ $product->name }}">
+                                    {{ $product->name }}
+                                </span>
+                            </div>
+                        </nav>
+                        <!-- Product Breadcrumbs End -->
+
                         <ul class="flex flex-col gap-3 border-b pb-2 mb-2">
+                            
                             <li>
                                 <h1 class="lg:text-3xl md:text-2xl text-xl font-semibold">{{ $product->name }}</h1>
                             </li>

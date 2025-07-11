@@ -1,39 +1,39 @@
 <div class="bg-neutral-100 py-5 mb-5">
-    <div class="container flex  justify-between">
-        <div>
-            <nav class='inline-flex items-center text-[16px] mb-2'>
-                <ul class="inline-flex items-center gap-2 font-medium">
+    <div class="container flex justify-between">
+        <div class="w-full">
+            <!-- Modern Breadcrumbs Navigation -->
+            <nav class='flex items-center text-sm mb-4 bg-white px-4 py-2 rounded-lg shadow-sm border'>
+                <div class="flex items-center flex-wrap gap-1">
                     @if(isset($category) && !empty($category->code))
-                        <li>
-                            <a href="{{ route('shop.home') }}">{{ __('template.store') }}</a>
-                        </li>
-                        <li>
-                            <h1 class="text-neutral-500">|</h1>
-                        </li>
+                        <a href="{{ route('shop.home') }}" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium flex items-center">
+                            <i class="bi bi-house-door mr-1"></i>{{ __('template.store') }}
+                        </a>
+                        
                         @foreach($category->breadcrumbs as $index => $breadcrumb)
-                            <li>
-                                @if($loop->last)
-                                    <h1 class="text-blue-500">{{ $breadcrumb->localized_name }}</h1>
-                                @else
-                                    <a href="{{ route('shop.home', ['parent_category' => $breadcrumb->code]) }}" class="hover:text-blue-500">
-                                        {{ $breadcrumb->localized_name }}
-                                    </a>
-                                @endif
-                            </li>
-                            @if(!$loop->last)
-                                <li>
-                                    <h1 class="text-neutral-500">|</h1>
-                                </li>
+                            <i class="bi bi-chevron-right text-gray-400 text-xs mx-1"></i>
+                            @if($loop->last)
+                                <span class="text-blue-600 font-semibold truncate max-w-[120px] sm:max-w-none" 
+                                      title="{{ $breadcrumb->localized_name }}">
+                                    {{ $breadcrumb->localized_name }}
+                                </span>
+                            @else
+                                <a href="{{ route('shop.home', ['parent_category' => $breadcrumb->code]) }}" 
+                                   class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium truncate max-w-[120px] sm:max-w-none"
+                                   title="{{ $breadcrumb->localized_name }}">
+                                    {{ $breadcrumb->localized_name }}
+                                </a>
                             @endif
                         @endforeach
                     @else
-                        <li>
-                            <h1 class="text-blue-500">{{ __('template.store') }}</h1>
-                        </li>
+                        <span class="text-blue-600 font-semibold flex items-center">
+                            <i class="bi bi-house-door mr-1"></i>{{ __('template.store') }}
+                        </span>
                     @endif
-                </ul>
+                </div>
             </nav>
-            <h1 class="text-4xl font-semibold">
+            
+            <!-- Page Title -->
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-semibold text-gray-800">
                 @if(isset($category) && $category)
                     {{ $category->localized_name }}
                 @else
@@ -41,16 +41,13 @@
                 @endif
             </h1>
         </div>
-        <div class="relative hidden lg:block mr-10">
-            <div class="h-28 bg-white w-28 rounded-full"></div>
+        
+        <!-- Decorative Image (Desktop Only) -->
+        <!-- <div class="relative hidden lg:block mr-10">
+            <div class="h-28 bg-white w-28 rounded-full shadow-lg"></div>
             <div class="absolute top-2 -right-8">
                 <img src="{{ asset($templateSettings['bread-crump-image-image']) }}" class="h-28" alt="">
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
-
-<style>
-    .bread-crump-image {
-    }
-</style>

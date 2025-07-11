@@ -403,4 +403,13 @@ return [
     'need_help' => 'Need Help?',
     'contact_us_for_assistance' => 'Contact us for assistance or consultation',
     'discount_label' => 'DISCOUNT',
+    
+    // Stock availability filter
+    'availability' => 'Availability',
+    'only_available_stock' => 'In Stock Only',
+    'show_only_products_with_available_stock' => 'Show only products with available stock',
+    
+    // Exchange rates
+    'exchange_rates' => 'Exchange Rates',
+    'mdl' => 'MDL',
 ];  

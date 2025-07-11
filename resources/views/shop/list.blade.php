@@ -45,31 +45,29 @@
     @endsection
     
     <!-- BREADCRUMB AREA START -->
-        <div class="container">
-            <nav class='inline-flex items-center text-sm'>
-                <ul class="inline-flex items-center gap-2 text-">
-                    <li>
-                        <h1 class="font-semibold">{{ __('template.you_are_here') }}</h1>
-                    </li>
-                    <li>
-                        <a class="hover:text-black hover:font-medium" href="{{ \App\Models\Navigation\Menu::getHomePageLink() }}">{{ __('template.home') }}</a>
-                    </li>
-                    <li>
-                        <h1 class="text-neutral-500">/</h1>
-                    </li>
-                    @if($category->parent)
-                        <li>
-                            <a class="text-neutral-500 hover:text-black hover:font-medium" href="{{$category->parent->link}}">{{$category->parent->name}}</a>
-                        </li>
-                        <li>
-                            <h1 class="text-neutral-500">/</h1>
-                        </li>
-                    @endif
-                    <li>
-                        <h1 class="text-neutral-500">{{ $category->name }}</h1>
-                    </li>
-                </ul>
-            </nav>
+        <div class="bg-neutral-100 py-5 mb-5">
+            <div class="container">
+                <!-- Modern Breadcrumbs Navigation -->
+                <nav class='flex items-center text-sm mb-4 bg-white px-4 py-2 rounded-lg shadow-sm border max-w-fit'>
+                    <div class="flex items-center flex-wrap gap-1">
+                        <a href="{{ \App\Models\Navigation\Menu::getHomePageLink() }}" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium flex items-center">
+                            <i class="bi bi-house-door mr-1"></i>{{ __('template.home') }}
+                        </a>
+                        
+                        @if($category->parent)
+                            <i class="bi bi-chevron-right text-gray-400 text-xs mx-1"></i>
+                            <a href="{{$category->parent->link}}" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium truncate max-w-[120px] sm:max-w-none" title="{{$category->parent->name}}">
+                                {{$category->parent->name}}
+                            </a>
+                        @endif
+                        
+                        <i class="bi bi-chevron-right text-gray-400 text-xs mx-1"></i>
+                        <span class="text-blue-600 font-semibold truncate max-w-[120px] sm:max-w-none" title="{{ $category->name }}">
+                            {{ $category->name }}
+                        </span>
+                    </div>
+                </nav>
+            </div>
         </div>
     <!-- BREADCRUMB AREA END -->
 
@@ -77,15 +75,16 @@
         <div class=" lg:container lg:mx-auto z-0" x-data="{filter:{{ session('filter', null) === 'true' ? 'true' : 'false' }}}">
             <!-- Filter Btn toggle Start-->
                 <div class="mx-2.5 my-2 flex justify-between items-center">
-                    <h1 class="text-4xl font-semibold">{{ $category->name }}</h1>
+                    <h1 class="text-2xl sm:text-3xl lg:text-4xl font-semibold text-gray-800">{{ $category->name }}</h1>
                     <div>
                         <button id="filterBtn" x-cloak 
                             data-bool='{{ session('filter', null) === 'true' ? true : false }}' 
                             x-on:click='filter = !filter' 
-                            class="flex items-center gap-2 text-black text-sm">
+                            class="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors duration-200 text-sm font-medium bg-white px-3 py-2 rounded-lg border shadow-sm">
                             <span x-show='filter'>{{ __('template.hide_filter') }}</span>
                             <span x-show='!filter'>{{ __('template.filter') }}</span>
-                            <i class="bi bi-sliders"></i></button>
+                            <i class="bi bi-sliders"></i>
+                        </button>
                     </div>
                 </div>
             <!-- Filter Btn toggle End-->

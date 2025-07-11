@@ -1,7 +1,7 @@
 <form method="GET" action="{{ request()->url() }}" class="w-full p-2 gap-1 {{ $filterType ?? '' }}">
     {{-- Preserve existing query parameters --}}
     @foreach(request()->query() as $key => $value)
-        @if($key !== 'attributes' && $key !== 'brand' && $key !== 'min' && $key !== 'max')
+        @if($key !== 'attributes' && $key !== 'brand' && $key !== 'min' && $key !== 'max' && $key !== 'in_stock_only')
             <input type="hidden" name="{{ $key }}" value="{{ $value }}">
         @endif
     @endforeach
@@ -16,6 +16,9 @@
         </div>
         <li>
             @include('includes.products.filter.range-price')
+        </li>
+        <li>
+            @include('includes.products.filter.stock-toggle')
         </li>
         <li>
             @include('includes.products.filter.brands', [

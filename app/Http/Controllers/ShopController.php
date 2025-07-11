@@ -247,9 +247,9 @@ class ShopController extends Controller
                   ->orWhereRaw("LOWER(name_full) LIKE ?", ["%{$data}%"])
                   ->orWhereRaw("LOWER(sku) LIKE ?", ["%{$data}%"]);
         })
-        ->where('stock_quantity', '>', 0)
+        
                                 ->where('is_active', true)
-        ->whereRaw('stock_quantity > reserved')
+        
         ->get() ?? null;
 
         $products = null;
@@ -294,8 +294,8 @@ class ShopController extends Controller
             // Get similar products from the same category as alternatives
             $alternatives = Product::where('category_code', $product->category_code)
                 ->where('is_active', true)
-                ->where('stock_quantity', '>', 0)
-                ->whereRaw('stock_quantity > reserved')
+                
+                
                 ->where('id', '!=', $product->id)
                 ->take(6)
                 ->get();
@@ -434,9 +434,9 @@ class ShopController extends Controller
         $category = Category::whereRaw('JSON_SEARCH(slug, "all", ?) IS NOT NULL', [$segment])->first();
         if(null !== $category){
             $query = Product::query()
-                ->where('stock_quantity', '>', 0)
+                
                                 ->where('is_active', true)
-                ->whereRaw('stock_quantity > reserved')
+                
                 ->where('price', '>', 0)
                 ->whereHas('categories', function ($query) use ($category) {
                     $query->where('id', $category->id);
@@ -536,9 +536,9 @@ class ShopController extends Controller
         /**
          * Get shop products
          */
-        $query = Product::query()->where('stock_quantity', '>', 0)
+        $query = Product::query()
                                 ->where('is_active', true)
-                                ->whereRaw('stock_quantity > reserved')
+                                
                                 ->where('price', '>', 0);
 
         // Определяем текущую категорию
@@ -569,6 +569,7 @@ class ShopController extends Controller
                 'selectedBrand' => $filters['selectedBrand'],
                 'availableAttributes' => $filters['availableAttributes'],
                 'selectedAttributes' => $filters['selectedAttributes'],
+                'inStockOnly' => $filters['inStockOnly'],
             ]
         );
     }
@@ -671,6 +672,12 @@ class ShopController extends Controller
             }
         }
 
+        // Apply stock availability filter
+        $inStockOnly = $request->has('in_stock_only') && $request->get('in_stock_only') == '1';
+        if ($inStockOnly) {
+            $query->whereRaw('stock_quantity > reserved');
+        }
+
         /**
          * Apply sorting to the query
          */
@@ -713,6 +720,7 @@ class ShopController extends Controller
             'selectedBrand' => $selectedBrands,
             'availableAttributes' => $availableAttributes,
             'selectedAttributes' => $selectedAttributes,
+            'inStockOnly' => $inStockOnly,
         ];
     }
 

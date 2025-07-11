@@ -59,7 +59,10 @@ class SearchController extends Controller
 
         $query = Product::query()
                         ->where('is_visible', true)
-                        ->whereRaw('JSON_SEARCH(LOWER(name), "all", ?) IS NOT NULL', ['%' . $sq . '%']);
+                        ->where(function($q) use ($sq) {
+                            $q->whereRaw('JSON_SEARCH(LOWER(name), "all", ?) IS NOT NULL', ['%' . $sq . '%'])
+                              ->orWhereRaw('LOWER(sku) LIKE ?', ['%' . strtolower($sq) . '%']);
+                        });
 
         switch ($sorting) {
             case 'latest':

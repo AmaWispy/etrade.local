@@ -423,4 +423,13 @@ return [
     'need_help' => 'Aveți nevoie de ajutor?',
     'contact_us_for_assistance' => 'Contactați-ne pentru ajutor sau consultanță',
     'discount_label' => 'REDUCERE',
+    
+    // Stock availability filter
+    'availability' => 'Disponibilitate',
+    'only_available_stock' => 'Doar în stoc',
+    'show_only_products_with_available_stock' => 'Afișați doar produsele disponibile în stoc',
+    
+    // Exchange rates
+    'exchange_rates' => 'Cursuri de schimb',
+    'mdl' => 'lei',
 ];            
