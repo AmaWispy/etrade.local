@@ -80,7 +80,7 @@
                                     @if (session()->has('checkout.totalCost'))
                                         {{ str_replace([',', '.00'], [' ', ''], Currency::format(session()->get('checkout.totalCost'))) }}
                                     @else
-                                        {{null !== $cart->order ? $cart->order->total : $cart->getTotal() }} 
+                                        {{null !== $cart->order ? $cart->order->total . ' USD' : $cart->getTotal(false) . ' USD' }} 
                                     @endif
                                 </h1>
                             </li>

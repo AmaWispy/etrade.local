@@ -44,7 +44,9 @@ class Cart extends Model
 
     public function getTotal($format = true)
     {
-        $total = Currency::exchange($this->total_price);
+        // total_price теперь в долларах, поэтому используем 'usd' для правильной конвертации
+        //$total = Currency::exchange($this->total_price, 'usd');
+        $total = $this->total_price;
         if($format){
             $total = Currency::format($total);
         }

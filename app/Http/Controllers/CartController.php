@@ -194,6 +194,7 @@ class CartController extends Controller
         }
 
         $cartData = $this->recalcCart($cart);
+        //dd($cartData);
         // $html = view('includes.layout.cart.products', ['cart'=> $cart])->render();
             return [
                 'status' => 200,

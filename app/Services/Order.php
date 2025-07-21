@@ -178,10 +178,10 @@ class Order
                 $message .= "SKU: <code>{$item->product->sku}</code>\n";
             }
             $message .= "Количество: <b>{$item->qty} шт.</b>\n";
-            $message .= "Цена за единицу: <b>" . number_format($item->unit_price, 2) . " MDL</b>\n";
+            $message .= "Цена за единицу: <b>" . number_format($item->unit_price, 2) . " USD</b>\n";
             
             $subtotal = round($item->qty * $item->unit_price, 2);
-            $message .= "Подитог: <b>" . number_format($subtotal, 2) . " MDL</b>\n";
+            $message .= "Подитог: <b>" . number_format($subtotal, 2) . " USD</b>\n";
             
             $totalItems += $item->qty;
             
@@ -195,15 +195,15 @@ class Order
         // Сводка заказа
         $message .= "Сводка заказа:\n";
         $message .= "Всего товаров: <b>{$totalItems} шт.</b>\n";
-        $message .= "Общая сумма: <b>" . number_format($order->total, 2) . " MDL</b>\n";
+        $message .= "Общая сумма: <b>" . number_format($order->total, 2) . " USD</b>\n";
         
         // Курс валюты (если не MDL)
-        if ($currencySign !== 'MDL' && isset($currency->exchange_rate)) {
+        /* if ($currencySign !== 'MDL' && isset($currency->exchange_rate)) {
             $mdlTotal = $order->total * $currency->exchange_rate;
             $cur = number_format(1 / $currency->exchange_rate, 2);
             $message .= "Курс: <code>1 {$currencySign} = {$cur} MDL</code>\n";
             $message .= "В {$currencySign}: <b>" . number_format($mdlTotal, 2) . "</b>\n";
-        }
+        } */
         $message .= $separator;
         
         // Комментарии к заказу

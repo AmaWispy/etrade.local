@@ -609,17 +609,32 @@ class Product extends UnicodeModel implements HasMedia
     public function getExchangedPriceCustom2($basePrice = false, $format = true, $discount = false)
     {
         $price = $basePrice ? $this->price : $this->default_price;
+        
         if ($discount && $this->discount && $this->discount_date_end && $this->discount_date_end > now() && $this->discount_date_start < now()) {
             $price = $price - ($price * ($this->discount / 100));   
         }
-        
         $exchanged = Currency::exchange($price);
-
         if($format){
             $exchanged = Currency::format($exchanged);
         }
         
         return str_replace(['.00', ','], ['', ' '], $exchanged);
+    }
+
+    public function getDiscountedPriceUSD($format = true)
+    {
+        $price = $this->price; // Всегда используем price (в долларах)
+        
+        // Применяем скидку если она активна
+        if ($this->discount && $this->discount_date_end && $this->discount_date_end > now() && $this->discount_date_start < now()) {
+            $price = $price - ($price * ($this->discount / 100));   
+        }
+        
+        if ($format) {
+            $price = number_format($price, 2, '.', '');
+        }
+        
+        return str_replace(['.00'], [''], $price);
     }
 
     /**

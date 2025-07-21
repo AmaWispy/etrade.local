@@ -400,25 +400,6 @@
             </div>
         <!-- Categories and recomendated products End -->
 
-        <!-- Micro Blocks Infos Start -->
-            <div class="flex justify-center lg:flex-row flex-col items-center gap-10 mx-2 xl:mx-0" x-cloak>
-                @foreach ( $blockMicroInfo as $block)
-                    <div class="!border-neutral-200 border lg:w-52 w-full h-[200px] flex-col items-center justify-center rounded-lg overflow-hidden p-3">
-                        <ul class="flex flex-col gap-3 items-center justify-center text-center h-full">
-                            <li class="h-16 w-16">
-                                <div class="h-14 w-14">
-                                    <img src="{{ $block['image'] }}" alt="{{ $block['name'] }}" class="h-full w-full object-contain">
-                                </div>
-                            </li>
-                            <li class="h-14 w-full">
-                                <h1 class="lg:font-semibold md:font-medium font-semibold text-base">{{ $block['name'] }}</h1>
-                            </li>
-                        </ul>
-                    </div>
-                @endforeach
-            </div>
-        <!-- Micro Blocks Infos End -->
-
         <!-- Carousels New Arrivals and Best Sellers Start -->
             <div class="flex flex-col gap-4" x-cloak>
                 @foreach ($carouselsArrivalsSellers as $carousel )
@@ -634,21 +615,21 @@
         sliders.forEach(el => {
             $(el).slick({
                 slidesToScroll: 1,
-                slidesToShow: 4,
+                slidesToShow: 5,
                 arrows:false,
                 responsive: [
                     {
                     breakpoint: 1440,
                         settings: {
-                            slidesToShow: 3,
-                            slidesToScroll: 3,
+                            slidesToShow: 4,
+                            slidesToScroll: 4,
                         }
                     },
                     {
                     breakpoint: 1024,
                         settings: {
-                            slidesToShow: 2,
-                            slidesToScroll: 2,
+                            slidesToShow: 3,
+                            slidesToScroll: 3,
                         }
                     },
                     {

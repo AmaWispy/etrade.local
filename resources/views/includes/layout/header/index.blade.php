@@ -373,10 +373,10 @@ foreach($parentCategories as $category) {
                     <li>
                         <h1 class="cart-total-price">
                             @if (session()->has('checkout.totalCost'))
-                                {{ str_replace([',', '.00'], [' ', ''], Currency::format(session()->get('checkout.totalCost'))) }}
+                                {{ str_replace([',', '.00'], [' ', ''], session()->get('checkout.totalCost'))}}
                             @else
                                 @if ($cart !== null)
-                                    {{null !== $cart->order ? $cart->order->total : $cart->getTotal() }}
+                                    {{null !== $cart->order ? $cart->order->total : $cart->getTotal(false) . ' USD' }}
                                 @else 
                                     0
                                 @endif

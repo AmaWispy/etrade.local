@@ -105,13 +105,13 @@ class ApiService
                     if (is_array($data)) {
                         foreach ($data as $productData) {
                             $price = $productData['Price'] ?? 0;
-                            $currency = 'MDL';
+                            $currency = 'USD';
                             // Переводим цену в основную валюту
-                            if ($price > 0) {
+                            /* if ($price > 0) {
                                 $convertedPrice = \App\Models\Shop\Currency::exchangeUSD($price);
                             } else {
                                 $convertedPrice = 0;
-                            }
+                            } */
 
                             $product = Product::where('id', $productData['ID'])->first();
                             $productData = [
@@ -133,7 +133,7 @@ class ApiService
                                 'unit_type' => $productData['UnitType'] ?? null,
                                 'stock_quantity' => $productData['StockQuantity'] ?? 0,
                                 'reserved' => $productData['Reserved'] ?? 0,
-                                'price' => $convertedPrice,
+                                'price' => $price,
                                 'currency' => $currency,
                                 'default_price' => $productData['DefaultPrice'] ?? 0,
                                 'default_currency' => $productData['DefaultCurrency'] ?? 'MDL'

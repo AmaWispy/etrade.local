@@ -50,11 +50,11 @@ class ItemsRelationManager extends RelationManager
                     ->sortable(),
                 Tables\Columns\TextColumn::make('unit_price')
                     ->label('Unit Price')
-                    ->money('MDL')
+                    ->money('USD')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('subtotal')
                     ->label('Subtotal')
-                    ->money('MDL')
+                    ->money('USD')
                     ->sortable(),
             ])
             ->filters([

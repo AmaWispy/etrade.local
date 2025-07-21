@@ -47,7 +47,7 @@
                 <div class="flex items-center justify-between w-[300px]">
                     <!--Price Start --->
                         <div>
-                            <h1 class="text-lg">{{ $item->getUnitPrice() }}</h1>
+                            <h1 class="text-lg">{{ $item->getUnitPrice(false) . ' USD' }}</h1>
                         </div>
                     <!--Price End --->
 
@@ -69,7 +69,7 @@
                 <!-- Subtotal Product Start-->
                     <div class="w-32 ">
                         <h1 class="item-{{$item->id}}-subtotal2 cart-product-subtotal text-lg">
-                            {{$item->getUnitSubtotal()}}
+                            {{$item->getUnitSubtotal(false) . ' USD'}}
                         </h1>
                     </div>
                 <!-- Subtotal Product End-->

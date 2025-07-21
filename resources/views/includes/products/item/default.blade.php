@@ -83,11 +83,11 @@
         @if(Auth::guard('client')->user())
             <ul class="font-bold flex gap-2 text-xl">
                 <li>
-                    <span>{{$product->getExchangedPriceCustom2(true, true, true)}}</span>
+                    <span>{{$product->getDiscountedPriceUSD(true)}} USD</span>
                 </li>
                 @if($product->discount > 0 && $product->discount_date_end > now() && $product->discount_date_start < now())
                     <li>
-                        <span class="text-[12px] text-neutral-400"><del>{{$product->getExchangedPriceCustom2(true, true, false)}}</del></span>
+                        <span class="text-[12px] text-neutral-400"><del>{{$product->price}} USD</del></span>
                     </li>
                 @endif
                 <li>

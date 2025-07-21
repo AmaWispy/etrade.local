@@ -42,6 +42,7 @@ class Currency extends UnicodeModel
                 $amount = $amount * $usdCurrency->rate;
             }
         }
+        
         $currency = session('currency');
         /* \Illuminate\Support\Facades\Log::info('Currency debug', [
             'currency' => $currency,
@@ -49,7 +50,9 @@ class Currency extends UnicodeModel
             'is_array' => is_array($currency),
             'amount' => $amount
         ]); */
-
+        if ($currency['iso_alpha'] == 'MDL') {
+            return $amount;
+        }
         if(is_array($currency) && isset($currency['exchange_rate'])) {
             $amount = $amount * $currency['exchange_rate'];
         }

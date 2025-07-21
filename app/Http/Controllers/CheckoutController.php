@@ -658,7 +658,7 @@ class CheckoutController extends Controller
             return redirect('/');
         }
 
-        if (session()->has('currency')){
+        /* if (session()->has('currency')){
             $currency = json_encode([
                 'iso_alpha' => session()->get('currency')['iso_alpha'],
                 'exchange_rate' => session()->get('currency')['exchange_rate'],
@@ -670,7 +670,12 @@ class CheckoutController extends Controller
                 'exchange_rate' => 1,
                 'sign' => 'MDL'
             ]);
-        }
+        } */
+        $currency = json_encode([
+            'iso_alpha' => 'USD',
+            'exchange_rate' => 1,
+            'sign' => '$'
+        ]);
 
         $order = new \App\Models\OrderCustom();
         $order->client_id = \Auth::guard('client')->check() ? \Auth::guard('client')->id() : null;

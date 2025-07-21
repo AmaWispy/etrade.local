@@ -38,7 +38,9 @@ class CartItem extends Model
 
     public function getUnitPrice($format = true)
     {   
-        $price = Currency::exchange($this->unit_price);
+        // unit_price уже в долларах, поэтому используем 'usd' для правильной конвертации
+        //$price = Currency::exchange($this->unit_price, 'usd');
+        $price = $this->unit_price;
         if($format){
             $price = Currency::format($price);
         }

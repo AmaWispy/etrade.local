@@ -14,7 +14,7 @@
     ]
 )
 
-<form id="locale-form" class="px-2 h-full w-[80px] border border-neutral-100 text-center rounded-lg" action="{{ route('locale.set') }}" method="POST">
+<form id="locale-form" class="px-2 h-full w-[80px] border border-neutral-100 text-center rounded-lg mb-0" action="{{ route('locale.set') }}" method="POST">
     @csrf
     <select id="countries" name="locale" class="nice-select text-gray-900 text-sm border-none bg-transparent block w-full p-2.5" >
         <option selected value="{{ app()->getLocale() }}">{{$labels['short'][app()->getLocale()]}}</option>

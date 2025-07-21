@@ -112,8 +112,10 @@ class SiteController extends Controller
             $convertedPrice = 0;
         }
         return $convertedPrice; */
-        $currency = session()->get('currency')['iso_alpha'];
-        return $currency;
+        /* $currency = session()->get('currency')['iso_alpha'];
+        return $currency; */
+        $product = Product::find(1);
+        return $product->getExchangedPriceCustom2(false, true, true);
     }
 
     public function copyEnglishTranslationsToOtherLanguages()
